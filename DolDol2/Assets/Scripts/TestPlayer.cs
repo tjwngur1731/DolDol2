@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : BaseObject
+public class TestPlayer : BaseObject
 {
     // Start is called before the first frame update
     private float Speed = 0.05f;
