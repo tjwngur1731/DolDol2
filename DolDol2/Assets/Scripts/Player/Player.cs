@@ -11,12 +11,10 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             gameObject.transform.position = spawnPos.position;
-            Debug.Log("asf");
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.tag == "Star")
+        {
+            GameManager.Instance.starCount += 1;
+        }
     }
 }

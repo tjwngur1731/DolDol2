@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
-
+    public int starCount = 0;
     public bool charChoice = true;
     void Awake()
     {
