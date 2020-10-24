@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 311
     height: 351
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_MinSize: {x: 535, y: 271}
   m_MaxSize: {x: 18005, y: 10021}
   vertical: 0
-  controlID: 568
+  controlID: 125
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 811, y: 492}
   m_MaxSize: {x: 22006, y: 14042}
   vertical: 0
-  controlID: 100
+  controlID: 37
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_MinSize: {x: 535, y: 492}
   m_MaxSize: {x: 18005, y: 14042}
   vertical: 1
-  controlID: 101
+  controlID: 38
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -266,8 +266,8 @@ MonoBehaviour:
     y: 0
     width: 521
     height: 351
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -14514
+  m_LastSelectedObjectID: 14838
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -543,9 +543,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 5c5f0000
-      m_LastClickedID: 24412
-      m_ExpandedIDs: 9694ffff1295ffff6e96ffffa096ffffd69effffdec1ffff6ac5ffff38c7ffff4ec7ffff56c7ffffe2c9ffffeec9ffffc8cbffff9ccdffffd4cdffff3ed4ffffa8d4ffffb4d4ffffc0d4ffffccd4ffffd8d4ffff54e2ffff9ae2fffff8e5ffff10e6ffff7ee7ffffb8e7ffffcee7ffff06e8ffff3ee8ffff9ee8ffffdae8ffff12e9ffff4ee9ffffb4e9ffff5eecffffdcf3fffff6f3ffff26f4ffffd8f7ffff40f8ffff4cf8ffff58f8ffffa6f8ffffb2f8ffffbef8ffffcaf8ffffdef8ffff6af9ffff5afbffffd64700007e4d0000d45000005c510000aa530000
+      m_SelectedIDs: f6390000
+      m_LastClickedID: 14838
+      m_ExpandedIDs: c0faffff5afbffffec390000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -749,20 +749,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 48
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts
   m_LastFoldersGridSize: 48
   m_LastProjectPath: C:\Users\whaze\Documents\GitHub\DolDol2\DolDol2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5c390000
-    m_LastClickedID: 14684
-    m_ExpandedIDs: 000000005039000000ca9a3b
+    m_SelectedIDs: aa390000
+    m_LastClickedID: 14762
+    m_ExpandedIDs: 000000009c39000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -790,7 +790,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000050390000
+    m_ExpandedIDs: 000000009c390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
