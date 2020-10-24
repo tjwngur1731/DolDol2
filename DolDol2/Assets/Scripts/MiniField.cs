@@ -6,7 +6,7 @@ public class MiniField : MonoBehaviour
 {
     int[,] FieldMap, TempBuffer;
     Vector2 StartPosition;
-    BaseObject TestObstacle;
+    Field MainField;
 
     float TileInterval = 0.0f;
     bool GenerateField = true;
@@ -31,19 +31,61 @@ public class MiniField : MonoBehaviour
     {
         transform.position = new Vector3(StartPosition.x + 2 * TileInterval, StartPosition.y + 2 * TileInterval, 0);
 
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                BaseObject obj = null;
+
+                switch (FieldMap[i, j])
+                {
+                    case 0:
+                        obj = Instantiate(MainField.Player1) as BaseObject;
+                        (obj as Player).SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
+                        obj.transform.position = (obj as Player).GetSpawnPos();
+                        break;
+
+                    case 1:
+                        obj = Instantiate(MainField.Player2) as BaseObject;
+                        (obj as Player).SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
+                        obj.transform.position = (obj as Player).GetSpawnPos();
+                        break;
+                }
+            }
+        }
+
         if (GenerateField == true)
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (FieldMap[i, j] == 2)
-                    {
-                        BaseObject obs = Instantiate(TestObstacle) as BaseObject;
-                        obs.transform.position = new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval);
+                    BaseObject obj = null;
 
-                        obs.transform.SetParent(transform);
+                    switch(FieldMap[i, j])
+                    {
+                        case 2:
+                            obj = Instantiate(MainField.Wall) as BaseObject;     
+                        break;
+
+                        case 3:
+                            obj = Instantiate(MainField.Floor) as BaseObject;     
+                        break;
+
+                        case 4:
+                            obj = Instantiate(MainField.Enemy) as BaseObject;
+                        break;
+
+                        case 5:
+                            obj = Instantiate(MainField.Star) as BaseObject;
+                        break;
+
+                        default:
+                        continue;
                     }
+
+                    obj.transform.position = new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval);
+                    obj.transform.SetParent(transform);
                 }
             }
         }
@@ -63,11 +105,13 @@ public class MiniField : MonoBehaviour
     public void SetStartPosition(Vector2 startPosition)
     {
         StartPosition = startPosition;
+
+        
     }
 
-    public void SetObstacle(BaseObject obs)
+    public void SetMainField(Field mainField)
     {
-        TestObstacle = obs;
+        MainField = mainField;
     }
 
     public void Rotate(int dir)

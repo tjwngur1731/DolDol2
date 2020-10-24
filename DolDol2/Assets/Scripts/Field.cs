@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
-    MiniField[,] MiniFieldMap = new MiniField[2, 2];
+    MiniField[,] MiniFieldMap;
     public MiniField MField;
-    public Player PlayerCharacter;
-    public BaseObject TestObstacle;
+    public Player Player1;
+    public Player Player2;
+    public BaseObject Wall;
+    public BaseObject Enemy;
+    public BaseObject Floor;
+    public BaseObject Star;
 
     private int PlayerIndexI = 0;
     private int PlayerIndexJ = 0;
@@ -22,24 +26,38 @@ public class Field : MonoBehaviour
 
     public bool GenerateField = true;
     private float TileInterval = 1.8f;
+    public int RangeI = 0;
+    public int RangeJ = 0;
     // Start is called before the first frame update
     void Start()
     {
+        RangeI = 5;
+        RangeJ = 5;
+
+        MiniFieldMap = new MiniField[RangeI, RangeJ];
+
         Data = new FieldData();
         PrevPos = new Vector2();
 
         if (GenerateField == true)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < RangeI; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < RangeJ; j++)
                 {
+                    int[,] dataMap = Data.GetPartialMap(RangeI - i - 1, j);
+
+                    if (dataMap == null)
+                    {
+                        continue;
+                    }
+
                     MiniFieldMap[i, j] = Instantiate(MField) as MiniField;
-                    MiniFieldMap[i,j].name = "minifield_" + i + "_" + j;
-                    MiniFieldMap[i, j].SetObstacle(TestObstacle);
-                    MiniFieldMap[i, j].SetStartPosition(new Vector2(j * 5 * TileInterval, (2 - i - 1) * 5 * TileInterval));
+                    MiniFieldMap[i, j].name = "minifield_" + i + "_" + j;
+                    MiniFieldMap[i, j].SetMainField(this);
+                    MiniFieldMap[i, j].SetStartPosition(new Vector2(j * 5 * TileInterval, i * 5 * TileInterval));
                     MiniFieldMap[i, j].SetInterval(TileInterval);
-                    MiniFieldMap[i, j].SetMap(Data.GetPartialMap(i, j));
+                    MiniFieldMap[i, j].SetMap(dataMap);
                     MiniFieldMap[i, j].Init();
                     MiniFieldMap[i, j].transform.SetParent(transform);
                 }
@@ -47,28 +65,37 @@ public class Field : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < RangeI; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < RangeJ; j++)
                 {
+                    int[,] dataMap = Data.GetPartialMap(RangeI - i - 1, j);
+
+                    if (dataMap == null)
+                    {
+                        continue;
+                    }
+
                     MiniFieldMap[i, j] = GameObject.Find("minifield_" + i + "_" + j).GetComponent<MiniField>();
-                    MiniFieldMap[i, j].SetStartPosition(new Vector2(j * 5 * TileInterval, (2 - i - 1) * 5 * TileInterval));
+                    MiniFieldMap[i, j].SetMainField(this);
+                    MiniFieldMap[i, j].SetStartPosition(new Vector2(j* 5 * TileInterval, i * 5 * TileInterval));
                     MiniFieldMap[i, j].SetInterval(TileInterval);
+                    MiniFieldMap[i, j].SetMap(dataMap);
                     MiniFieldMap[i, j].Init();
                 }
             }
         }
 
         CurrentField = MiniFieldMap[CurrentMiniFieldIndexI, CurrentMiniFieldIndexJ];
-        PlayerCharacter.transform.position = PlayerCharacter.spawnPos.position;
+        // Player1.transform.position = Player1.spawnPos.position;
 
         CalculatePlayerIndex();
     }
 
     void CalculatePlayerIndex()
     {
-        PlayerIndexJ = (int)PlayerCharacter.transform.position.x / (int)(5 * TileInterval);
-        PlayerIndexI = (2 - (int)PlayerCharacter.transform.position.y / (int)(5 * TileInterval) - 1);
+        PlayerIndexJ = (int)Player1.transform.position.x / (int)(5 * TileInterval);
+        PlayerIndexI = (RangeI - (int)Player1.transform.position.y / (int)(5 * TileInterval) - 1);
 
         if (CurrentMiniFieldIndexI != PlayerIndexI || CurrentMiniFieldIndexJ != PlayerIndexJ)
         {
@@ -82,7 +109,7 @@ public class Field : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PrevPos.x != PlayerCharacter.transform.position.x || PrevPos.y != PlayerCharacter.transform.position.y)
+        if (PrevPos.x != Player1.transform.position.x || PrevPos.y != Player1.transform.position.y)
         {
             CalculatePlayerIndex();
         }
@@ -97,7 +124,7 @@ public class Field : MonoBehaviour
             CurrentField.Rotate(0);
         }
 
-        PrevPos.x = PlayerCharacter.transform.position.x;
-        PrevPos.y = PlayerCharacter.transform.position.y;
+        PrevPos.x = Player1.transform.position.x;
+        PrevPos.y = Player1.transform.position.y;
     }
 }

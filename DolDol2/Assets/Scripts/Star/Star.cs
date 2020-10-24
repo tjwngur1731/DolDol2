@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Star : MonoBehaviour
+public class Star : BaseObject
 {
 
     public Image[] starUI;
