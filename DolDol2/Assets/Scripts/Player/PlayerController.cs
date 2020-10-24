@@ -60,21 +60,17 @@ public class PlayerController : MonoBehaviour
         }
         //바닥체크 점프
         isGround = Physics2D.OverlapCircle(pos.position, checkRadius, islayer);
-        if (Input.GetKey(KeyCode.W) && isGround == true)
-        {
-            rigid.velocity = Vector2.up * jumpPower;
-        }
 
         if (!isGround)
         {
             renderer.sprite = jumpSprite;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
         {
             isrunnig = true;
             renderer.flipX = false;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == true)
         {
             isrunnig = true;
             renderer.flipX = true;
@@ -92,11 +88,18 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 position = transform.position;
-        //좌우 이동
-        float hor = Input.GetAxis("Horizontal");
+        //좌우 이동, 점프
+        if (GameManager.Instance.charChoice == true)
+        {
+            float hor = Input.GetAxis("Horizontal");
 
-        rigid.velocity = new Vector2(hor * speed, rigid.velocity.y);
+            rigid.velocity = new Vector2(hor * speed, rigid.velocity.y);
 
+            if (Input.GetKey(KeyCode.W) && isGround == true)
+            {
+                rigid.velocity = Vector2.up * jumpPower;
+            }
+        }
         transform.position = position;
     }
 }
