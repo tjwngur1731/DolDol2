@@ -19,7 +19,7 @@ public class MiniField : MonoBehaviour
         FieldMap = new int[5, 5];
         TempBuffer = new int[5, 5];
         // transform.position = new Vector3(2.0f, 2.0f, 0);
-        transform.position = new Vector3(StartPosition.x + 2, StartPosition.y + 2, 0);
+        transform.position = new Vector3(StartPosition.x + 2 * 1.2f, StartPosition.y + 2 * 1.2f, 0);
 
         InitMap();
 
@@ -30,7 +30,7 @@ public class MiniField : MonoBehaviour
                 if (FieldMap[i, j] == 1)
                 {
                     BaseObject obs = Instantiate(TestObstacle) as BaseObject;
-                    obs.transform.position = new Vector2(StartPosition.x + j, StartPosition.y + i);
+                    obs.transform.position = new Vector2(StartPosition.x + j * 1.2f, StartPosition.y + i * 1.2f);
 
                     obs.transform.SetParent(transform);
                 }
@@ -54,6 +54,8 @@ public class MiniField : MonoBehaviour
                 }
             }
         }
+
+        FieldMap[1,0] = FieldMap[1,4] = 0;
     }
 
     // Update is called once per frame
@@ -76,39 +78,42 @@ public class MiniField : MonoBehaviour
     {
         if (dir == 0)
         {
-            transform.Rotate(0.0f, 0.0f, -90.0f);
+            StartCoroutine(RoateField(1.0f, -90.0f));
         }
         else if (dir == 1)
         {
-            transform.Rotate(0.0f, 0.0f, 90.0f);
+            StartCoroutine(RoateField(1.0f, 90.0f));
         }
-
-        RotateFieldMap(dir);
     }
 
-    void RotateFieldMap(int dir)
+    IEnumerator RoateField(float duration, float endAngle)
     {
-        for (int i = 0; i < 5; i++)
+        float startRotation = transform.eulerAngles.z;
+        float endRotation = startRotation + endAngle;
+        float t = 0.0f;
+
+        while (t < duration)
         {
-            for (int j = 0; j < 5; j++)
-            {
-                if (dir == 0)
-                {
+            t += Time.deltaTime;
+            float zRoation = Mathf.Lerp(startRotation, endRotation, t / duration) % 90.0f;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, zRoation);
 
-                }
-                else if (dir == 1)
-                {
+            // if (endAngle < 0)
+            // {
+            //     if (zRoation <= endAngle)
+            //     {
+            //         yield break;
+            //     }
+            // }
+            // else
+            // {
+            //     if (zRoation >= endAngle)
+            //     {
+            //         yield break;
+            //     }
+            // }
 
-                }
-            }
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
-                FieldMap[i, j] = TempBuffer[i, j];
-            }
+            yield return null;
         }
     }
 }
