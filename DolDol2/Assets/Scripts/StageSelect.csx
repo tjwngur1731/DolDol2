@@ -31,9 +31,4 @@ public class StageSelect : MonoBehaviour
             SceneManager.LoadScene(gameObject.name);
     }
 
-    public void OnClickReturn() //버튼 클릭하면 이동
-    {
-            SceneManager.LoadScene("MainScene");
-    }
-
 }

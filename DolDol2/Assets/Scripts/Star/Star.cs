@@ -21,8 +21,8 @@ public class Star : BaseObject
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Jump")) GameManager.Instance.starCount++;
-        StarUp(GameManager.Instance.starCount);
+        // if (Input.GetButtonDown("Jump")) GameManager.Instance.starCount++;
+        // StarUp(GameManager.Instance.starCount);
     }
 
     void StarUp(int cnt)

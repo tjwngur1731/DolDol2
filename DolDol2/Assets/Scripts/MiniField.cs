@@ -80,9 +80,9 @@ public class MiniField : MonoBehaviour
                             obj = Instantiate(MainField.Enemy) as BaseObject;
                         break;
 
-                        // case 5:
-                        //     obj = Instantiate(MainField.Star) as BaseObject;
-                        // break;
+                        case 5:
+                            obj = Instantiate(MainField.Star) as BaseObject;
+                        break;
 
                         default:
                         continue;
