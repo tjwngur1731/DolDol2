@@ -40,15 +40,19 @@ public class MiniField : MonoBehaviour
                 switch (FieldMap[i, j])
                 {
                     case 0:
-                        obj = Instantiate(MainField.Player1) as BaseObject;
-                        (obj as Player).SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
-                        obj.transform.position = (obj as Player).GetSpawnPos();
+                        // obj = Instantiate(MainField.Player1) as BaseObject;
+                        // (obj as Player).SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
+                        // obj.transform.position = (obj as Player).GetSpawnPos();
+                        MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
+                        MainField.Player1.transform.position = MainField.Player1.GetSpawnPos();
                         break;
 
                     case 1:
-                        obj = Instantiate(MainField.Player2) as BaseObject;
-                        (obj as Player).SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
-                        obj.transform.position = (obj as Player).GetSpawnPos();
+                        // obj = Instantiate(MainField.Player2) as BaseObject;
+                        // (obj as Player).SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
+                        // obj.transform.position = (obj as Player).GetSpawnPos();
+                        MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + j * TileInterval, StartPosition.y + (5 - i - 1) * TileInterval));
+                        MainField.Player2.transform.position = MainField.Player2.GetSpawnPos();
                         break;
                 }
             }
@@ -76,9 +80,9 @@ public class MiniField : MonoBehaviour
                             obj = Instantiate(MainField.Enemy) as BaseObject;
                         break;
 
-                        case 5:
-                            obj = Instantiate(MainField.Star) as BaseObject;
-                        break;
+                        // case 5:
+                        //     obj = Instantiate(MainField.Star) as BaseObject;
+                        // break;
 
                         default:
                         continue;

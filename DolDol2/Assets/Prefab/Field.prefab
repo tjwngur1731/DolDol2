@@ -44,10 +44,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MField: {fileID: 710837715869736672, guid: 01c5b87c9208ed14da371d984bb07aad, type: 3}
-  Player1: {fileID: 7033242861862348447, guid: 42d02f0dc0713b142b8b5335047343f0, type: 3}
-  Player2: {fileID: 8053863359520240046, guid: ef57ed19e875b4d4c8eb1a1b48005712, type: 3}
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
   Wall: {fileID: 5076196394105601961, guid: e7c2c3a107bbdf2ab96286ec8ff8ed3f, type: 3}
   Enemy: {fileID: 1293503133032913282, guid: 2e7240ec2c678d5428ed566b6dc99526, type: 3}
   Floor: {fileID: 405423311484055087, guid: eb9d3abf7f1f15f43a85fd89fe04eeb0, type: 3}
   Star: {fileID: 2900150890320347626, guid: 2158eff9b4845ed439d24bbfacd4e213, type: 3}
+  Stage: 0
   GenerateField: 1
+  RangeI: 0
+  RangeJ: 0

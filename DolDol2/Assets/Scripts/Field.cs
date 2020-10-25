@@ -13,6 +13,8 @@ public class Field : MonoBehaviour
     public BaseObject Floor;
     public BaseObject Star;
 
+    public int Stage;
+
     private int PlayerIndexI = 0;
     private int PlayerIndexJ = 0;
 
@@ -26,6 +28,7 @@ public class Field : MonoBehaviour
 
     public bool GenerateField = true;
     private float TileInterval = 1.8f;
+    private bool PrevCharChoice = true;
     public int RangeI = 0;
     public int RangeJ = 0;
     // Start is called before the first frame update
@@ -34,9 +37,11 @@ public class Field : MonoBehaviour
         RangeI = 5;
         RangeJ = 5;
 
+        CurrentMiniFieldIndexI = RangeI - 1;
+
         MiniFieldMap = new MiniField[RangeI, RangeJ];
 
-        Data = new FieldData();
+        Data = new FieldData(Stage);
         PrevPos = new Vector2();
 
         if (GenerateField == true)
@@ -87,15 +92,38 @@ public class Field : MonoBehaviour
         }
 
         CurrentField = MiniFieldMap[CurrentMiniFieldIndexI, CurrentMiniFieldIndexJ];
-        // Player1.transform.position = Player1.spawnPos.position;
 
         CalculatePlayerIndex();
     }
 
     void CalculatePlayerIndex()
     {
-        PlayerIndexJ = (int)Player1.transform.position.x / (int)(5 * TileInterval);
-        PlayerIndexI = (RangeI - (int)Player1.transform.position.y / (int)(5 * TileInterval) - 1);
+        float x = 0.0f;
+        float y = 0.0f;
+
+        if (GameManager.Instance.charChoice == true)
+        {
+            x = Player1.transform.position.x;
+            y = Player1.transform.position.y;
+        }
+        else
+        { 
+            x = Player2.transform.position.x;
+            y = Player2.transform.position.y;
+        }
+
+        PlayerIndexJ = (int)x / (int)(5 * TileInterval);
+        PlayerIndexI = (int)y / (int)(5 * TileInterval);
+
+        if (PlayerIndexI >= RangeI)
+        {
+            PlayerIndexI = RangeI - 1;
+        }
+
+        if (PlayerIndexJ >= RangeJ)
+        {
+            PlayerIndexJ = RangeJ - 1;
+        }
 
         if (CurrentMiniFieldIndexI != PlayerIndexI || CurrentMiniFieldIndexJ != PlayerIndexJ)
         {
@@ -109,7 +137,7 @@ public class Field : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PrevPos.x != Player1.transform.position.x || PrevPos.y != Player1.transform.position.y)
+        if (PrevPos.x != Player1.transform.position.x || PrevPos.y != Player1.transform.position.y || PrevCharChoice != GameManager.Instance.charChoice)
         {
             CalculatePlayerIndex();
         }
@@ -126,5 +154,6 @@ public class Field : MonoBehaviour
 
         PrevPos.x = Player1.transform.position.x;
         PrevPos.y = Player1.transform.position.y;
+        PrevCharChoice = GameManager.Instance.charChoice;
     }
 }
