@@ -190,6 +190,10 @@ public class MiniField : MonoBehaviour
                             obj = Instantiate(MainField.Star) as BaseObject;
                             break;
 
+                        case 6:
+                            obj = Instantiate(MainField.Portal) as BaseObject;
+                        break;
+
                         default:
                             continue;
                     }

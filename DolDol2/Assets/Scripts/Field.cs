@@ -12,6 +12,7 @@ public class Field : MonoBehaviour
     public BaseObject Enemy;
     public BaseObject Floor;
     public BaseObject Star;
+    public BaseObject Portal;
 
     public int Stage;
 
@@ -31,7 +32,7 @@ public class Field : MonoBehaviour
     private bool PrevCharChoice = true;
     public int RangeI = 0;
     public int RangeJ = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         RangeI = 5;
