@@ -30,8 +30,20 @@ public class FieldData
         // IndexI = 2;
         // IndexJ = 2;
 
-        
-        if (stage == 1)
+        if (stage == 0)
+        {
+            FieldMap = new int[,]
+            {
+            {2, 2, 2, 2, 2},
+            {2, 6, ' ', ' ', 2},
+            {2, ' ', ' ', ' ', 2},
+            {2, ' ', 0, 1, 2},
+            {2, 2, 2, 2, 2},
+            };
+            IndexI = 1;
+            IndexJ = 1;
+        }
+        else if (stage == 1)
         {
             FieldMap = new int[,]
             {
