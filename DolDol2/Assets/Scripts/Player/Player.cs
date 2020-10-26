@@ -6,6 +6,12 @@ public class Player : BaseObject
 {
     Vector2 spawnPos;
     
+    Rigidbody2D rigid;
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Enemy")
@@ -26,5 +32,10 @@ public class Player : BaseObject
     public Vector2 GetSpawnPos()
     {
         return this.spawnPos;
+    }
+
+    public void SetIsKinematic(bool isKinematic)
+    {
+        rigid.isKinematic = isKinematic;
     }
 }

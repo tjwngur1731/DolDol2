@@ -119,7 +119,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076196394105601956}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -144,3 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50c322a01d35344ea69177e1a1d21e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallSprite:
+  - {fileID: -6635822293859445831, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: 3779349663855875737, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -4533689840242613715, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -3578184790065734791, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -4589670208170253090, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: 6370362391766682386, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: 328316356310000719, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -4239647845302556869, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -8134974277577860864, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -7936280902388940561, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -445235873063336618, guid: 120124bb957993b4181221192ce9889b, type: 3}
+  - {fileID: -3186343917208308659, guid: 120124bb957993b4181221192ce9889b, type: 3}

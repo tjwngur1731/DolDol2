@@ -149,7 +149,7 @@ public class FieldData
 
     public int[,] GetPartialMap(int indexI, int indexJ)
     {
-        int[,] resultMap = new int[5,5];
+        int[,] resultMap = new int[7,7];
 
         if (indexI >= IndexI || indexJ >= IndexJ)
         {
@@ -159,11 +159,11 @@ public class FieldData
         int intervalI = indexI * 5;
         int intervalJ = indexJ * 5;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i <= 5; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 1; j <= 5; j++)
             {
-                resultMap[i,j] = FieldMap[i + intervalI, j + intervalJ];
+                resultMap[i,j] = FieldMap[i - 1 + intervalI, j - 1 + intervalJ];
             }   
         }
 
