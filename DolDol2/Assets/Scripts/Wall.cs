@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class Wall : BaseObject
 {
-    // Start is called before the first frame update
-    void Start()
+  SpriteRenderer renderer;
+  const int spriteLength = 12;
+  public Sprite[] wallSprite;
+
+  // Start is called before the first frame update
+  void Start()
+  {
+    if (renderer == null)
     {
-        // transform.localScale = new Vector3(UnitLimit, UnitLimit, 0);
+      renderer = GetComponent<SpriteRenderer>();
+    }
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+
+  }
+
+  public void SetWallType(int type)
+  {
+    if (renderer == null)
+    {
+      renderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    if (type >= 0 && type < spriteLength)
     {
-        
+      renderer.sprite = wallSprite[type];
     }
+  }
 }
