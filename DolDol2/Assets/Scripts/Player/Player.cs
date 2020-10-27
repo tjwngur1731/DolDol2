@@ -18,10 +18,7 @@ public class Player : BaseObject
         {
             gameObject.transform.position = spawnPos;
         }
-        if (collision.gameObject.tag == "Star")
-        {
-            GameManager.Instance.starCount += 1;
-        }
+        
     }
     
     public void SetSpawnPos(Vector2 spawnPos)

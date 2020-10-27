@@ -69,12 +69,10 @@ public class PlayerController2 : MonoBehaviour
         else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == false)
         {
             isrunnig = true;
-            renderer.flipX = false;
         }
         else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == false)
         {
             isrunnig = true;
-            renderer.flipX = true;
         }
         else if (isGround)
         {
@@ -83,6 +81,14 @@ public class PlayerController2 : MonoBehaviour
         else
         {
             isrunnig = false;
+        }
+         if (Input.GetKey(KeyCode.A))
+        {
+            renderer.flipX = false;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            renderer.flipX = true;
         }
     }
 

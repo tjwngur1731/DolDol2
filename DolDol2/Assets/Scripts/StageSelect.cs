@@ -27,14 +27,17 @@ public class StageSelect : MonoBehaviour
     {
         foreach (GameObject light in Lights)
         {
-            light.transform.Rotate(0, 0, (float)0.5);
+            light.transform.Rotate(0, 0, (float)0.1);
         }
     }
 
     public void OnClickButton(int i) //버튼 클릭하면 이동
     {
-        if(StageClear[i] == true)    
+        if(StageClear[i] == true)
+        {
+            GameManager.Instance.starCount = 0;
             SceneManager.LoadScene(gameObject.name);
+        }    
     }
 
     public void OnClickReturn() //버튼 클릭하면 이동
