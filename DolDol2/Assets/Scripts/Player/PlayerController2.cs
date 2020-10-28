@@ -40,6 +40,11 @@ public class PlayerController2 : MonoBehaviour
     }
     private void Update()
     {
+        if (GameManager.Instance.GetIsRotating() == true)
+        {
+            return;
+        }
+        
         if (isrunnig == true)
         {
             curDelay += Time.deltaTime;
@@ -88,6 +93,11 @@ public class PlayerController2 : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.Instance.GetIsRotating() == true)
+        {
+            return;
+        }
+
         Vector2 position = transform.position;
         //좌우 이동, 점프
         if (GameManager.Instance.charChoice == false) {

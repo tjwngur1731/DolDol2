@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
     public int starCount = 0;
     public bool charChoice = true;
+    bool isRotating = false;
+
     void Awake()
     {
         charChoice = true;
@@ -39,5 +41,15 @@ public class GameManager : MonoBehaviour
         {
             charChoice = !charChoice;
         }
+    }
+
+    public void SetIsRotating(bool isRot)
+    {
+        isRotating = isRot;
+    }
+
+    public bool GetIsRotating()
+    {
+        return isRotating;
     }
 }

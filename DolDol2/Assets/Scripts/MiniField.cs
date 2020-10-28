@@ -10,7 +10,7 @@ public class MiniField : MonoBehaviour
 
   float TileInterval = 0.0f;
   bool GenerateField = true;
-  bool IsRotating = false;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -77,31 +77,31 @@ public class MiniField : MonoBehaviour
                 }
 
                 // 1칸
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
+                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
+                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] == 2))
                 {
                   (obj as Wall).SetWallType(0);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
+                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
+                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] == 2))
                 {
                   (obj as Wall).SetWallType(0);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
-                {
-                  (obj as Wall).SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                }
-
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
+                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
                     (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] == 2))
                 {
                   (obj as Wall).SetWallType(0);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
+                }
+
+                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
+                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
+                {
+                  (obj as Wall).SetWallType(0);
+                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
                 }
 
                 // 2칸
@@ -150,27 +150,28 @@ public class MiniField : MonoBehaviour
                     (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] == 2))
                 {
                   (obj as Wall).SetWallType(4);
+                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
                 }
 
                 if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
                     (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
                 {
                   (obj as Wall).SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
+                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 180);
                 }
 
                 if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
                     (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
                 {
                   (obj as Wall).SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
+                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, -90.0f);
                 }
 
                 if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
                     (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
                 {
                   (obj as Wall).SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
+                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 90.0f);
                 }
 
                 // 4개
@@ -233,7 +234,7 @@ public class MiniField : MonoBehaviour
 
   public void Rotate(int dir)
   {
-    if (IsRotating == true)
+    if (GameManager.Instance.GetIsRotating() == true)
     {
       return;
     }
@@ -254,7 +255,7 @@ public class MiniField : MonoBehaviour
     float endRotation = startRotation + endAngle;
     float t = 0.0f;
 
-    IsRotating = true;
+    GameManager.Instance.SetIsRotating(true);
 
     if (GameManager.Instance.charChoice == true)
     {
@@ -280,6 +281,7 @@ public class MiniField : MonoBehaviour
     {
       MainField.Player1.transform.SetParent(null);
       MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
+      // MainField.Player1.transform.localeEulerAngles = new Vector3(transform.localeEulerAngles.x, transform.localeEulerAngles.y, transform.localeEulerAngles.y);
       MainField.Player1.SetIsKinematic(false);
     }
     else
@@ -288,7 +290,8 @@ public class MiniField : MonoBehaviour
       MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
       MainField.Player2.SetIsKinematic(false);
     }
-    IsRotating = false;
+    
+    GameManager.Instance.SetIsRotating(false);
 
     yield break;
   }
