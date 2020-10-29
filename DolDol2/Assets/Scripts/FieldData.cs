@@ -2,37 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldData
+public class FieldData : FieldDataBase
 {
-  public int[,] FieldMap;
-  public int IndexI = 0;
-  public int IndexJ = 0;
+  
 
   public FieldData()
   {
 
   }
-  public FieldData(int stage)
+  public FieldData(string stage)
   {
-    // FieldMap = new int[,] 
-    // {
-    //     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', 2, 2, 2, ' ', ' ', ' ', ' ', 2},
-    //     {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 2},
-    //     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
-    // };
-    // IndexI = 2;
-    // IndexJ = 2;
+    int[,] InitMap = null;
 
-    if (stage == 0)
+    if (stage == "0")
     {
-      FieldMap = new int[,]
+      InitMap = new int[,]
       {
             {2, 2, 2, 2, 2},
             {2, 6, ' ', ' ', 2},
@@ -43,9 +27,9 @@ public class FieldData
       IndexI = 1;
       IndexJ = 1;
     }
-    else if (stage == 1)
+    else if (stage == "1")
     {
-      FieldMap = new int[,]
+      InitMap = new int[,]
       {
             {2, 2, 2, 2, 2, ' ', ' ', ' ', ' ', ' '},
             {' ', ' ', ' ', ' ', 2, ' ', ' ', ' ', ' ', ' '},
@@ -61,9 +45,9 @@ public class FieldData
       IndexI = 2;
       IndexJ = 2;
     }
-    else if (stage == 2)
+    else if (stage == "2")
     {
-      FieldMap = new int[,]
+      InitMap = new int[,]
       {
             {2, ' ', 4, 4, 2, ' ', ' ', ' ', ' ', ' '},
             {2, 6, ' ', ' ', 2, ' ', ' ', ' ', ' ', ' '},
@@ -79,9 +63,9 @@ public class FieldData
       IndexI = 2;
       IndexJ = 2;
     }
-    else if (stage == 3)
+    else if (stage == "3")
     {
-      FieldMap = new int[,]
+      InitMap = new int[,]
       {
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -99,9 +83,9 @@ public class FieldData
       IndexI = 2;
       IndexJ = 3;
     }
-    else if (stage == 4)
+    else if (stage == "4")
     {
-      FieldMap = new int[,]
+      InitMap = new int[,]
       {
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -131,9 +115,9 @@ public class FieldData
       IndexI = 4;
       IndexJ = 2;
     }
-    else if (stage == 5)
+    else if (stage == "5")
     {
-      FieldMap = new int[,]
+      InitMap = new int[,]
       {
                 {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
                 {2,' ',' ',' ',2,2,3,5,3,2,' ',' ',' ',2,2,' ',' ',' ',' ',2},
@@ -157,9 +141,21 @@ public class FieldData
       IndexI = 3;
       IndexJ = 4;
     }
+
+    FieldMap = new int[IndexI * 5 + 2, IndexJ * 5 + 2];
+
+    for (int i = 0; i < IndexI * 5 + 2; i++) {
+      for (int j = 0; j < IndexJ * 5 + 2; j++) {
+        FieldMap[i,j] = -1;
+        
+        if (i > 0 && i < IndexI * 5 + 1 && j > 0 && j < IndexJ * 5 + 1) {
+          FieldMap[i,j] = InitMap[i - 1, j - 1];
+        }
+      }  
+    }
   }
 
-  public int[,] GetPartialMap(int indexI, int indexJ)
+  public override int[,] GetPartialMap(int indexI, int indexJ)
   {
     int[,] resultMap = new int[7, 7];
 
@@ -171,11 +167,11 @@ public class FieldData
     int intervalI = indexI * 5;
     int intervalJ = indexJ * 5;
 
-    for (int i = 1; i <= 5; i++)
+    for (int i = 0; i < 7; i++)
     {
-      for (int j = 1; j <= 5; j++)
+      for (int j = 0; j < 7; j++)
       {
-        resultMap[i, j] = FieldMap[i - 1 + intervalI, j - 1 + intervalJ];
+        resultMap[i, j] = FieldMap[i + intervalI, j + intervalJ];
       }
     }
 

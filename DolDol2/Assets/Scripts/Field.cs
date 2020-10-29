@@ -14,7 +14,8 @@ public class Field : MonoBehaviour
     public BaseObject Star;
     public BaseObject Portal;
 
-    public int Stage;
+    public string Stage;
+    public int FieldType = 0;
 
     private int PlayerIndexI = 0;
     private int PlayerIndexJ = 0;
@@ -25,7 +26,7 @@ public class Field : MonoBehaviour
     private MiniField CurrentField;
     private Vector2 PrevPos;
 
-    private FieldData Data;
+    private FieldDataBase Data;
 
     public bool GenerateField = true;
     private float TileInterval = 1.8f;
@@ -42,7 +43,20 @@ public class Field : MonoBehaviour
 
         MiniFieldMap = new MiniField[RangeI, RangeJ];
 
-        Data = new FieldData(Stage);
+        switch(FieldType)
+        {
+            case 0:
+                Data = new FieldData(Stage);
+            break;
+
+            case 1:
+                Data = new FieldDataOld(Stage);
+            break;
+
+            case 2:
+                Data = new FieldDataFromFile(Stage);
+            break;
+        }
         PrevPos = new Vector2();
 
         if (GenerateField == true)
@@ -116,15 +130,11 @@ public class Field : MonoBehaviour
         PlayerIndexJ = (int)x / (int)(5 * TileInterval);
         PlayerIndexI = (int)y / (int)(5 * TileInterval);
 
-        if (PlayerIndexI >= RangeI)
-        {
-            PlayerIndexI = RangeI - 1;
-        }
+        // Debug.Log("x : " + x);
+        // Debug.Log("y : " + y);
 
-        if (PlayerIndexJ >= RangeJ)
-        {
-            PlayerIndexJ = RangeJ - 1;
-        }
+        // Debug.Log("PlayerIndexJ : " + PlayerIndexJ);
+        // Debug.Log("PlayerIndexI : " + PlayerIndexI);
 
         if (CurrentMiniFieldIndexI != PlayerIndexI || CurrentMiniFieldIndexJ != PlayerIndexJ)
         {
@@ -132,6 +142,9 @@ public class Field : MonoBehaviour
             CurrentMiniFieldIndexJ = PlayerIndexJ;
 
             CurrentField = MiniFieldMap[CurrentMiniFieldIndexI, CurrentMiniFieldIndexJ];
+
+            // Debug.Log("CurrentMiniFieldIndexJ : " + CurrentMiniFieldIndexJ);
+            // Debug.Log("CurrentMiniFieldIndexI : " + CurrentMiniFieldIndexI);
         }
     }
 

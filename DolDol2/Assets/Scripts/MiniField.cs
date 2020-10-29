@@ -32,6 +32,8 @@ public class MiniField : MonoBehaviour
   {
     transform.position = new Vector3(StartPosition.x + 2 * TileInterval, StartPosition.y + 2 * TileInterval, 0);
 
+    // (Instantiate(MainField.Wall) as BaseObject).transform.position = transform.position;
+
     for (int i = 1; i <= 5; i++)
     {
       for (int j = 1; j <= 5; j++)
@@ -63,11 +65,7 @@ public class MiniField : MonoBehaviour
           {
             case 2:
               {
-                
-
                 obj = Instantiate(MainField.Wall) as BaseObject;
-
-                
 
                 // 0칸
                 if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
