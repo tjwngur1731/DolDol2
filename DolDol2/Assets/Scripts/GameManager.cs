@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public int starCount = 0;
     public bool charChoice = true;
     bool isRotating = false;
+    bool isInSameMiniField = false;
 
     void Awake()
     {
@@ -51,5 +52,15 @@ public class GameManager : MonoBehaviour
     public bool GetIsRotating()
     {
         return isRotating;
+    }
+
+    public void SetIsInSameMiniField(bool isIn)
+    {
+        isInSameMiniField = isIn;
+    }
+
+    public bool GetIsInSameMiniField()
+    {
+        return isInSameMiniField;
     }
 }

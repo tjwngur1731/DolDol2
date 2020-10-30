@@ -51,7 +51,10 @@ MonoBehaviour:
   Floor: {fileID: 405423311484055087, guid: eb9d3abf7f1f15f43a85fd89fe04eeb0, type: 3}
   Star: {fileID: 2900150890320347626, guid: 2158eff9b4845ed439d24bbfacd4e213, type: 3}
   Portal: {fileID: 8212689154398819318, guid: 3af0c1e4d69fde642881d3ebca8d57ef, type: 3}
+  SelectorPrefab: {fileID: 5976784611511367642, guid: e43d25959a281ca4383f11d2693d4323,
+    type: 3}
   Stage: 0
+  FieldType: 0
   GenerateField: 1
   RangeI: 0
   RangeJ: 0

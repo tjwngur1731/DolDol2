@@ -67,116 +67,124 @@ public class MiniField : MonoBehaviour
               {
                 obj = Instantiate(MainField.Wall) as BaseObject;
 
+                Wall wall = (obj as Wall);
+                // wall.SetWallType(6);
+
+                int up = FieldMap[i - 1, j];
+                int down = FieldMap[i + 1, j];
+                int left = FieldMap[i, j - 1];
+                int right = FieldMap[i, j + 1];
+
                 // 0칸
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] == 2))
+                if ((up == 2 && down == 2) &&
+                    (left == 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(10);
+                  wall.SetWallType(10);
                 }
 
                 // 1칸
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] == 2))
+                if ((up != 2 && down == 2) &&
+                    (left == 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(0);
+                  wall.SetWallType(0);
                 }
 
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] == 2))
+                if ((up == 2 && down != 2) &&
+                    (left == 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(0);
+                  wall.SetWallType(0);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
                 }
 
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] == 2))
+                if ((up == 2 && down == 2) &&
+                    (left != 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(0);
+                  wall.SetWallType(0);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
                 }
 
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
+                if ((up == 2 && down == 2) &&
+                    (left == 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(0);
+                  wall.SetWallType(0);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
                 }
 
                 // 2칸
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
+                if ((up == 2 && down == 2) &&
+                    (left != 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(9);
+                  wall.SetWallType(9);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] == 2))
+                if ((up != 2 && down != 2) &&
+                    (left == 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(9);
+                  wall.SetWallType(9);
                 }
 
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
+                if ((up == 2 && down != 2) &&
+                    (left == 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(3);
+                  wall.SetWallType(3);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
                 }
 
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] == 2))
+                if ((up == 2 && down != 2) &&
+                    (left != 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(3);
+                  wall.SetWallType(3);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
+                if ((up != 2 && down == 2) &&
+                    (left == 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(3);
+                  wall.SetWallType(3);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] == 2))
+                if ((up != 2 && down == 2) &&
+                    (left != 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(3);
+                  wall.SetWallType(3);
                 }
 
                 // 3개
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] == 2))
+                if ((up != 2 && down != 2) &&
+                    (left != 2 && right == 2))
                 {
-                  (obj as Wall).SetWallType(4);
+                  wall.SetWallType(4);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] == 2 && FieldMap[i, j + 1] != 2))
+                if ((up != 2 && down != 2) &&
+                    (left == 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(4);
+                  wall.SetWallType(4);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 180);
                 }
 
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] == 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
+                if ((up != 2 && down == 2) &&
+                    (left != 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(4);
+                  wall.SetWallType(4);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, -90.0f);
                 }
 
-                if ((FieldMap[i - 1, j] == 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
+                if ((up == 2 && down != 2) &&
+                    (left != 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(4);
+                  wall.SetWallType(4);
                   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 90.0f);
                 }
 
                 // 4개
-                if ((FieldMap[i - 1, j] != 2 && FieldMap[i + 1, j] != 2) &&
-                    (FieldMap[i, j - 1] != 2 && FieldMap[i, j + 1] != 2))
+                if ((up != 2 && down != 2) &&
+                    (left != 2 && right != 2))
                 {
-                  (obj as Wall).SetWallType(6);
+                  wall.SetWallType(6);
                 }
                 
               }
@@ -203,6 +211,7 @@ public class MiniField : MonoBehaviour
           }
 
           obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval);
+          // obj.transform.position = new Vector2(StartPosition.x + (int)((j - 1) * TileInterval), StartPosition.y + (int)((7 - i - 1 - 1) * TileInterval));
           obj.transform.SetParent(transform);
         }
       }
@@ -223,6 +232,8 @@ public class MiniField : MonoBehaviour
   public void SetStartPosition(Vector2 startPosition)
   {
     StartPosition = startPosition;
+
+    // Debug.Log("cell x : " + StartPosition.x + " " + "cell y : " + StartPosition.y);
   }
 
   public void SetMainField(Field mainField)
@@ -259,11 +270,23 @@ public class MiniField : MonoBehaviour
     {
       MainField.Player1.transform.SetParent(transform);
       MainField.Player1.SetIsKinematic(true);
+
+      if (GameManager.Instance.GetIsInSameMiniField())
+      {
+        MainField.Player2.transform.SetParent(transform);
+        MainField.Player2.SetIsKinematic(true);  
+      }
     }
     else
     {
       MainField.Player2.transform.SetParent(transform);
       MainField.Player2.SetIsKinematic(true);
+
+      if (GameManager.Instance.GetIsInSameMiniField())
+      {
+        MainField.Player1.transform.SetParent(transform);
+        MainField.Player1.SetIsKinematic(true);  
+      }
     }
 
     while (t < duration)
@@ -279,14 +302,27 @@ public class MiniField : MonoBehaviour
     {
       MainField.Player1.transform.SetParent(null);
       MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-      // MainField.Player1.transform.localeEulerAngles = new Vector3(transform.localeEulerAngles.x, transform.localeEulerAngles.y, transform.localeEulerAngles.y);
       MainField.Player1.SetIsKinematic(false);
+      
+      if (GameManager.Instance.GetIsInSameMiniField())
+      {
+        MainField.Player2.transform.SetParent(null);
+        MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
+        MainField.Player2.SetIsKinematic(false);
+      }
     }
     else
     {
       MainField.Player2.transform.SetParent(null);
       MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
       MainField.Player2.SetIsKinematic(false);
+
+      if (GameManager.Instance.GetIsInSameMiniField())
+      {
+        MainField.Player1.transform.SetParent(null);
+        MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
+        MainField.Player1.SetIsKinematic(false);
+      }
     }
     
     GameManager.Instance.SetIsRotating(false);
