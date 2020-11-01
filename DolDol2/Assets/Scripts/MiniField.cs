@@ -68,8 +68,7 @@ public class MiniField : MonoBehaviour
                 obj = Instantiate(MainField.Wall) as BaseObject;
 
                 Wall wall = (obj as Wall);
-                // wall.SetWallType(6);
-
+                
                 int up = FieldMap[i - 1, j];
                 int down = FieldMap[i + 1, j];
                 int left = FieldMap[i, j - 1];
@@ -186,6 +185,8 @@ public class MiniField : MonoBehaviour
                 {
                   wall.SetWallType(6);
                 }
+
+                // wall.SetWallType(6);
                 
               }
               break;

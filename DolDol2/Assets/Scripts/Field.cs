@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Field : MonoBehaviour
@@ -129,11 +130,21 @@ public class Field : MonoBehaviour
             anotherY = Player1.transform.position.y;
         }
 
-        PlayerIndexJ = (int)x / ((int)(5 * TileInterval) + 1);
-        PlayerIndexI = (int)y / ((int)(5 * TileInterval) + 1);
+        // Debug.Log((int)(5 * TileInterval) + 1);
+        // Debug.Log((int)(5 * TileInterval));
+        // Debug.Log((5 * TileInterval));
 
-        AnotherPlayerIndexJ = (int)anotherX / ((int)(5 * TileInterval) + 1);
-        AnotherPlayerIndexI = (int)anotherY / ((int)(5 * TileInterval) + 1);
+        // PlayerIndexJ = (int)x / ((int)(5 * TileInterval) + 1);
+        // PlayerIndexI = (int)y / ((int)(5 * TileInterval) + 1);
+
+        // AnotherPlayerIndexJ = (int)anotherX / ((int)(5 * TileInterval) + 1);
+        // AnotherPlayerIndexI = (int)anotherY / ((int)(5 * TileInterval) + 1);
+
+        PlayerIndexJ = (int)((Math.Round(x)) / (5 * TileInterval));
+        PlayerIndexI = (int)((Math.Round(y)) / (5 * TileInterval));
+
+        AnotherPlayerIndexJ = (int)(Math.Round(anotherX) / (5 * TileInterval));
+        AnotherPlayerIndexI = (int)(Math.Round(anotherY) / (5 * TileInterval));
 
         if (CurrentMiniFieldIndexI != PlayerIndexI || CurrentMiniFieldIndexJ != PlayerIndexJ)
         {
@@ -141,6 +152,18 @@ public class Field : MonoBehaviour
             CurrentMiniFieldIndexJ = PlayerIndexJ;
 
             CurrentField = MiniFieldMap[CurrentMiniFieldIndexI, CurrentMiniFieldIndexJ];
+
+            // Debug.Log("y :" + Math.Round(y));
+            // Debug.Log("x :" + Math.Round(x));
+
+            // Debug.Log("y :" + y);
+            // Debug.Log("x :" + x);
+
+            // Debug.Log("x :" + (x - TileInterval / (5 * TileInterval)));
+            // Debug.Log("y :" + (y - TileInterval / (5 * TileInterval)));
+
+            // Debug.Log("I :" + CurrentMiniFieldIndexI);
+            // Debug.Log("J :" + CurrentMiniFieldIndexJ);
 
             if (CurrentMiniFieldIndexI == AnotherPlayerIndexI && CurrentMiniFieldIndexJ == AnotherPlayerIndexJ)
             {
