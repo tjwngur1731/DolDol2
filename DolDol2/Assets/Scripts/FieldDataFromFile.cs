@@ -11,7 +11,7 @@ public class FieldDataFromFile : FieldDataBase
 
     public FieldDataFromFile(string stage)
     {
-        string filename = "Assets/CellMap/" + stage + ".cellmap";
+        string filename = "CellMap/" + stage + ".cellmap";
         string line;
 
         StreamReader file = new StreamReader(@filename);
