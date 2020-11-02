@@ -40,9 +40,6 @@ public class StageManager : MonoBehaviour
 
 
 
-
-
-        // if - clear - switch stage(1,2,3) - SceneManager.LoadScene("Stage2 / 3 /4 ---");               // finish 닿으면 바로 다음 스테이지로 이동
     }
 
 

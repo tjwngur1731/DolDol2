@@ -7,6 +7,8 @@ TagManager:
   - Floor
   - Enemy
   - Star
+  - Light
+  - Button
   layers:
   - Default
   - TransparentFX

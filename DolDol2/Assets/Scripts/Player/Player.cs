@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class Player : BaseObject
 {
     Vector2 spawnPos;
+    //StageSelect stageSelect;
 
     Rigidbody2D rigid;
+    
+
     void Start()
     {
       rigid = GetComponent<Rigidbody2D>();
@@ -39,10 +42,15 @@ public class Player : BaseObject
             }
             else if (scene.buildIndex == 4)
             {
+                Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
+                StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
                 SceneManager.LoadScene("StageSelect");
             }
             else
             {
+                Debug.Log(GameManager.Instance.starCount +" " +scene.buildIndex);
+                //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
+                StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
                 SceneManager.LoadScene(scene.buildIndex + 1);
             }
         }

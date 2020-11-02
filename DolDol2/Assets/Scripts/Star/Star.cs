@@ -12,10 +12,11 @@ public class Star : BaseObject
     {
         GameManager.Instance.starCount = 0;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
+            Debug.Log("destroy");
             Destroy(gameObject);
         }
     }
