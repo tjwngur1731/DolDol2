@@ -41,10 +41,6 @@ public class Field : MonoBehaviour
 
     void Start()
     {
-        string path = "Assets/Images/Button_Resume.png";
-        Texture test = Resources.Load(@path) as Texture;
-        Debug.Log(@path);
-        Debug.Log(test);
         Selector = Instantiate(SelectorPrefab) as MiniFieldSelector;
         RangeI = 5;
         RangeJ = 5;
