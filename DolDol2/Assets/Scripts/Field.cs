@@ -41,9 +41,9 @@ public class Field : MonoBehaviour
 
     void Start()
     {
+        this.Init();
+
         Selector = Instantiate(SelectorPrefab) as MiniFieldSelector;
-        RangeI = 5;
-        RangeJ = 5;
 
         CurrentMiniFieldIndexI = RangeI - 1;
 
@@ -103,6 +103,23 @@ public class Field : MonoBehaviour
         CurrentField = MiniFieldMap[CurrentMiniFieldIndexI, CurrentMiniFieldIndexJ];
         // Selector.transform.SetParent(CurrentField.transform);
         // Selector.transform.position = CurrentField.transform.position;
+    }
+
+    void Init()
+    {
+        RangeI = 5;
+        RangeJ = 5;
+    }
+
+    public void DrawLines(bool draw)
+    {
+        for (int i = 0; i < RangeI; i++)
+            {
+                for (int j = 0; j < RangeJ; j++)
+                {
+                    // MiniFieldMap[i, j].DrawLines(draw);
+                }
+            }
     }
 
     void CalculatePlayerIndex()
