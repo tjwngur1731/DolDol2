@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseObject : MonoBehaviour
 {
     protected float UnitLimit = 0.35f;
+    protected int BaseObjectType = -1;
     
     // Start is called before the first frame update
     void Start()
@@ -21,5 +22,10 @@ public class BaseObject : MonoBehaviour
     public float GetUnitLimit()
     {
         return UnitLimit;
+    }
+
+    public virtual int GetBaseObjectType()
+    {
+        return BaseObjectType;
     }
 }

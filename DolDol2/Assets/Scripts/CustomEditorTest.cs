@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
+using System.IO;
 using System;
 
 public class CustomEditorTest : EditorWindow {
@@ -8,16 +9,24 @@ public class CustomEditorTest : EditorWindow {
     private Vector3 mousepos;
     private int[,] fieldMap = null;
     private bool isActive = false;
+    private float TileInterval = 1.8f;
+    private float minifildInterval = 9.0f;
+    private GameObject root = null;
+    private GameObject[,] minifield = null;
     void OnGUI() {
-        if (fieldMap == null)
-        {
-            fieldMap = new int[25,25];
-        }
 
         BeginWindows();
         
         GUILayout.Button("", GUILayout.Width(50), GUILayout.Height(40));
         GUILayout.Label("Wall");
+
+        if (GUILayout.Button("Save", GUILayout.Width(50), GUILayout.Height(40)))
+        {
+            SaveToFile("SaveTest");
+        }
+
+        GUILayout.Label("Wall");
+
         EndWindows();
     }
 
@@ -39,6 +48,34 @@ public class CustomEditorTest : EditorWindow {
         isActive = false;
     }
 
+    void SaveToFile(string stage)
+    {
+        string filename = "CellMap/" + stage + ".cellmap";
+
+        using (StreamWriter outputFile = new StreamWriter(@filename))
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                string line = "";
+                for (int j = 0; j < 25; j++)
+                {
+                    // Debug.Log(fieldMap[i + 1,j + 1]);
+                    int ch = fieldMap[i + 1,j + 1];
+                    if (ch == ' ')
+                    {
+                        line += (char)ch;
+                    }
+                    else 
+                    {
+                        line += ch;
+                    }
+                }
+
+                outputFile.WriteLine(line);
+            }
+        }
+    }
+
     void OnSceneGUI(SceneView sceneView) {
         // if (isActive != true)
         // {
@@ -47,9 +84,39 @@ public class CustomEditorTest : EditorWindow {
 
         Event current = Event.current;
 
+        if (root == null)
+        {
+            root = new GameObject();
+            root.name = "MapEditorRoot";
+        }
+
+        if (minifield == null)
+        {
+            minifield = new GameObject[5, 5];
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    minifield[i,j] = new GameObject();
+                    minifield[i,j].name = "minifield_" + i + "_" + j;
+                    minifield[i,j].transform.position = new Vector2(j * 5 * TileInterval, i * 5 * TileInterval);
+                    minifield[i,j].transform.SetParent(root.transform);
+                }   
+            }
+        }
+
         if (fieldMap == null)
         {
-            fieldMap = new int[25,25];
+            fieldMap = new int[27,27];
+
+            for (int i = 0; i < 27; i++)
+            {
+                for (int j = 0; j < 27; j++)
+                {
+                    fieldMap[i,j] = ' ';
+                }   
+            }
         }
 
         if (current.type == EventType.MouseDown && current.button == 0) {
@@ -66,15 +133,23 @@ public class CustomEditorTest : EditorWindow {
 
     void AddObject(Vector3 pos)
     {
+        int indexJ = (int)(Math.Round(pos.x) / minifildInterval);
+        int indexI = (int)(Math.Round(pos.y) / minifildInterval);
+
+        if (!((indexJ >= 0 && indexJ <= 5) && (indexI >= 0 && indexI <= 5)))
+        {
+            return;
+        }
+
         GameObject wall = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
 
-        Debug.Log(pos);
-        pos.x = (float)Math.Round(pos.x);
-        pos.y = (float)Math.Round(pos.y);
-
-        Debug.Log(pos);
-
+        pos.x = (int)((pos.x + TileInterval / 2) / TileInterval) * TileInterval;
+        pos.y = (int)((pos.y + TileInterval / 2) / TileInterval) * TileInterval;
+        
+        fieldMap[(int)(pos.y / TileInterval), (int)(pos.x / TileInterval)] = wall.GetComponent<BaseObject>().GetBaseObjectType();
+        
         wall.transform.position = pos;
+        wall.transform.SetParent(minifield[indexI, indexJ].transform);
     }
 
     [MenuItem("MapEditor/CustomEditorTest")]

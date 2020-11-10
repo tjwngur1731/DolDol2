@@ -15,8 +15,20 @@ public class Wall : BaseObject
     {
       renderer = GetComponent<SpriteRenderer>();
     }
+
+    BaseObjectType = 2;
   }
 
+  public override int GetBaseObjectType()
+  {
+    if (BaseObjectType != 2)
+    {
+      BaseObjectType = 2;
+    }
+
+    return BaseObjectType;
+  }
+    
   // Update is called once per frame
   void Update()
   {
