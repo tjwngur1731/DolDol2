@@ -13,12 +13,28 @@ public class CustomEditorTest : EditorWindow {
     private float minifildInterval = 9.0f;
     private GameObject root = null;
     private GameObject[,] minifield = null;
+    private int type = -1;
     void OnGUI() {
 
         BeginWindows();
         
-        GUILayout.Button("", GUILayout.Width(50), GUILayout.Height(40));
+        if (GUILayout.Button("", GUILayout.Width(50), GUILayout.Height(40)))
+        {
+            type = 2;
+        }
         GUILayout.Label("Wall");
+
+        if (GUILayout.Button("", GUILayout.Width(50), GUILayout.Height(40)))
+        {
+            type = 0;
+        }
+        GUILayout.Label("Player1");
+        
+        if (GUILayout.Button("", GUILayout.Width(50), GUILayout.Height(40)))
+        {
+            type = 1;
+        }
+        GUILayout.Label("Player2");
 
         if (GUILayout.Button("Save", GUILayout.Width(50), GUILayout.Height(40)))
         {
@@ -54,13 +70,13 @@ public class CustomEditorTest : EditorWindow {
 
         using (StreamWriter outputFile = new StreamWriter(@filename))
         {
-            for (int i = 0; i < 25; i++)
+            for (int i = 25; i >= 1; i--)
             {
                 string line = "";
-                for (int j = 0; j < 25; j++)
+                for (int j = 1; j <= 25; j++)
                 {
                     // Debug.Log(fieldMap[i + 1,j + 1]);
-                    int ch = fieldMap[i + 1,j + 1];
+                    int ch = fieldMap[i,j];
                     if (ch == ' ')
                     {
                         line += (char)ch;
@@ -141,15 +157,51 @@ public class CustomEditorTest : EditorWindow {
             return;
         }
 
-        GameObject wall = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+        GameObject obj = null;
+
+        switch(type)
+        {
+            case 0:
+                obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
+            break;
+
+            case 1:
+                obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
+            break;
+
+            case 2:
+                obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+            break;
+        }
+
+        if (obj == null)
+        {
+            return;
+        }
+
+        // BaseObject baseObj = obj.GetComponent<BaseObject>();
+
+        int fieldIndexI = (int)(Math.Round(pos.y) / TileInterval) + 1;
+        int fieldIndexJ = (int)(Math.Round(pos.x) / TileInterval) + 1;
 
         pos.x = (int)((pos.x + TileInterval / 2) / TileInterval) * TileInterval;
         pos.y = (int)((pos.y + TileInterval / 2) / TileInterval) * TileInterval;
         
-        fieldMap[(int)(pos.y / TileInterval), (int)(pos.x / TileInterval)] = wall.GetComponent<BaseObject>().GetBaseObjectType();
+        // if (fieldMap[fieldIndexI, fieldIndexJ] != ' ')
+        // {
+        //     fieldMap[fieldIndexI, fieldIndexJ] = ' ';
+        // }
+
+        Debug.Log("fieldIndexI : " + fieldIndexI);
+        Debug.Log("fieldIndexJ : " + fieldIndexI);
+
+        Debug.Log("pos.y : " + pos.y);
+        Debug.Log("pos.x : " + pos.x);
+
+        fieldMap[fieldIndexI, fieldIndexJ] = type;
         
-        wall.transform.position = pos;
-        wall.transform.SetParent(minifield[indexI, indexJ].transform);
+        obj.transform.position = pos;
+        obj.transform.SetParent(minifield[indexI, indexJ].transform);
     }
 
     [MenuItem("MapEditor/CustomEditorTest")]

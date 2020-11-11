@@ -28,4 +28,10 @@ public class BaseObject : MonoBehaviour
     {
         return BaseObjectType;
     }
+
+    public virtual bool Init()
+    {
+
+        return true;
+    }
 }

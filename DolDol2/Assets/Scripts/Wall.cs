@@ -19,13 +19,15 @@ public class Wall : BaseObject
     BaseObjectType = 2;
   }
 
+  public override bool Init()
+  {
+    BaseObjectType = 2;
+
+    return true;
+  }
+
   public override int GetBaseObjectType()
   {
-    if (BaseObjectType != 2)
-    {
-      BaseObjectType = 2;
-    }
-
     return BaseObjectType;
   }
     

@@ -16,6 +16,13 @@ public class Player : BaseObject
       rigid = GetComponent<Rigidbody2D>();
     }
 
+    public override bool Init()
+    {
+        BaseObjectType = 0;
+
+        return true;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Enemy")

@@ -14,7 +14,7 @@ public class Field : MonoBehaviour
     public BaseObject Floor;
     public BaseObject Star;
     public BaseObject Portal;
-    public MiniFieldSelector SelectorPrefab;
+    // public MiniFieldSelector SelectorPrefab;
     private MiniFieldSelector Selector;
 
     public string Stage;
@@ -43,7 +43,7 @@ public class Field : MonoBehaviour
     {
         this.Init();
 
-        Selector = Instantiate(SelectorPrefab) as MiniFieldSelector;
+        // Selector = Instantiate(SelectorPrefab) as MiniFieldSelector;
 
         CurrentMiniFieldIndexI = RangeI - 1;
 
