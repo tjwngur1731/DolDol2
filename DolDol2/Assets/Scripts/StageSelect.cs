@@ -10,9 +10,11 @@ public class StageSelect : MonoBehaviour
     public GameObject stageManager;
     public GameObject[] stage;
     public Sprite[] icon;
-    
+
+    public static int[] totalStarCount;
     public static int[] starCount;
     public static int[] prevStarCount;
+    public static int chaptNum;
 
     /*public Sprite star0;
     public Sprite star1;
@@ -21,9 +23,12 @@ public class StageSelect : MonoBehaviour
     */
     private int stageNum;
 
+    
+
     void Start()
     {
         stageNum = 10;
+        totalStarCount = new int[stageNum];
         stage = new GameObject[stageNum];
         starCount = new int[stageNum];
         prevStarCount = new int[stageNum];
@@ -36,6 +41,7 @@ public class StageSelect : MonoBehaviour
         for (int i = 0; i < starCount.Length; i++)
         {
             starCount[i] = 0;
+            totalStarCount[i] = 0;
         }
 
         for (int i = 0; i < StageClear.Length; i++)
@@ -49,7 +55,7 @@ public class StageSelect : MonoBehaviour
         {
             if(StageClear[i] == false)
             {
-                Debug.Log("Color");
+                //Debug.Log("Color");
                 //stage[i].material. = new Color(160/255, 160/255, 160/255);
             }
 
@@ -84,7 +90,7 @@ public class StageSelect : MonoBehaviour
         
     }
 
-    public void OnClickButton(int i) //버튼 클릭하면 이동
+    public void OnClickStage(int i) //버튼 클릭하면 이동
     {
         //prevStarCount[i] = starCount[i];   // 스테이지 재시작 시, 기존 별점 기록 (최고점수 반영 위함)
 
@@ -94,9 +100,15 @@ public class StageSelect : MonoBehaviour
             SceneManager.LoadScene(gameObject.name);
     }
 
+    public void OnClickChapter(int chapternum)          // 챕터 선택
+    {
+        chaptNum = chapternum;
+        SceneManager.LoadScene("StageSelect");          // 스테이지 선택 화면으로 이동, 챕터 인덱스 넘김
+    }
+
     public void OnClickReturn() //버튼 클릭하면 이동
     {
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     /*public void SetStarNum(int stage, int num)

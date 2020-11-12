@@ -38,9 +38,9 @@ public class Player : BaseObject
 
             if (scene.buildIndex == 0)
             {
-                SceneManager.LoadScene("StageSelect");
+                SceneManager.LoadScene("ChapterSelect");
             }
-            else if (scene.buildIndex == 4)
+            else if (scene.buildIndex == SceneManager.sceneCount-1)
             {
                 Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
                 StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count

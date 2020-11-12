@@ -30,7 +30,8 @@ public class MiniField : MonoBehaviour
 
   public void Init()
   {
-    transform.position = new Vector3(StartPosition.x + 2 * TileInterval, StartPosition.y + 2 * TileInterval, 0);
+        transform.position = new Vector3(StartPosition.x + 2 * TileInterval, StartPosition.y + 2 * TileInterval, 0);
+        //transform.position = new Vector3(0, 0, 0);
 
     // (Instantiate(MainField.Wall) as BaseObject).transform.position = transform.position;
 
