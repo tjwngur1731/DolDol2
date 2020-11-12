@@ -46,12 +46,19 @@ public class CustomEditorTest : EditorWindow {
         EndWindows();
     }
 
-    void OnEnable() {
+    void OnEnable() 
+    {
         SceneView.duringSceneGui += OnSceneGUI;
     }
 
-    void OnDisable() {
+    void OnDisable() 
+    {
         SceneView.duringSceneGui -= OnSceneGUI;
+    }
+
+    void OnDestory()
+    {
+        Destroy(root);
     }
 
     void OnFocus()
@@ -179,11 +186,6 @@ public class CustomEditorTest : EditorWindow {
             return;
         }
 
-        // BaseObject baseObj = obj.GetComponent<BaseObject>();
-
-        int fieldIndexI = (int)(Math.Round(pos.y) / TileInterval) + 1;
-        int fieldIndexJ = (int)(Math.Round(pos.x) / TileInterval) + 1;
-
         pos.x = (int)((pos.x + TileInterval / 2) / TileInterval) * TileInterval;
         pos.y = (int)((pos.y + TileInterval / 2) / TileInterval) * TileInterval;
         
@@ -192,11 +194,8 @@ public class CustomEditorTest : EditorWindow {
         //     fieldMap[fieldIndexI, fieldIndexJ] = ' ';
         // }
 
-        Debug.Log("fieldIndexI : " + fieldIndexI);
-        Debug.Log("fieldIndexJ : " + fieldIndexI);
-
-        Debug.Log("pos.y : " + pos.y);
-        Debug.Log("pos.x : " + pos.x);
+        int fieldIndexI = ((int)Math.Round(pos.y / TileInterval) + 1);
+        int fieldIndexJ = ((int)Math.Round(pos.x / TileInterval) + 1);
 
         fieldMap[fieldIndexI, fieldIndexJ] = type;
         
