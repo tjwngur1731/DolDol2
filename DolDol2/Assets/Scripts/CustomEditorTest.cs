@@ -212,7 +212,6 @@ public class CustomEditorTest : EditorWindow
 
       case 2:
         obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
-        RemapWallTexture(obj.GetComponent<BaseObject>(), fieldIndexI, fieldIndexJ);
 
         break;
     }
@@ -225,14 +224,6 @@ public class CustomEditorTest : EditorWindow
     fieldMap[fieldIndexI, fieldIndexJ] = type;
     baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj.GetComponent<BaseObject>();
 
-    if (type == 2)
-    {
-        RemapWallTexture(baseObjectFieldMap[fieldIndexI - 1, fieldIndexJ], fieldIndexI - 1, fieldIndexJ);
-        RemapWallTexture(baseObjectFieldMap[fieldIndexI + 1, fieldIndexJ], fieldIndexI + 1, fieldIndexJ);
-        RemapWallTexture(baseObjectFieldMap[fieldIndexI, fieldIndexJ - 1], fieldIndexI, fieldIndexJ - 1);
-        RemapWallTexture(baseObjectFieldMap[fieldIndexI, fieldIndexJ + 1], fieldIndexI, fieldIndexJ + 1);
-    }
-
     obj.transform.position = pos;
     obj.transform.SetParent(minifield[indexI, indexJ].transform);
   }
@@ -241,133 +232,5 @@ public class CustomEditorTest : EditorWindow
   static void Init()
   {
     EditorWindow.GetWindow(typeof(CustomEditorTest));
-  }
-
-  void RemapWallTexture(BaseObject baseObj, int i, int j)
-  {
-    if (baseObj == null)
-    {
-        return;
-    }
-
-    Wall wall = (baseObj as Wall);
-
-    int down = fieldMap[i - 1, j];
-    int up = fieldMap[i + 1, j];
-    int left = fieldMap[i, j - 1];
-    int right = fieldMap[i, j + 1];
-
-    // 0칸
-    if ((up == 2 && down == 2) &&
-        (left == 2 && right == 2))
-    {
-      wall.SetWallType(10);
-    }
-
-    // 1칸
-    if ((up != 2 && down == 2) &&
-        (left == 2 && right == 2))
-    {
-      wall.SetWallType(0);
-    }
-
-    if ((up == 2 && down != 2) &&
-        (left == 2 && right == 2))
-    {
-      wall.SetWallType(0);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, baseObj.transform.eulerAngles.z + 180.0f);
-    }
-
-    if ((up == 2 && down == 2) &&
-        (left != 2 && right == 2))
-    {
-      wall.SetWallType(0);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, baseObj.transform.eulerAngles.z + 90.0f);
-    }
-
-    if ((up == 2 && down == 2) &&
-        (left == 2 && right != 2))
-    {
-      wall.SetWallType(0);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, baseObj.transform.eulerAngles.z - 90.0f);
-    }
-
-    // 2칸
-    if ((up == 2 && down == 2) &&
-        (left != 2 && right != 2))
-    {
-      wall.SetWallType(9);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 90.0f);
-    }
-
-    if ((up != 2 && down != 2) &&
-        (left == 2 && right == 2))
-    {
-      wall.SetWallType(9);
-    }
-
-    if ((up == 2 && down != 2) &&
-        (left == 2 && right != 2))
-    {
-      wall.SetWallType(3);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 180.0f);
-    }
-
-    if ((up == 2 && down != 2) &&
-        (left != 2 && right == 2))
-    {
-      wall.SetWallType(3);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 90.0f);
-    }
-
-    if ((up != 2 && down == 2) &&
-        (left == 2 && right != 2))
-    {
-      wall.SetWallType(3);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 90.0f);
-    }
-
-    if ((up != 2 && down == 2) &&
-        (left != 2 && right == 2))
-    {
-      wall.SetWallType(3);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 180.0f);
-    }
-
-    // 3개
-    if ((up != 2 && down != 2) &&
-        (left != 2 && right == 2))
-    {
-      wall.SetWallType(4);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 0);
-    }
-
-    if ((up != 2 && down != 2) &&
-        (left == 2 && right != 2))
-    {
-      wall.SetWallType(4);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 180);
-    }
-
-    if ((up != 2 && down == 2) &&
-        (left != 2 && right != 2))
-    {
-      wall.SetWallType(4);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, -90.0f);
-    }
-
-    if ((up == 2 && down != 2) &&
-        (left != 2 && right != 2))
-    {
-      wall.SetWallType(4);
-      baseObj.transform.eulerAngles = new Vector3(baseObj.transform.eulerAngles.x, baseObj.transform.eulerAngles.y, 90.0f);
-    }
-
-    // 4개
-    if ((up != 2 && down != 2) &&
-        (left != 2 && right != 2))
-    {
-      wall.SetWallType(6);
-    }
   }
 }

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5076196394105601956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.002606, y: -1.0156283, z: 0}
-  m_LocalScale: {x: 0.61, y: 0.61, z: 0.61}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,8 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3578184790065734791, guid: 120124bb957993b4181221192ce9889b,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27f2cf9f2905d1dccba91ca7ed1e8323, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,14 +101,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.0314798, y: 3.03}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 3.0314798, y: 3.03}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.0314798, y: 3.03}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!50 &5076196394105601957
 Rigidbody2D:
@@ -144,16 +143,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50c322a01d35344ea69177e1a1d21e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallSprite:
-  - {fileID: -6635822293859445831, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: 3779349663855875737, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -4533689840242613715, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -3578184790065734791, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -4589670208170253090, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: 6370362391766682386, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: 328316356310000719, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -4239647845302556869, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -8134974277577860864, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -7936280902388940561, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -445235873063336618, guid: 120124bb957993b4181221192ce9889b, type: 3}
-  - {fileID: -3186343917208308659, guid: 120124bb957993b4181221192ce9889b, type: 3}

@@ -67,124 +67,124 @@ public class MiniField : MonoBehaviour
               {
                 obj = Instantiate(MainField.Wall) as BaseObject;
 
-                Wall wall = (obj as Wall);
+                // Wall wall = (obj as Wall);
                 
-                int up = FieldMap[i - 1, j];
-                int down = FieldMap[i + 1, j];
-                int left = FieldMap[i, j - 1];
-                int right = FieldMap[i, j + 1];
+                // int up = FieldMap[i - 1, j];
+                // int down = FieldMap[i + 1, j];
+                // int left = FieldMap[i, j - 1];
+                // int right = FieldMap[i, j + 1];
 
-                // 0칸
-                if ((up == 2 && down == 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(10);
-                }
+                // // 0칸
+                // if ((up == 2 && down == 2) &&
+                //     (left == 2 && right == 2))
+                // {
+                //   wall.SetWallType(10);
+                // }
 
-                // 1칸
-                if ((up != 2 && down == 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(0);
-                }
+                // // 1칸
+                // if ((up != 2 && down == 2) &&
+                //     (left == 2 && right == 2))
+                // {
+                //   wall.SetWallType(0);
+                // }
 
-                if ((up == 2 && down != 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
-                }
+                // if ((up == 2 && down != 2) &&
+                //     (left == 2 && right == 2))
+                // {
+                //   wall.SetWallType(0);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
+                // }
 
-                if ((up == 2 && down == 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                }
+                // if ((up == 2 && down == 2) &&
+                //     (left != 2 && right == 2))
+                // {
+                //   wall.SetWallType(0);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
+                // }
 
-                if ((up == 2 && down == 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                }
+                // if ((up == 2 && down == 2) &&
+                //     (left == 2 && right != 2))
+                // {
+                //   wall.SetWallType(0);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
+                // }
 
-                // 2칸
-                if ((up == 2 && down == 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(9);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                }
+                // // 2칸
+                // if ((up == 2 && down == 2) &&
+                //     (left != 2 && right != 2))
+                // {
+                //   wall.SetWallType(9);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
+                // }
 
-                if ((up != 2 && down != 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(9);
-                }
+                // if ((up != 2 && down != 2) &&
+                //     (left == 2 && right == 2))
+                // {
+                //   wall.SetWallType(9);
+                // }
 
-                if ((up == 2 && down != 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(3);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
-                }
+                // if ((up == 2 && down != 2) &&
+                //     (left == 2 && right != 2))
+                // {
+                //   wall.SetWallType(3);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
+                // }
 
-                if ((up == 2 && down != 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(3);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                }
+                // if ((up == 2 && down != 2) &&
+                //     (left != 2 && right == 2))
+                // {
+                //   wall.SetWallType(3);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
+                // }
 
-                if ((up != 2 && down == 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(3);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                }
+                // if ((up != 2 && down == 2) &&
+                //     (left == 2 && right != 2))
+                // {
+                //   wall.SetWallType(3);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
+                // }
 
-                if ((up != 2 && down == 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(3);
-                }
+                // if ((up != 2 && down == 2) &&
+                //     (left != 2 && right == 2))
+                // {
+                //   wall.SetWallType(3);
+                // }
 
-                // 3개
-                if ((up != 2 && down != 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
-                }
+                // // 3개
+                // if ((up != 2 && down != 2) &&
+                //     (left != 2 && right == 2))
+                // {
+                //   wall.SetWallType(4);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
+                // }
 
-                if ((up != 2 && down != 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 180);
-                }
+                // if ((up != 2 && down != 2) &&
+                //     (left == 2 && right != 2))
+                // {
+                //   wall.SetWallType(4);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 180);
+                // }
 
-                if ((up != 2 && down == 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, -90.0f);
-                }
+                // if ((up != 2 && down == 2) &&
+                //     (left != 2 && right != 2))
+                // {
+                //   wall.SetWallType(4);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, -90.0f);
+                // }
 
-                if ((up == 2 && down != 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 90.0f);
-                }
+                // if ((up == 2 && down != 2) &&
+                //     (left != 2 && right != 2))
+                // {
+                //   wall.SetWallType(4);
+                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 90.0f);
+                // }
 
-                // 4개
-                if ((up != 2 && down != 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(6);
-                }
+                // // 4개
+                // if ((up != 2 && down != 2) &&
+                //     (left != 2 && right != 2))
+                // {
+                //   wall.SetWallType(6);
+                // }
 
                 // wall.SetWallType(6);
                 
