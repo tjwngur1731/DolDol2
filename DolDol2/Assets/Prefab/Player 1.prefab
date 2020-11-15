@@ -161,8 +161,11 @@ MonoBehaviour:
   runSprite:
   - {fileID: -1770329496502536620, guid: 7a0d6a26d02e318489db970eb5af5ef5, type: 3}
   - {fileID: 3850800489466332318, guid: 7a0d6a26d02e318489db970eb5af5ef5, type: 3}
-  jumpSprite: {fileID: -7239642390986458545, guid: 7a0d6a26d02e318489db970eb5af5ef5,
-    type: 3}
+  jumpSprite:
+  - {fileID: -6328048465836950484, guid: 669ca908c5a6667449b82afe22e91096, type: 3}
+  - {fileID: 5924569698625080383, guid: 669ca908c5a6667449b82afe22e91096, type: 3}
+  - {fileID: -1198653768048970443, guid: 669ca908c5a6667449b82afe22e91096, type: 3}
+  - {fileID: 8289419255268446129, guid: 669ca908c5a6667449b82afe22e91096, type: 3}
   staySprite: {fileID: 7630170276138894862, guid: 7a0d6a26d02e318489db970eb5af5ef5,
     type: 3}
 --- !u!114 &7291205269928681928
@@ -178,11 +181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StageClear: 
-  Lights: []
   stageManager: {fileID: 0}
   stage: []
   icon: []
-  prevStarCount: 
 --- !u!1 &7033242862447418046
 GameObject:
   m_ObjectHideFlags: 0
