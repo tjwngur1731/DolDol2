@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MiniField : MonoBehaviour
 {
-  int[,] FieldMap, TempBuffer;
+  string[,] FieldMap;
   Vector2 StartPosition;
   Field MainField;
 
@@ -15,7 +15,7 @@ public class MiniField : MonoBehaviour
   void Start()
   {
     StartPosition = new Vector2();
-    FieldMap = new int[7, 7];
+    FieldMap = new string[10 + 2, 10 + 2];
   }
 
   public void SetInterval(float interval)
@@ -30,23 +30,23 @@ public class MiniField : MonoBehaviour
 
   public void Init()
   {
-    transform.position = new Vector3(StartPosition.x + 2 * TileInterval, StartPosition.y + 2 * TileInterval, 0);
+    transform.position = new Vector3(StartPosition.x + (10 / 2 - 0.5f) * TileInterval, StartPosition.y + (10 / 2 - 0.5f) * TileInterval, 0);
 
     // (Instantiate(MainField.Wall) as BaseObject).transform.position = transform.position;
 
-    for (int i = 1; i <= 5; i++)
+    for (int i = 1; i <= 10; i++)
     {
-      for (int j = 1; j <= 5; j++)
+      for (int j = 1; j <= 10; j++)
       {
         switch (FieldMap[i, j])
         {
-          case 0:
-            MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval));
+          case "1P":
+            MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
             MainField.Player1.transform.position = MainField.Player1.GetSpawnPos();
             break;
 
-          case 1:
-            MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval));
+          case "2P":
+            MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
             MainField.Player2.transform.position = MainField.Player2.GetSpawnPos();
             break;
         }
@@ -55,15 +55,15 @@ public class MiniField : MonoBehaviour
 
     if (GenerateField == true)
     {
-      for (int i = 1; i <= 5; i++)
+      for (int i = 1; i <= 10; i++)
       {
-        for (int j = 1; j <= 5; j++)
+        for (int j = 1; j <= 10; j++)
         {
           BaseObject obj = null;
 
           switch (FieldMap[i, j])
           {
-            case 2:
+            case "1":
               {
                 obj = Instantiate(MainField.Wall) as BaseObject;
 
@@ -191,35 +191,35 @@ public class MiniField : MonoBehaviour
               }
               break;
 
-            case 3:
-              obj = Instantiate(MainField.Floor) as BaseObject;
-              break;
-
-            case 4:
-              obj = Instantiate(MainField.Enemy) as BaseObject;
-              break;
-
-            case 5:
+            case "7":
               obj = Instantiate(MainField.Star) as BaseObject;
               break;
 
-            case 6:
-              obj = Instantiate(MainField.Portal) as BaseObject;
-              break;
+            //case "3":
+            //  obj = Instantiate(MainField.Floor) as BaseObject;
+            //  break;
+
+            //case "4":
+            //  obj = Instantiate(MainField.Enemy) as BaseObject;
+            //  break;
+
+            //case "6":
+            //  obj = Instantiate(MainField.Portal) as BaseObject;
+            //  break;
 
             default:
               continue;
           }
 
-          obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval);
-          // obj.transform.position = new Vector2(StartPosition.x + (int)((j - 1) * TileInterval), StartPosition.y + (int)((7 - i - 1 - 1) * TileInterval));
+          obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
+          // obj.transform.position = new Vector2(StartPosition.x + (int)((j - 1) * TileInterval), StartPosition.y + (int)((10 + 2 - i - 1 - 1) * TileInterval));
           obj.transform.SetParent(transform);
         }
       }
     }
   }
 
-  public void SetMap(int[,] fieldMap)
+  public void SetMap(string[,] fieldMap)
   {
     FieldMap = fieldMap;
   }

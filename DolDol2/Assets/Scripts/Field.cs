@@ -31,7 +31,7 @@ public class Field : MonoBehaviour
     private MiniField CurrentField;
     private Vector2 PrevPos;
 
-    private FieldDataBase Data;
+    private FieldDataFromFileCSV Data;
 
     public bool GenerateField = true;
     private float TileInterval = 1.8f;
@@ -49,20 +49,21 @@ public class Field : MonoBehaviour
 
         MiniFieldMap = new MiniField[RangeI, RangeJ];
 
-        switch(FieldType)
-        {
-            case 0:
-                Data = new FieldData(Stage);
-            break;
+        Data = new FieldDataFromFileCSV(Stage);
+        //switch(FieldType)
+        //{
+        //    case 0:
+        //        Data = new FieldData(Stage);
+        //    break;
 
-            case 1:
-                Data = new FieldDataOld(Stage);
-            break;
+        //    case 1:
+        //        Data = new FieldDataOld(Stage);
+        //    break;
 
-            case 2:
-                Data = new FieldDataFromFile(Stage);
-            break;
-        }
+        //    case 2:
+        //        Data = new FieldDataFromFile(Stage);
+        //    break;
+        //}
 
         PrevPos = new Vector2();
 
@@ -72,7 +73,7 @@ public class Field : MonoBehaviour
             {
                 for (int j = 0; j < RangeJ; j++)
                 {
-                    int[,] dataMap = Data.GetPartialMap(RangeI - i - 1, j);
+                    string[,] dataMap = Data.GetPartialMapCSV(RangeI - i - 1, j);
 
                     if (dataMap == null)
                     {
@@ -83,13 +84,13 @@ public class Field : MonoBehaviour
                     MiniFieldMap[i, j].name = "minifield_" + i + "_" + j;
                     MiniFieldMap[i, j].SetMainField(this);
                     // Debug.Log("x : " + j + " " + "y : " + i);
-                    // Debug.Log((int)(5 * TileInterval));
-                    // Debug.Log(5 * TileInterval);
+                    // Debug.Log((int)(10 * TileInterval));
+                    // Debug.Log(10 * TileInterval);
                     // Debug.Log("x : " + j + " " + "y : " + i);
-                    // Debug.Log("x2 : " + j * 5 * TileInterval + " " + "y2 : " + i * 5 * TileInterval);
-                    // Debug.Log("x3 : " + j * (int)(5 * TileInterval) + " " + "y3 : " + i * (int)(5 * TileInterval));
-                    MiniFieldMap[i, j].SetStartPosition(new Vector2(j * 5 * TileInterval, i * 5 * TileInterval));
-                    // MiniFieldMap[i, j].SetStartPosition(new Vector2(j * (int)(5 * TileInterval), i * (int)(5 * TileInterval) +));
+                    // Debug.Log("x2 : " + j * 10 * TileInterval + " " + "y2 : " + i * 10 * TileInterval);
+                    // Debug.Log("x3 : " + j * (int)(10 * TileInterval) + " " + "y3 : " + i * (int)(10 * TileInterval));
+                    MiniFieldMap[i, j].SetStartPosition(new Vector2(j * 10 * TileInterval, i * 10 * TileInterval));
+                    // MiniFieldMap[i, j].SetStartPosition(new Vector2(j * (int)(10 * TileInterval), i * (int)(10 * TileInterval) +));
                     MiniFieldMap[i, j].SetInterval(TileInterval);
                     MiniFieldMap[i, j].SetMap(dataMap);
                     MiniFieldMap[i, j].Init();
@@ -147,21 +148,21 @@ public class Field : MonoBehaviour
             anotherY = Player1.transform.position.y;
         }
 
-        // Debug.Log((int)(5 * TileInterval) + 1);
-        // Debug.Log((int)(5 * TileInterval));
-        // Debug.Log((5 * TileInterval));
+        // Debug.Log((int)(10 * TileInterval) + 1);
+        // Debug.Log((int)(10 * TileInterval));
+        // Debug.Log((10 * TileInterval));
 
-        // PlayerIndexJ = (int)x / ((int)(5 * TileInterval) + 1);
-        // PlayerIndexI = (int)y / ((int)(5 * TileInterval) + 1);
+        // PlayerIndexJ = (int)x / ((int)(10 * TileInterval) + 1);
+        // PlayerIndexI = (int)y / ((int)(10 * TileInterval) + 1);
 
-        // AnotherPlayerIndexJ = (int)anotherX / ((int)(5 * TileInterval) + 1);
-        // AnotherPlayerIndexI = (int)anotherY / ((int)(5 * TileInterval) + 1);
+        // AnotherPlayerIndexJ = (int)anotherX / ((int)(10 * TileInterval) + 1);
+        // AnotherPlayerIndexI = (int)anotherY / ((int)(10 * TileInterval) + 1);
 
-        PlayerIndexJ = (int)((Math.Round(x)) / (5 * TileInterval));
-        PlayerIndexI = (int)((Math.Round(y)) / (5 * TileInterval));
+        PlayerIndexJ = (int)((Math.Round(x)) / (10 * TileInterval));
+        PlayerIndexI = (int)((Math.Round(y)) / (10 * TileInterval));
 
-        AnotherPlayerIndexJ = (int)(Math.Round(anotherX) / (5 * TileInterval));
-        AnotherPlayerIndexI = (int)(Math.Round(anotherY) / (5 * TileInterval));
+        AnotherPlayerIndexJ = (int)(Math.Round(anotherX) / (10 * TileInterval));
+        AnotherPlayerIndexI = (int)(Math.Round(anotherY) / (10 * TileInterval));
 
         if (CurrentMiniFieldIndexI != PlayerIndexI || CurrentMiniFieldIndexJ != PlayerIndexJ)
         {
@@ -176,8 +177,8 @@ public class Field : MonoBehaviour
             // Debug.Log("y :" + y);
             // Debug.Log("x :" + x);
 
-            // Debug.Log("x :" + (x - TileInterval / (5 * TileInterval)));
-            // Debug.Log("y :" + (y - TileInterval / (5 * TileInterval)));
+            // Debug.Log("x :" + (x - TileInterval / (10 * TileInterval)));
+            // Debug.Log("y :" + (y - TileInterval / (10 * TileInterval)));
 
             // Debug.Log("I :" + CurrentMiniFieldIndexI);
             // Debug.Log("J :" + CurrentMiniFieldIndexJ);

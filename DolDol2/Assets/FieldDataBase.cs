@@ -5,6 +5,7 @@ using UnityEngine;
 public class FieldDataBase
 {
     public int[,] FieldMap;
+    public string[,] FieldMapCSV;
     public int IndexI = 0;
     public int IndexJ = 0;
     public FieldDataBase() {}

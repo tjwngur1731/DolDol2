@@ -2,20 +2,26 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.IO;
+using System.Text;
 using System;
 
 public class CustomEditorTest : EditorWindow
 {
   public Rect windowRect = new Rect(100, 100, 200, 200);
   private Vector3 mousepos;
-  private int[,] fieldMap = null;
-  private BaseObject[,] baseObjectFieldMap = null;
+  private string[,] fieldMap = null;
+  private GameObject[,] baseObjectFieldMap = null;
   private bool isActive = false;
   private float TileInterval = 1.8f;
   private float minifildInterval = 9.0f;
   private GameObject root = null;
   private GameObject[,] minifield = null;
-  private int type = -1;
+  private string type = "";
+  private bool drawLine = true;
+  private Vector2 minifieldNumber = new Vector2(5, 5);
+  private Vector2 minifieldSize = new Vector2(10, 10);
+  public string loadFileName = "1-1";
+  public string saveFileName = "SaveTest";
   void OnGUI()
   {
 
@@ -24,32 +30,173 @@ public class CustomEditorTest : EditorWindow
     var wallTex = ((Resources.Load("Prefab/Wall") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
     if (GUILayout.Button(wallTex, GUILayout.Width(50), GUILayout.Height(40)))
     {
-      type = 2;
+      type = "1";
     }
     GUILayout.Label("Wall");
 
     var player1Tex = ((Resources.Load("Prefab/Player 1") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
     if (GUILayout.Button(player1Tex, GUILayout.Width(50), GUILayout.Height(40)))
     {
-      type = 0;
+      type = "1P";
     }
     GUILayout.Label("Player1");
 
     var player2Tex = ((Resources.Load("Prefab/Player 2") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
     if (GUILayout.Button(player2Tex, GUILayout.Width(50), GUILayout.Height(40)))
     {
-      type = 1;
+      type = "2P";
     }
     GUILayout.Label("Player2");
 
     if (GUILayout.Button("Save", GUILayout.Width(50), GUILayout.Height(40)))
     {
-      SaveToFile("SaveTest");
+      SaveToFile(saveFileName);
     }
 
     GUILayout.Label("Wall");
 
+    if (GUILayout.Button("Test", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+     drawLine = !drawLine;
+    }
+    GUILayout.Label("Test");
+
+    if (GUILayout.Button("Load", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      Debug.Log(loadFileName);
+      ReadFromFile(loadFileName);
+    }
+    GUILayout.Label("Load");
+
     EndWindows();
+  }
+
+  void Update()
+  {
+    if (drawLine == true)
+    {
+      DrawTileGrid();
+      DrawMinifieldGrid();
+    }
+  }
+  
+  void ReadFromFile(string stage)
+  {
+    string filename = "CellMap/" + stage + ".csv";
+
+    using (FileStream fs = new FileStream(filename, FileMode.Open))
+    {
+      using (StreamReader sr = new StreamReader(fs, Encoding.UTF8, false))
+      {
+        string lines = null;
+        string[] values = null;
+
+        int i = 50 - 1;
+
+        while ((lines = sr.ReadLine()) != null)
+        {
+          // if (string.IsNullOrEmpty(lines)) return;
+
+          values = lines.Split(',');
+
+          GameObject obj = null;
+
+          for (int j = 0; j < values.Length; j++)
+          {
+            switch (values[j])
+            {
+              case "1P":
+                obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
+                break;
+
+              case "2P":
+                obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
+                break;
+
+              case "1":
+                obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+                break;
+
+              case "7":
+                obj = Instantiate(Resources.Load("Prefab/Star")) as GameObject;
+                break;
+
+                default:
+                continue;
+            }
+
+            if (obj == null)
+            {
+              continue;
+            }
+
+            fieldMap[i + 1, j + 1] = values[j];
+            baseObjectFieldMap[i + 1, j + 1] = obj;
+
+            obj.transform.position = new Vector3(j * TileInterval, i * TileInterval, 0.0f);
+
+            int indexI = i / (int)minifieldSize.y;
+            int indexJ = j / (int)minifieldSize.x;
+
+            obj.transform.SetParent(minifield[indexI, indexJ].transform);
+          }
+
+          // i++;
+          i--;
+        }
+
+        int temp = 0;
+      }
+    }
+  }
+
+  void DrawMinifieldGrid()
+  {
+    if (minifield == null)
+    {
+      return;
+    }
+
+    for (int i = 0; i < 5; i++)
+      {
+        for (int j = 0; j < 5; j++)
+        {
+          Vector3 pos = new Vector3(j * minifieldSize.x * TileInterval, i * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+          Vector3 dest = new Vector3((j + 1) * minifieldSize.x * TileInterval, (i + 1) * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+            
+          Debug.DrawLine(pos, new Vector3(dest.x, pos.y, 0), new Color(1.0f, 0.0f, 0.0f));
+          Debug.DrawLine(pos, new Vector3(pos.x, dest.y, 0), new Color(1.0f, 0.0f, 0.0f));
+
+          Debug.DrawLine(new Vector3(dest.x, pos.y, 0), dest, new Color(1.0f, 0.0f, 0.0f));
+          Debug.DrawLine(new Vector3(pos.x, dest.y, 0), dest, new Color(1.0f, 0.0f, 0.0f));
+        }
+      }
+  }
+  
+  void DrawTileGrid()
+  {
+    if (fieldMap == null)
+    {
+      return;
+    }
+
+    int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+    int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+    
+    for (int i = 0; i < rangeI; i++)
+    {
+      for (int j = 0; j < rangeJ; j++)
+      {
+        Vector3 pos = new Vector3(j * TileInterval, i * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+        Vector3 dest = new Vector3((j + 1) * TileInterval, (i + 1) * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+
+        Debug.DrawLine(pos, new Vector3(dest.x, pos.y, 0), new Color(1.0f, 1.0f, 0.0f));
+        Debug.DrawLine(pos, new Vector3(pos.x, dest.y, 0), new Color(1.0f, 1.0f, 0.0f));
+
+        Debug.DrawLine(new Vector3(dest.x, pos.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
+        Debug.DrawLine(new Vector3(pos.x, dest.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
+      }
+    }
   }
 
   void OnEnable()
@@ -79,24 +226,30 @@ public class CustomEditorTest : EditorWindow
 
   void SaveToFile(string stage)
   {
-    string filename = "CellMap/" + stage + ".cellmap";
+    int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+    int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+
+    string filename = "CellMap/" + stage + ".csv";
 
     using (StreamWriter outputFile = new StreamWriter(@filename))
     {
-      for (int i = 25; i >= 1; i--)
+      // for (int i = 1; i <= rangeI; i++)
+      for (int i = rangeI; i >= 1; i--)
       {
         string line = "";
-        for (int j = 1; j <= 25; j++)
+
+        for (int j = 1; j <= rangeJ; j++)
         {
           // Debug.Log(fieldMap[i + 1,j + 1]);
-          int ch = fieldMap[i, j];
-          if (ch == ' ')
+          string value = fieldMap[i, j];
+
+          Debug.Log(fieldMap[i, j]);
+          // line += ("{" + value + "}");
+          line += value;
+
+          if (j != rangeJ)
           {
-            line += (char)ch;
-          }
-          else
-          {
-            line += ch;
+            line += ",";
           }
         }
 
@@ -111,68 +264,93 @@ public class CustomEditorTest : EditorWindow
     // {
     //     return;
     // }
-
-    Event current = Event.current;
-
-    if (root == null)
+    if (Application.isPlaying)
     {
-      root = new GameObject();
-      root.name = "MapEditorRoot";
-    }
-
-    if (minifield == null)
-    {
-      minifield = new GameObject[5, 5];
-
-      for (int i = 0; i < 5; i++)
+      if (root.activeInHierarchy == true)
       {
-        for (int j = 0; j < 5; j++)
-        {
-          minifield[i, j] = new GameObject();
-          minifield[i, j].name = "minifield_" + i + "_" + j;
-          minifield[i, j].transform.position = new Vector2(j * 5 * TileInterval, i * 5 * TileInterval);
-          minifield[i, j].transform.SetParent(root.transform);
-        }
+        root.SetActive(false);
       }
     }
-
-    if (fieldMap == null)
+    else if (Application.isEditor)
     {
-      fieldMap = new int[27, 27];
+      Event current = Event.current;
 
-      for (int i = 0; i < 27; i++)
+      if (root == null)
       {
-        for (int j = 0; j < 27; j++)
+        root = new GameObject();
+        root.name = "MapEditorRoot";
+      }
+      else
+      {
+        if (root.activeInHierarchy == false)
         {
-          fieldMap[i, j] = ' ';
+          root.SetActive(true);
         }
       }
-    }
 
-    if (baseObjectFieldMap == null)
-    {
-      baseObjectFieldMap = new BaseObject[27, 27];
-
-      for (int i = 0; i < 27; i++)
+      if (minifield == null)
       {
-        for (int j = 0; j < 27; j++)
+        int indexI = (int)minifieldNumber.y;
+        int indexJ = (int)minifieldNumber.y;
+
+        minifield = new GameObject[indexI, indexJ];
+
+        for (int i = 0; i < indexI; i++)
         {
-          baseObjectFieldMap[i, j] = null;
+          for (int j = 0; j < indexJ; j++)
+          {
+            minifield[i, j] = new GameObject();
+            minifield[i, j].name = "minifield_" + i + "_" + j;
+            minifield[i, j].transform.position = new Vector2(j * 5 * TileInterval, i * 5 * TileInterval);
+            minifield[i, j].transform.SetParent(root.transform);
+          }
         }
       }
-    }
 
-    Camera cam = SceneView.lastActiveSceneView.camera;
+      if (fieldMap == null)
+      {
+        int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+        int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
 
-    mousepos = current.mousePosition;
-    mousepos.y = Screen.height - mousepos.y - 36.0f;
-    mousepos = cam.ScreenToWorldPoint(mousepos);
-    mousepos.z = 0;
+        fieldMap = new string[rangeI + 2, rangeJ + 2];
 
-    if (current.type == EventType.MouseDown && current.button == 0)
-    {
-    
-      AddObject(mousepos);
+        for (int i = 0; i < rangeI + 2; i++)
+        {
+          for (int j = 0; j < rangeJ + 2; j++)
+          {
+            fieldMap[i, j] = " ";
+          }
+        }
+      }
+
+      if (baseObjectFieldMap == null)
+      {
+        int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+        int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+
+        baseObjectFieldMap = new GameObject[rangeI + 2, rangeJ + 2];
+
+        for (int i = 0; i < rangeI + 2; i++)
+        {
+          for (int j = 0; j < rangeJ + 2; j++)
+          {
+            baseObjectFieldMap[i, j] = null;
+          }
+        }
+      }
+
+      Camera cam = SceneView.lastActiveSceneView.camera;
+
+      mousepos = current.mousePosition;
+      mousepos.y = Screen.height - mousepos.y - 36.0f;
+      mousepos = cam.ScreenToWorldPoint(mousepos);
+      mousepos.z = 0;
+
+      if (current.type == EventType.MouseDown && current.button == 0)
+      {
+
+        AddObject(mousepos);
+      }
     }
   }
 
@@ -192,27 +370,36 @@ public class CustomEditorTest : EditorWindow
     int fieldIndexI = ((int)Math.Round(pos.y / TileInterval) + 1);
     int fieldIndexJ = ((int)Math.Round(pos.x / TileInterval) + 1);
 
-    if (fieldMap[fieldIndexI, fieldIndexJ] != ' ')
+    if (fieldMap[fieldIndexI, fieldIndexJ] != " ")
     {
-      fieldMap[fieldIndexI, fieldIndexJ] = ' ';
+      fieldMap[fieldIndexI, fieldIndexJ] = " ";
+      
+      GameObject current = baseObjectFieldMap[fieldIndexI, fieldIndexJ];
       baseObjectFieldMap[fieldIndexI, fieldIndexJ] = null;
+
+      current.transform.SetParent(null);
+
+      DestroyImmediate(current);
     }
 
     GameObject obj = null;
 
     switch (type)
     {
-      case 0:
+      case "1P":
         obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
         break;
 
-      case 1:
+      case "2P":
         obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
         break;
 
-      case 2:
+      case "1":
         obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+        break;
 
+      case "7":
+        obj = Instantiate(Resources.Load("Prefab/Star")) as GameObject;
         break;
     }
 
@@ -222,7 +409,7 @@ public class CustomEditorTest : EditorWindow
     }
 
     fieldMap[fieldIndexI, fieldIndexJ] = type;
-    baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj.GetComponent<BaseObject>();
+    baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj;
 
     obj.transform.position = pos;
     obj.transform.SetParent(minifield[indexI, indexJ].transform);
