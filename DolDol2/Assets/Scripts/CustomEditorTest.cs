@@ -13,15 +13,15 @@ public class CustomEditorTest : EditorWindow
   private GameObject[,] baseObjectFieldMap = null;
   private bool isActive = false;
   private float TileInterval = 1.8f;
-  private float minifildInterval = 9.0f;
+  private float minifildInterval = 18.0f;
   private GameObject root = null;
   private GameObject[,] minifield = null;
   private string type = "";
   private bool drawLine = true;
   private Vector2 minifieldNumber = new Vector2(5, 5);
   private Vector2 minifieldSize = new Vector2(10, 10);
-  public string loadFileName = "1-1";
-  public string saveFileName = "SaveTest";
+  private string loadFileName = "";
+  private string saveFileName = "";
   void OnGUI()
   {
 
@@ -32,43 +32,78 @@ public class CustomEditorTest : EditorWindow
     {
       type = "1";
     }
-    GUILayout.Label("Wall");
+    // GUILayout.Label("Wall");
 
-    var player1Tex = ((Resources.Load("Prefab/Player 1") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
-    if (GUILayout.Button(player1Tex, GUILayout.Width(50), GUILayout.Height(40)))
+    // var player1Tex = ((Resources.Load("Prefab/Player 1") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
+    if (GUILayout.Button("1P", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "1P";
     }
-    GUILayout.Label("Player1");
+    // GUILayout.Label("Player1");
 
-    var player2Tex = ((Resources.Load("Prefab/Player 2") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
-    if (GUILayout.Button(player2Tex, GUILayout.Width(50), GUILayout.Height(40)))
+    // var player2Tex = ((Resources.Load("Prefab/Player 2") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
+    if (GUILayout.Button("2P", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "2P";
     }
-    GUILayout.Label("Player2");
+    // GUILayout.Label("Player2");
+
+    if (GUILayout.Button("Star", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      type = "7";
+    }
+
+    if (GUILayout.Button("Portal", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      type = "5";
+    }
+
+    if (GUILayout.Button("Del", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      type = " ";
+    }
+
+    if (GUILayout.Button("Clear", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      ClearMap();
+    }
+
+    saveFileName = EditorGUILayout.TextField("Save File Name", saveFileName);
 
     if (GUILayout.Button("Save", GUILayout.Width(50), GUILayout.Height(40)))
     {
       SaveToFile(saveFileName);
     }
 
-    GUILayout.Label("Wall");
-
-    if (GUILayout.Button("Test", GUILayout.Width(50), GUILayout.Height(40)))
-    {
-     drawLine = !drawLine;
-    }
-    GUILayout.Label("Test");
-
+    loadFileName = EditorGUILayout.TextField("Load File Name", loadFileName);
     if (GUILayout.Button("Load", GUILayout.Width(50), GUILayout.Height(40)))
     {
-      Debug.Log(loadFileName);
+      ClearMap();
       ReadFromFile(loadFileName);
     }
-    GUILayout.Label("Load");
 
     EndWindows();
+  }
+
+  void ClearMap()
+  {
+    int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+    int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+
+    for (int i = 0; i < rangeI + 2; i++)
+    {
+      for (int j = 0; j < rangeJ + 2; j++)
+      {
+        if (baseObjectFieldMap[i, j] == null)
+        {
+          continue;
+        }
+
+        baseObjectFieldMap[i, j].transform.SetParent(null);
+        DestroyImmediate(baseObjectFieldMap[i, j]);
+        fieldMap[i, j] = " ";
+      }
+    }
   }
 
   void Update()
@@ -95,8 +130,6 @@ public class CustomEditorTest : EditorWindow
 
         while ((lines = sr.ReadLine()) != null)
         {
-          // if (string.IsNullOrEmpty(lines)) return;
-
           values = lines.Split(',');
 
           GameObject obj = null;
@@ -115,6 +148,10 @@ public class CustomEditorTest : EditorWindow
 
               case "1":
                 obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+                break;
+
+              case "5":
+                obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
                 break;
 
               case "7":
@@ -141,11 +178,8 @@ public class CustomEditorTest : EditorWindow
             obj.transform.SetParent(minifield[indexI, indexJ].transform);
           }
 
-          // i++;
           i--;
         }
-
-        int temp = 0;
       }
     }
   }
@@ -348,9 +382,28 @@ public class CustomEditorTest : EditorWindow
 
       if (current.type == EventType.MouseDown && current.button == 0)
       {
-
-        AddObject(mousepos);
+        if (type != " ")
+        {
+          AddObject(mousepos);
+        }
+        else
+        {
+          DeleteObject(mousepos);
+        }
       }
+    }
+  }
+
+  void DeleteObject(Vector3 pos)
+  {
+    int fieldIndexI = ((int)Math.Round(pos.y / TileInterval) + 1);
+    int fieldIndexJ = ((int)Math.Round(pos.x / TileInterval) + 1);
+    
+    if (baseObjectFieldMap[fieldIndexI, fieldIndexJ])
+    {
+      baseObjectFieldMap[fieldIndexI, fieldIndexJ].transform.SetParent(null);
+      DestroyImmediate(baseObjectFieldMap[fieldIndexI, fieldIndexJ]);
+      fieldMap[fieldIndexI, fieldIndexJ] = " ";
     }
   }
 
@@ -396,6 +449,10 @@ public class CustomEditorTest : EditorWindow
 
       case "1":
         obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+        break;
+
+      case "5":
+        obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
         break;
 
       case "7":

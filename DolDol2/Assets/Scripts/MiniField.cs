@@ -191,6 +191,10 @@ public class MiniField : MonoBehaviour
               }
               break;
 
+            case "5":
+              obj = (Instantiate(Resources.Load("Prefab/Portal")) as GameObject).GetComponent<Portal>();
+              break;
+
             case "7":
               obj = Instantiate(MainField.Star) as BaseObject;
               break;
