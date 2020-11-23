@@ -9,16 +9,16 @@ public class Player : BaseObject
     //StageSelect stageSelect;
 
     Rigidbody2D rigid;
-    
+
 
     void Start()
     {
-      rigid = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             gameObject.transform.position = spawnPos;
         }
@@ -26,33 +26,45 @@ public class Player : BaseObject
         {
             GameManager.Instance.starCount += 1;
         }
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Finish")
         {
-            // Next Stage
             Scene scene = SceneManager.GetActiveScene();
 
-            if (scene.buildIndex == 0)
+            if (scene.buildIndex == 0)      // 메인화면인 경우, 챕터선택화면으로 넘김
             {
                 SceneManager.LoadScene("ChapterSelect");
             }
-            else if (scene.buildIndex == SceneManager.sceneCount-1)
+            else if (GameManager.Instance.starCount > 0)
             {
-                Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
-                StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
-                SceneManager.LoadScene("StageSelect");
+                StageSelect.clear[StageSelect.chaptNum].stageStar[StageSelect.stageNum - 1] = GameManager.Instance.starCount;
+                GameManager.Instance.starCount = 0;
+                if (scene.buildIndex == SceneManager.sceneCount - 1)           // 챕터의 마지막 스테이지인 경우
+                {
+                    Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
+                    //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
+                    GameManager.Instance.starCount = 0;
+                    SceneManager.LoadScene("StageSelect");
+                }
+                else
+                {
+                    Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
+                    //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
+                    //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
+                    SceneManager.LoadScene(scene.buildIndex + 1);
+                }
+
             }
             else
             {
-                Debug.Log(GameManager.Instance.starCount +" " +scene.buildIndex);
-                //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
-                StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
-                SceneManager.LoadScene(scene.buildIndex + 1);
+                GameManager.Instance.starCount = 0;
+                SceneManager.LoadScene(scene.buildIndex);
             }
+
         }
     }
 
@@ -68,6 +80,6 @@ public class Player : BaseObject
 
     public void SetIsKinematic(bool isKinematic)
     {
-      rigid.isKinematic = isKinematic;
+        rigid.isKinematic = isKinematic;
     }
 }

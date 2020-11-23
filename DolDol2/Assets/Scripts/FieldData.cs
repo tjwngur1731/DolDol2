@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class FieldData : FieldDataBase
 {
-  
 
-  public FieldData()
-  {
 
-  }
-  public FieldData(string stage)
-  {
-    int[,] InitMap = null;
-
-    if (stage == "0")
+    public FieldData()
     {
-      InitMap = new int[,]
-      {
+
+    }
+    public FieldData(string stage)
+    {
+        int[,] InitMap = null;
+
+        if (stage == "0")
+        {
+            InitMap = new int[,]
+            {
             {2, 2, 2, 2, 2},
             {2, 6, ' ', ' ', 2},
             {2, ' ', ' ', ' ', 2},
             {2, ' ', 0, 1, 2},
             {2, 2, 2, 2, 2},
-      };
-      IndexI = 1;
-      IndexJ = 1;
-    }
-    else if (stage == "1")
-    {
-      InitMap = new int[,]
-      {
+            };
+            IndexI = 1;
+            IndexJ = 1;
+        }
+        else if (stage == "1")
+        {
+            InitMap = new int[,]
+            {
             {2, 2, 2, 2, 2, ' ', ' ', ' ', ' ', ' '},
             {' ', ' ', ' ', ' ', 2, ' ', ' ', ' ', ' ', ' '},
             {5, 5, 5, ' ', 2, ' ', ' ', ' ', ' ', ' '},
@@ -41,14 +41,14 @@ public class FieldData : FieldDataBase
             {2, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
             {2, ' ', 1, ' ', ' ', ' ', ' ', ' ', ' ', ' '},
             {2, 2, 2, 2, 2, ' ', ' ', ' ', ' ', ' '},
-      };
-      IndexI = 2;
-      IndexJ = 2;
-    }
-    else if (stage == "2")
-    {
-      InitMap = new int[,]
-      {
+            };
+            IndexI = 2;
+            IndexJ = 2;
+        }
+        else if (stage == "2")
+        {
+            InitMap = new int[,]
+            {
             {2, ' ', 4, 4, 2, ' ', ' ', ' ', ' ', ' '},
             {2, 6, ' ', ' ', 2, ' ', ' ', ' ', ' ', ' '},
             {2, 6, ' ', ' ', 2, ' ', ' ', ' ', ' ', ' '},
@@ -59,14 +59,14 @@ public class FieldData : FieldDataBase
             {2, 3, 3, 3, 2, ' ', ' ', ' ', ' ', ' '},
             {2, ' ', ' ', 0, 2, ' ', ' ', ' ', ' ', ' '},
             {2, 2, 2, 2, 2, ' ', ' ', ' ', ' ', ' '},
-      };
-      IndexI = 2;
-      IndexJ = 2;
-    }
-    else if (stage == "3")
-    {
-      InitMap = new int[,]
-      {
+            };
+            IndexI = 2;
+            IndexJ = 2;
+        }
+        else if (stage == "3")
+        {
+            InitMap = new int[,]
+            {
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {2, 2, 5, ' ', ' ', ' ', ' ', 0, ' ', ' ', ' ', ' ', ' ', 2, 2},
@@ -78,15 +78,15 @@ public class FieldData : FieldDataBase
             {2, 6, ' ', ' ', 5, ' ', ' ', ' ', 2, 2, 2, ' ', ' ', ' ', 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ' ', ' ', ' ', 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ' ', 5, 1, 2}
-      };
+            };
 
-      IndexI = 2;
-      IndexJ = 3;
-    }
-    else if (stage == "4")
-    {
-      InitMap = new int[,]
-      {
+            IndexI = 2;
+            IndexJ = 3;
+        }
+        else if (stage == "4")
+        {
+            InitMap = new int[,]
+            {
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -110,15 +110,15 @@ public class FieldData : FieldDataBase
             {2, 2, 2, 2, 2, 4, ' ', ' ', ' ', ' '},
             {2, 2, 2, 2, 2, 2, 4, 4, 4, 4},
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
-      };
+            };
 
-      IndexI = 4;
-      IndexJ = 2;
-    }
-    else if (stage == "5")
-    {
-      InitMap = new int[,]
-      {
+            IndexI = 4;
+            IndexJ = 2;
+        }
+        else if (stage == "5")
+        {
+            InitMap = new int[,]
+            {
                 {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
                 {2,' ',' ',' ',2,2,3,5,3,2,' ',' ',' ',2,2,' ',' ',' ',' ',2},
                 {2,' ',' ',' ',' ',' ',' ',3,1,3,' ',' ',' ',' ',' ',' ',' ', 3,' ',2},
@@ -136,45 +136,48 @@ public class FieldData : FieldDataBase
                 {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', 2, 2, 4, 4, 2},
                 {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', 2, 2, 2, 2, 2},
                 {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', 2, 2, 2, 2, 2}
-      };
+            };
 
-      IndexI = 3;
-      IndexJ = 4;
-    }
-
-    FieldMap = new int[IndexI * 5 + 2, IndexJ * 5 + 2];
-
-    for (int i = 0; i < IndexI * 5 + 2; i++) {
-      for (int j = 0; j < IndexJ * 5 + 2; j++) {
-        FieldMap[i,j] = -1;
-        
-        if (i > 0 && i < IndexI * 5 + 1 && j > 0 && j < IndexJ * 5 + 1) {
-          FieldMap[i,j] = InitMap[i - 1, j - 1];
+            IndexI = 3;
+            IndexJ = 4;
         }
-      }  
+
+        FieldMap = new int[IndexI * 5 + 2, IndexJ * 5 + 2];
+
+        for (int i = 0; i < IndexI * 5 + 2; i++)
+        {
+            for (int j = 0; j < IndexJ * 5 + 2; j++)
+            {
+                FieldMap[i, j] = -1;
+
+                if (i > 0 && i < IndexI * 5 + 1 && j > 0 && j < IndexJ * 5 + 1)
+                {
+                    FieldMap[i, j] = InitMap[i - 1, j - 1];
+                }
+            }
+        }
     }
-  }
 
-  public override int[,] GetPartialMap(int indexI, int indexJ)
-  {
-    int[,] resultMap = new int[7, 7];
-
-    if (indexI >= IndexI || indexJ >= IndexJ)
+    public override int[,] GetPartialMap(int indexI, int indexJ)
     {
-      return null;
+        int[,] resultMap = new int[7, 7];
+
+        if (indexI >= IndexI || indexJ >= IndexJ)
+        {
+            return null;
+        }
+
+        int intervalI = indexI * 5;
+        int intervalJ = indexJ * 5;
+
+        for (int i = 0; i < 7; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                resultMap[i, j] = FieldMap[i + intervalI, j + intervalJ];
+            }
+        }
+
+        return resultMap;
     }
-
-    int intervalI = indexI * 5;
-    int intervalJ = indexJ * 5;
-
-    for (int i = 0; i < 7; i++)
-    {
-      for (int j = 0; j < 7; j++)
-      {
-        resultMap[i, j] = FieldMap[i + intervalI, j + intervalJ];
-      }
-    }
-
-    return resultMap;
-  }
 }

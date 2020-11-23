@@ -5,25 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class StageSelect : MonoBehaviour
-{
-    public bool[] StageClear;
+{ 
     public GameObject stageManager;
     public GameObject[] stage;
     public Sprite[] icon;
 
-    public static int[] totalStarCount;
-    public static int[] starCount;
-    public static int[] prevStarCount;
-    public static int chaptNum;
+    public static int[] totalStarCount;     // 각 챕터별 별 개수 총 합
+    public static int[] starCount;          // 각 스테이지 별 개수
+    public static int[] prevStarCount;      // 이전 별 개수 (새로 플레이시 비교 위함)
+    public static int chaptNum;     // 선택한 챕터 번호
 
-    /*public Sprite star0;
-    public Sprite star1;
-    public Sprite star2;
-    public Sprite star3;
-    */
-    private int stageNum;
+    public static StageClear[] clear;
+    static bool[] chaptClear = new bool[3];     // 3 = 챕터 개수
+    public static int stageNum;
 
-    
+
+
 
     void Start()
     {
@@ -32,11 +29,8 @@ public class StageSelect : MonoBehaviour
         stage = new GameObject[stageNum];
         starCount = new int[stageNum];
         prevStarCount = new int[stageNum];
-        StageClear = new bool[stageNum];
-        //icon = new Sprite[4];
+        clear = new StageClear[3];        // 챕터 개수 = 3
 
-        //Canvas canvas;
-        // stage = GameObject.FindGameObjectsWithTag("Button");
 
         for (int i = 0; i < starCount.Length; i++)
         {
@@ -44,36 +38,30 @@ public class StageSelect : MonoBehaviour
             totalStarCount[i] = 0;
         }
 
-        for (int i = 0; i < StageClear.Length; i++)
+        for (int i = 0; i < clear.Length; i++)
         {
-            if (i == 0) StageClear[i] = true;
-            // if(stageManager.GetComponent<StageClear>().StageClear[i] == false)
-            else StageClear[i] = false;
+            clear[i].stageClear[0] = true;
+            for (int j = 1; j < clear[i].stageClear.Length; j++)
+                clear[i].stageClear[j] = false;
         }
 
-        for (int i = 0; i < stageNum; i++)
+        for (int i = 0; i < clear.Length; i++)
         {
-            if(StageClear[i] == false)
+            for (int j = 1; j < clear[i].stageClear.Length; j++)
             {
-                //Debug.Log("Color");
-                //stage[i].material. = new Color(160/255, 160/255, 160/255);
+                if (chaptClear[i] == false)
+                {
+                    //Debug.Log("Color");
+                    //stage[i].material. = new Color(160/255, 160/255, 160/255);
+                }
+
+                if (starCount[i] > prevStarCount[i])
+                    prevStarCount[i] = starCount[i];
             }
-
-            if (starCount[i] > prevStarCount[i])
-                prevStarCount[i] = starCount[i];
-
-            //stage[2].image.sprite = icon[2];
-                //GetComponent<SpriteRenderer>().sprite = icon[2];
         }
     }
     void OnEnable()
     {
-        for (int i = 0; i < StageClear.Length; i++)
-        {
-            if (i == 0) StageClear[i] = true;
-            // if(stageManager.GetComponent<StageClear>().StageClear[i] == false)
-            else StageClear[i] = false;
-        }
 
         for (int i = 0; i < stageNum; i++)
         {
@@ -87,17 +75,19 @@ public class StageSelect : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void OnClickStage(int i) //버튼 클릭하면 이동
     {
         //prevStarCount[i] = starCount[i];   // 스테이지 재시작 시, 기존 별점 기록 (최고점수 반영 위함)
 
-        if (i == 0) 
-            SceneManager.LoadScene("Stage1");
-        else if(StageClear[i] == true)    
-            SceneManager.LoadScene(gameObject.name);
+        if (i == 1 || clear[chaptNum].stageClear[i - 1] == true)
+        {
+            stageNum = i;
+            SceneManager.LoadScene(chaptNum.ToString());
+        }
+
     }
 
     public void OnClickChapter(int chapternum)          // 챕터 선택
@@ -108,7 +98,7 @@ public class StageSelect : MonoBehaviour
 
     public void OnClickReturn() //버튼 클릭하면 이동
     {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     /*public void SetStarNum(int stage, int num)

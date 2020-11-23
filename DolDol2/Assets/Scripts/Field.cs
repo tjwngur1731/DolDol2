@@ -49,19 +49,19 @@ public class Field : MonoBehaviour
 
         MiniFieldMap = new MiniField[RangeI, RangeJ];
 
-        switch(FieldType)
+        switch (FieldType)
         {
             case 0:
                 Data = new FieldData(Stage);
-            break;
+                break;
 
             case 1:
                 Data = new FieldDataOld(Stage);
-            break;
+                break;
 
             case 2:
                 Data = new FieldDataFromFile(Stage);
-            break;
+                break;
         }
 
         PrevPos = new Vector2();
@@ -122,7 +122,7 @@ public class Field : MonoBehaviour
             anotherY = Player2.transform.position.y;
         }
         else
-        { 
+        {
             x = Player2.transform.position.x;
             y = Player2.transform.position.y;
 
@@ -176,7 +176,7 @@ public class Field : MonoBehaviour
 
             // Selector.transform.SetParent(CurrentField.transform);
             // Selector.transform.position = CurrentField.transform.position;
-            
+
         }
     }
 
