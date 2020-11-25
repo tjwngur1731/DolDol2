@@ -14,7 +14,7 @@ public class MainSceneManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     
@@ -25,10 +25,6 @@ public class MainSceneManager : MonoBehaviour
 
 
 
-    public void OnClickStartButton() //[임시] 게임 시작 버튼 클릭하면 이동 -> 게임 오브젝트 생성시 닿으면 이동하게 바꿀예정입니다
-    {
-        SceneManager.LoadScene("StageSelect");
-    }
 
     public void OnClickEnd()       // 게임 종료버튼
     {

@@ -17,6 +17,10 @@ public class StageManager : MonoBehaviour
         
     }
 
+    private void Awake()
+    {
+    }
+
     void Update()
     {
         // 일시정지 구현
@@ -35,10 +39,6 @@ public class StageManager : MonoBehaviour
                 UIOption.SetActive(false);
                 Time.timeScale = 1;
             }
-
-        // 
-
-
 
     }
 

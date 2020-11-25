@@ -221,6 +221,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7291205269928681928, guid: 42d02f0dc0713b142b8b5335047343f0,
+        type: 3}
+      propertyPath: stageManager
+      value: 
+      objectReference: {fileID: 600450630}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42d02f0dc0713b142b8b5335047343f0, type: 3}
 --- !u!1001 &442857941
@@ -395,6 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: 0
   UIOption: {fileID: 683945209}
+  Field: {fileID: 1481650515}
 --- !u!212 &600450632
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -797,6 +803,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbc7a06b5e3b40deb8f92c60a8e6adb, type: 3}
+--- !u!1 &1481650515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4093926523530065661, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1481650514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1610400914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -939,6 +951,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7958488683307917621, guid: ef57ed19e875b4d4c8eb1a1b48005712,
+        type: 3}
+      propertyPath: stageManager
+      value: 
+      objectReference: {fileID: 600450630}
     - target: {fileID: 8053863359520240044, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
       propertyPath: m_Name
