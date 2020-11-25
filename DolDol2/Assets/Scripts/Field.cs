@@ -49,7 +49,15 @@ public class Field : MonoBehaviour
 
         MiniFieldMap = new MiniField[RangeI, RangeJ];
 
-        Data = new FieldDataFromFileCSV(Stage);
+        if (Stage != "")
+        {
+            Data = new FieldDataFromFileCSV(Stage);
+        }
+        else
+        {
+            Data = new FieldDataFromFileCSV(GameManager.Instance.GetCurrentStageName());
+        }
+        
         //switch(FieldType)
         //{
         //    case 0:

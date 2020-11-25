@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     bool isRotating = false;
     bool isInSameMiniField = false;
 
+    string currentStageName = "";
+
     void Awake()
     {
         charChoice = true;
@@ -63,4 +65,14 @@ public class GameManager : MonoBehaviour
     {
         return isInSameMiniField;
     }
+
+  public string GetCurrentStageName()
+  {
+    return currentStageName;
+  }
+
+  public void SetCurrentStageName(string currentStageNameParameter)
+  {
+    currentStageName = currentStageNameParameter;
+  }
 }

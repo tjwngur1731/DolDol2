@@ -38,6 +38,8 @@ public class StageSelect : MonoBehaviour
             totalStarCount[i] = 0;
         }
 
+        for (int i = 0; i < clear.Length; i++) clear[i] = new StageClear();
+
         for (int i = 0; i < clear.Length; i++)
         {
             clear[i].stageClear[0] = true;
@@ -86,6 +88,10 @@ public class StageSelect : MonoBehaviour
         {
             stageNum = i;
             SceneManager.LoadScene(chaptNum.ToString());
+
+            string temp = chaptNum.ToString() + "-" + stageNum;
+            
+            GameManager.Instance.SetCurrentStageName(chaptNum.ToString() + "-" + stageNum);
         }
 
     }

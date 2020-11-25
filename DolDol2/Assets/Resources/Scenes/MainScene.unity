@@ -2032,6 +2032,11 @@ PrefabInstance:
       propertyPath: FieldType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
+        type: 3}
+      propertyPath: Stage
+      value: Title
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbc7a06b5e3b40deb8f92c60a8e6adb, type: 3}
 --- !u!1 &1657350355

@@ -419,7 +419,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: 0
   UIOption: {fileID: 683945209}
-  Field: {fileID: 1481650515}
 --- !u!212 &600450632
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -813,7 +812,7 @@ PrefabInstance:
     - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
         type: 3}
       propertyPath: Stage
-      value: 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
         type: 3}
@@ -822,12 +821,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbc7a06b5e3b40deb8f92c60a8e6adb, type: 3}
---- !u!1 &1481650515 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4093926523530065661, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1481650514}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1610400914
 PrefabInstance:
   m_ObjectHideFlags: 0
