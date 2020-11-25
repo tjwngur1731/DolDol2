@@ -168,15 +168,6 @@ public class MapEditor : EditorWindow
       }
 
   }
-
-  void Update()
-  {
-    if (drawLine == true)
-    {
-      DrawTileGrid();
-      DrawMinifieldGrid();
-    }
-  }
   
   void ReadFromFile(string stage)
   {
@@ -254,20 +245,19 @@ public class MapEditor : EditorWindow
       return;
     }
 
-    for (int i = 0; i < 5; i++)
-      {
-        for (int j = 0; j < 5; j++)
-        {
-          Vector3 pos = new Vector3(j * minifieldSize.x * TileInterval, i * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
-          Vector3 dest = new Vector3((j + 1) * minifieldSize.x * TileInterval, (i + 1) * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
-            
-          Debug.DrawLine(pos, new Vector3(dest.x, pos.y, 0), new Color(1.0f, 0.0f, 0.0f));
-          Debug.DrawLine(pos, new Vector3(pos.x, dest.y, 0), new Color(1.0f, 0.0f, 0.0f));
+    float length = minifieldNumber.x * minifieldSize.x * TileInterval;
 
-          Debug.DrawLine(new Vector3(dest.x, pos.y, 0), dest, new Color(1.0f, 0.0f, 0.0f));
-          Debug.DrawLine(new Vector3(pos.x, dest.y, 0), dest, new Color(1.0f, 0.0f, 0.0f));
-        }
-      }
+    Vector3 up = new Vector3(0, length, 0);
+    Vector3 right = new Vector3(length, 0, 0);
+
+    for (int i = 0; i < minifieldNumber.x + 1; i++)
+    {
+        Vector3 yIntervalVec = new Vector3(0, i * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
+        Vector3 xIntervalVec = new Vector3(i * minifieldSize.y * TileInterval, 0, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
+
+        Debug.DrawLine(yIntervalVec, right + yIntervalVec, new Color(1.0f, 0.0f, 0.0f));
+        Debug.DrawLine(xIntervalVec, up + xIntervalVec, new Color(1.0f, 0.0f, 0.0f));
+    }
   }
   
   void DrawTileGrid()
@@ -277,22 +267,38 @@ public class MapEditor : EditorWindow
       return;
     }
 
-    int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+    // int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+    // int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+    
+    // for (int i = 0; i < rangeI; i++)
+    // {
+    //   for (int j = 0; j < rangeJ; j++)
+    //   {
+    //     Vector3 pos = new Vector3(j * TileInterval, i * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+    //     Vector3 dest = new Vector3((j + 1) * TileInterval, (i + 1) * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+
+    //     Debug.DrawLine(pos, new Vector3(dest.x, pos.y, 0), new Color(1.0f, 1.0f, 0.0f));
+    //     Debug.DrawLine(pos, new Vector3(pos.x, dest.y, 0), new Color(1.0f, 1.0f, 0.0f));
+
+    //     Debug.DrawLine(new Vector3(dest.x, pos.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
+    //     Debug.DrawLine(new Vector3(pos.x, dest.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
+    //   }
+    // }
+
+    float length = minifieldNumber.x * minifieldSize.x * TileInterval;
+
+    Vector3 up = new Vector3(0, length, 0);
+    Vector3 right = new Vector3(length, 0, 0);
+
     int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
     
-    for (int i = 0; i < rangeI; i++)
+    for (int i = 0; i < rangeJ; i++)
     {
-      for (int j = 0; j < rangeJ; j++)
-      {
-        Vector3 pos = new Vector3(j * TileInterval, i * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
-        Vector3 dest = new Vector3((j + 1) * TileInterval, (i + 1) * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
+        Vector3 yIntervalVec = new Vector3(0, i  * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
+        Vector3 xIntervalVec = new Vector3(i * TileInterval, 0, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
 
-        Debug.DrawLine(pos, new Vector3(dest.x, pos.y, 0), new Color(1.0f, 1.0f, 0.0f));
-        Debug.DrawLine(pos, new Vector3(pos.x, dest.y, 0), new Color(1.0f, 1.0f, 0.0f));
-
-        Debug.DrawLine(new Vector3(dest.x, pos.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
-        Debug.DrawLine(new Vector3(pos.x, dest.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
-      }
+        Debug.DrawLine(yIntervalVec, right + yIntervalVec, new Color(1.0f, 1.0f, 0.0f));
+        Debug.DrawLine(xIntervalVec, up + xIntervalVec, new Color(1.0f, 1.0f, 0.0f));
     }
   }
 
@@ -311,15 +317,17 @@ public class MapEditor : EditorWindow
     DestroyImmediate(root);
   }
 
-  void OnFocus()
-  {
-    isActive = true;
-  }
+  // void OnFocus()
+  // {
+  //   DrawTileGrid();
+  //   DrawMinifieldGrid();
+  // }
 
-  void OnLostFocus()
-  {
-    isActive = false;
-  }
+  // void OnLostFocus()
+  // {
+  //   DrawTileGrid();
+  //   DrawMinifieldGrid();
+  // }
 
   void SaveToFile(string stage)
   {
@@ -357,6 +365,9 @@ public class MapEditor : EditorWindow
 
   void OnSceneGUI(SceneView sceneView)
   {
+    DrawTileGrid();
+    DrawMinifieldGrid();
+
     // if (isActive != true)
     // {
     //     return;
