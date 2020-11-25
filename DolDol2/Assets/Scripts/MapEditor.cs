@@ -267,24 +267,6 @@ public class MapEditor : EditorWindow
       return;
     }
 
-    // int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
-    // int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
-    
-    // for (int i = 0; i < rangeI; i++)
-    // {
-    //   for (int j = 0; j < rangeJ; j++)
-    //   {
-    //     Vector3 pos = new Vector3(j * TileInterval, i * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
-    //     Vector3 dest = new Vector3((j + 1) * TileInterval, (i + 1) * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);
-
-    //     Debug.DrawLine(pos, new Vector3(dest.x, pos.y, 0), new Color(1.0f, 1.0f, 0.0f));
-    //     Debug.DrawLine(pos, new Vector3(pos.x, dest.y, 0), new Color(1.0f, 1.0f, 0.0f));
-
-    //     Debug.DrawLine(new Vector3(dest.x, pos.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
-    //     Debug.DrawLine(new Vector3(pos.x, dest.y, 0), dest, new Color(1.0f, 1.0f, 0.0f));
-    //   }
-    // }
-
     float length = minifieldNumber.x * minifieldSize.x * TileInterval;
 
     Vector3 up = new Vector3(0, length, 0);
@@ -316,18 +298,6 @@ public class MapEditor : EditorWindow
   {
     DestroyImmediate(root);
   }
-
-  // void OnFocus()
-  // {
-  //   DrawTileGrid();
-  //   DrawMinifieldGrid();
-  // }
-
-  // void OnLostFocus()
-  // {
-  //   DrawTileGrid();
-  //   DrawMinifieldGrid();
-  // }
 
   void SaveToFile(string stage)
   {
@@ -372,6 +342,7 @@ public class MapEditor : EditorWindow
     // {
     //     return;
     // }
+
     if (Application.isPlaying)
     {
       if (root.activeInHierarchy == true)
