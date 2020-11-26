@@ -12,8 +12,8 @@ public class MapEditor : EditorWindow
   private string[,] fieldMap = null;
   private GameObject[,] baseObjectFieldMap = null;
   private bool isActive = false;
-  private float TileInterval = 1.8f;
-  private float minifildInterval = 18.0f;
+  private float TileInterval = 1.8f / 2;
+  private float minifildInterval = 18.0f / 2;
   private GameObject root = null;
   private GameObject[,] minifield = null;
   private string type = "";

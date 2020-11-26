@@ -34,7 +34,7 @@ public class Field : MonoBehaviour
     private FieldDataFromFileCSV Data;
 
     public bool GenerateField = true;
-    private float TileInterval = 1.8f;
+    private float TileInterval = 1.8f / 2;
     private bool PrevCharChoice = true;
     public int RangeI = 0;
     public int RangeJ = 0;
