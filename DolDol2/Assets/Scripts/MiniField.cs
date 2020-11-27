@@ -32,7 +32,7 @@ public class MiniField : MonoBehaviour
   {
     transform.position = new Vector3(StartPosition.x + (10 / 2 - 0.5f) * TileInterval, StartPosition.y + (10 / 2 - 0.5f) * TileInterval, 0);
 
-    // (Instantiate(MainField.Wall) as BaseObject).transform.position = transform.position;
+    // (Instantiate(MainField.Wall) as DolObject).transform.position = transform.position;
 
     for (int i = 1; i <= 10; i++)
     {
@@ -59,156 +59,50 @@ public class MiniField : MonoBehaviour
       {
         for (int j = 1; j <= 10; j++)
         {
-          BaseObject obj = null;
+          DolObject obj = null;
 
           switch (FieldMap[i, j])
           {
             case "1":
               {
-                obj = Instantiate(MainField.Wall) as BaseObject;
-
-                // Wall wall = (obj as Wall);
-                
-                // int up = FieldMap[i - 1, j];
-                // int down = FieldMap[i + 1, j];
-                // int left = FieldMap[i, j - 1];
-                // int right = FieldMap[i, j + 1];
-
-                // // 0칸
-                // if ((up == 2 && down == 2) &&
-                //     (left == 2 && right == 2))
-                // {
-                //   wall.SetWallType(10);
-                // }
-
-                // // 1칸
-                // if ((up != 2 && down == 2) &&
-                //     (left == 2 && right == 2))
-                // {
-                //   wall.SetWallType(0);
-                // }
-
-                // if ((up == 2 && down != 2) &&
-                //     (left == 2 && right == 2))
-                // {
-                //   wall.SetWallType(0);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
-                // }
-
-                // if ((up == 2 && down == 2) &&
-                //     (left != 2 && right == 2))
-                // {
-                //   wall.SetWallType(0);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                // }
-
-                // if ((up == 2 && down == 2) &&
-                //     (left == 2 && right != 2))
-                // {
-                //   wall.SetWallType(0);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                // }
-
-                // // 2칸
-                // if ((up == 2 && down == 2) &&
-                //     (left != 2 && right != 2))
-                // {
-                //   wall.SetWallType(9);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                // }
-
-                // if ((up != 2 && down != 2) &&
-                //     (left == 2 && right == 2))
-                // {
-                //   wall.SetWallType(9);
-                // }
-
-                // if ((up == 2 && down != 2) &&
-                //     (left == 2 && right != 2))
-                // {
-                //   wall.SetWallType(3);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
-                // }
-
-                // if ((up == 2 && down != 2) &&
-                //     (left != 2 && right == 2))
-                // {
-                //   wall.SetWallType(3);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                // }
-
-                // if ((up != 2 && down == 2) &&
-                //     (left == 2 && right != 2))
-                // {
-                //   wall.SetWallType(3);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                // }
-
-                // if ((up != 2 && down == 2) &&
-                //     (left != 2 && right == 2))
-                // {
-                //   wall.SetWallType(3);
-                // }
-
-                // // 3개
-                // if ((up != 2 && down != 2) &&
-                //     (left != 2 && right == 2))
-                // {
-                //   wall.SetWallType(4);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
-                // }
-
-                // if ((up != 2 && down != 2) &&
-                //     (left == 2 && right != 2))
-                // {
-                //   wall.SetWallType(4);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 180);
-                // }
-
-                // if ((up != 2 && down == 2) &&
-                //     (left != 2 && right != 2))
-                // {
-                //   wall.SetWallType(4);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, -90.0f);
-                // }
-
-                // if ((up == 2 && down != 2) &&
-                //     (left != 2 && right != 2))
-                // {
-                //   wall.SetWallType(4);
-                //   obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 90.0f);
-                // }
-
-                // // 4개
-                // if ((up != 2 && down != 2) &&
-                //     (left != 2 && right != 2))
-                // {
-                //   wall.SetWallType(6);
-                // }
-
-                // wall.SetWallType(6);
-                
+                obj = Instantiate(MainField.Wall) as DolObject;
               }
               break;
 
-            case "5":
+            case "0":
               obj = (Instantiate(Resources.Load("Prefab/Portal")) as GameObject).GetComponent<Portal>();
               break;
 
+            case "4":
+              obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Portal>();
+              break;
+
+            case "5":
+              obj = (Instantiate(Resources.Load("Prefab/Box")) as GameObject).GetComponent<Box>();
+              break;
+
             case "7":
-              obj = Instantiate(MainField.Star) as BaseObject;
+              obj = Instantiate(MainField.Star) as DolObject;
+              break;
+
+            case "8":
+              obj = (Instantiate(Resources.Load("Prefab/Key")) as GameObject).GetComponent<Key>();
+              break;
+
+            case "9":
+              obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>(); ;
               break;
 
             //case "3":
-            //  obj = Instantiate(MainField.Floor) as BaseObject;
+            //  obj = Instantiate(MainField.Floor) as DolObject;
             //  break;
 
             //case "4":
-            //  obj = Instantiate(MainField.Enemy) as BaseObject;
+            //  obj = Instantiate(MainField.Enemy) as DolObject;
             //  break;
 
             //case "6":
-            //  obj = Instantiate(MainField.Portal) as BaseObject;
+            //  obj = Instantiate(MainField.Portal) as DolObject;
             //  break;
 
             default:

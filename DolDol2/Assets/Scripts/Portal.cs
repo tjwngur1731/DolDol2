@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : BaseObject
+public class Portal : DolObject
 {
     void Start()
     {

@@ -9,16 +9,15 @@ public class Field : MonoBehaviour
     public MiniField MField;
     public Player Player1;
     public Player Player2;
-    public BaseObject Wall;
-    public BaseObject Enemy;
-    public BaseObject Floor;
-    public BaseObject Star;
-    public BaseObject Portal;
+    public DolObject Wall;
+    public DolObject Enemy;
+    public DolObject Floor;
+    public DolObject Star;
+    public DolObject Portal;
     // public MiniFieldSelector SelectorPrefab;
     private MiniFieldSelector Selector;
 
     public string Stage;
-    public int FieldType = 0;
 
     private int PlayerIndexI = 0;
     private int PlayerIndexJ = 0;
@@ -57,21 +56,6 @@ public class Field : MonoBehaviour
         {
             Data = new FieldDataFromFileCSV(GameManager.Instance.GetCurrentStageName());
         }
-        
-        //switch(FieldType)
-        //{
-        //    case 0:
-        //        Data = new FieldData(Stage);
-        //    break;
-
-        //    case 1:
-        //        Data = new FieldDataOld(Stage);
-        //    break;
-
-        //    case 2:
-        //        Data = new FieldDataFromFile(Stage);
-        //    break;
-        //}
 
         PrevPos = new Vector2();
 
@@ -118,17 +102,6 @@ public class Field : MonoBehaviour
     {
         RangeI = 5;
         RangeJ = 5;
-    }
-
-    public void DrawLines(bool draw)
-    {
-        for (int i = 0; i < RangeI; i++)
-            {
-                for (int j = 0; j < RangeJ; j++)
-                {
-                    // MiniFieldMap[i, j].DrawLines(draw);
-                }
-            }
     }
 
     void CalculatePlayerIndex()

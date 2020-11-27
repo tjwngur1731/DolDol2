@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : BaseObject
+public class Player : DolObject
 {
     Vector2 spawnPos;
     //StageSelect stageSelect;
@@ -18,8 +18,6 @@ public class Player : BaseObject
 
     public override bool Init()
     {
-        BaseObjectType = 0;
-
         return true;
     }
 
