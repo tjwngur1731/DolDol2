@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Key : DolObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  // Start is called before the first frame update
+  void Start()
+  {
 
-    // Update is called once per frame
-    void Update()
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+
+  }
+
+  void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.gameObject.tag == "Player")
     {
-        
+      Debug.Log("destroy");
+
+      DestoryDolObject();
     }
+  }
 }

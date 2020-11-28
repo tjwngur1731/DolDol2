@@ -233,7 +233,7 @@ public class MapEditor : EditorWindow
                 break;
 
               case "5":
-                obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
+                obj = Instantiate(Resources.Load("Prefab/Box")) as GameObject;
                 break;
 
               case "7":
@@ -531,16 +531,32 @@ public class MapEditor : EditorWindow
         obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
         break;
 
+      case "0":
+        obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
+        break;
+
       case "1":
         obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
         break;
 
+      case "4":
+        obj = Instantiate(Resources.Load("Prefab/Trap")) as GameObject;
+        break;
+
       case "5":
-        obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
+        obj = Instantiate(Resources.Load("Prefab/Box")) as GameObject;
         break;
 
       case "7":
         obj = Instantiate(Resources.Load("Prefab/Star")) as GameObject;
+        break;
+
+      case "8":
+        obj = Instantiate(Resources.Load("Prefab/Key")) as GameObject;
+        break;
+
+      case "9":
+        obj = Instantiate(Resources.Load("Prefab/Lock")) as GameObject;
         break;
     }
 

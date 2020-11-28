@@ -43,11 +43,17 @@ public class MiniField : MonoBehaviour
           case "1P":
             MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
             MainField.Player1.transform.position = MainField.Player1.GetSpawnPos();
+            GameManager.Instance.ArrCalcIndex.Add(MainField.Player1);
+            GameManager.Instance.ArrFixNeeded.Add(MainField.Player1);
+            GameManager.Instance.ArrReRotateNeeded.Add(MainField.Player1);
             break;
 
           case "2P":
             MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
             MainField.Player2.transform.position = MainField.Player2.GetSpawnPos();
+            GameManager.Instance.ArrCalcIndex.Add(MainField.Player2);
+            GameManager.Instance.ArrFixNeeded.Add(MainField.Player2);
+            GameManager.Instance.ArrReRotateNeeded.Add(MainField.Player2);
             break;
         }
       }
@@ -74,7 +80,7 @@ public class MiniField : MonoBehaviour
               break;
 
             case "4":
-              obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Portal>();
+              obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Trap>();
               break;
 
             case "5":
@@ -90,20 +96,8 @@ public class MiniField : MonoBehaviour
               break;
 
             case "9":
-              obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>(); ;
+              obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>();
               break;
-
-            //case "3":
-            //  obj = Instantiate(MainField.Floor) as DolObject;
-            //  break;
-
-            //case "4":
-            //  obj = Instantiate(MainField.Enemy) as DolObject;
-            //  break;
-
-            //case "6":
-            //  obj = Instantiate(MainField.Portal) as DolObject;
-            //  break;
 
             default:
               continue;
@@ -111,7 +105,28 @@ public class MiniField : MonoBehaviour
 
           obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
           // obj.transform.position = new Vector2(StartPosition.x + (int)((j - 1) * TileInterval), StartPosition.y + (int)((10 + 2 - i - 1 - 1) * TileInterval));
-          obj.transform.SetParent(transform);
+
+          // 미니필드 인덱스 계산 필요한 오브젝트들 델리게이트 추가
+          if (obj.GetIsStaticObject() != true)
+          {
+            GameManager.Instance.ArrCalcIndex.Add(obj);
+          }
+
+          // 회전시 고정시킬 필요 없는 객체들 
+          if (obj.GetIsFixNeeded() != true)
+          {
+            obj.transform.SetParent(transform);
+          }
+          else
+          {
+            GameManager.Instance.ArrFixNeeded.Add(obj);
+          }
+
+          // 회전후 다시 돌려놔야 할 객체들
+          if (obj.GetIsReRotateNeeded() == true)
+          {
+            GameManager.Instance.ArrReRotateNeeded.Add(obj);
+          }
         }
       }
     }
@@ -165,27 +180,11 @@ public class MiniField : MonoBehaviour
 
     GameManager.Instance.SetIsRotating(true);
 
-    if (GameManager.Instance.charChoice == true)
+    // MainField.GetCurrentPlayer().FixDolObject(transform, true);
+    
+    foreach (DolObject obj in GameManager.Instance.ArrFixNeeded)
     {
-      MainField.Player1.transform.SetParent(transform);
-      MainField.Player1.SetIsKinematic(true);
-
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player2.transform.SetParent(transform);
-        MainField.Player2.SetIsKinematic(true);  
-      }
-    }
-    else
-    {
-      MainField.Player2.transform.SetParent(transform);
-      MainField.Player2.SetIsKinematic(true);
-
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player1.transform.SetParent(transform);
-        MainField.Player1.SetIsKinematic(true);  
-      }
+      obj.FixDolObject(transform, true);
     }
 
     while (t < duration)
@@ -197,33 +196,20 @@ public class MiniField : MonoBehaviour
       yield return null;
     }
 
-    if (GameManager.Instance.charChoice == true)
+    //MainField.Player1.transform.SetParent(null);
+    // MainField.GetCurrentPlayer().ResetRotation();
+    foreach (DolObject obj in GameManager.Instance.ArrReRotateNeeded)
     {
-      MainField.Player1.transform.SetParent(null);
-      MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-      MainField.Player1.SetIsKinematic(false);
-      
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player2.transform.SetParent(null);
-        MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-        MainField.Player2.SetIsKinematic(false);
-      }
+      obj.ResetRotation();
     }
-    else
-    {
-      MainField.Player2.transform.SetParent(null);
-      MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-      MainField.Player2.SetIsKinematic(false);
 
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player1.transform.SetParent(null);
-        MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-        MainField.Player1.SetIsKinematic(false);
-      }
+    // MainField.GetCurrentPlayer().FixDolObject(null, false);
+
+    foreach (DolObject obj in GameManager.Instance.ArrFixNeeded)
+    {
+      obj.FixDolObject(null, false);
     }
-    
+
     GameManager.Instance.SetIsRotating(false);
 
     yield break;

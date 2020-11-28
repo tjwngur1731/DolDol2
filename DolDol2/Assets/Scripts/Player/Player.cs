@@ -5,86 +5,77 @@ using UnityEngine.SceneManagement;
 
 public class Player : DolObject
 {
-    Vector2 spawnPos;
-    //StageSelect stageSelect;
+  Vector2 spawnPos;
+  //StageSelect stageSelect;
 
-    Rigidbody2D rigid;
+  void Start()
+  {
+    Init();
+  }
 
-
-    void Start()
+  private void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.gameObject.tag == "Enemy")
     {
-        rigid = GetComponent<Rigidbody2D>();
+      gameObject.transform.position = spawnPos;
     }
-
-    public override bool Init()
+    else if (collision.gameObject.tag == "Star")
     {
-        return true;
+      GameManager.Instance.starCount += 1;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    else if (collision.gameObject.tag == "Key")
     {
-        if (collision.gameObject.tag == "Enemy")
+      GameManager.Instance.keyCount += 1;
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D collision)
+  {
+    if (collision.gameObject.tag == "Finish")
+    {
+      Scene scene = SceneManager.GetActiveScene();
+
+      if (scene.buildIndex == 0)      // 메인화면인 경우, 챕터선택화면으로 넘김
+      {
+        SceneManager.LoadScene("ChapterSelect");
+      }
+      else if (GameManager.Instance.starCount > 0)
+      {
+        StageSelect.clear[StageSelect.chaptNum].stageStar[StageSelect.stageNum - 1] = GameManager.Instance.starCount;
+        GameManager.Instance.starCount = 0;
+        if (scene.buildIndex == SceneManager.sceneCount - 1)           // 챕터의 마지막 스테이지인 경우
         {
-            gameObject.transform.position = spawnPos;
+          Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
+          //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
+          GameManager.Instance.starCount = 0;
+          SceneManager.LoadScene("StageSelect");
         }
-        else if (collision.gameObject.tag == "Star")
+        else
         {
-            GameManager.Instance.starCount += 1;
+          Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
+          //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
+          //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
+          SceneManager.LoadScene(scene.buildIndex + 1);
         }
 
+      }
+      else
+      {
+        GameManager.Instance.starCount = 0;
+        SceneManager.LoadScene(scene.buildIndex);
+      }
+
     }
+    
+  }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Finish")
-        {
-            Scene scene = SceneManager.GetActiveScene();
+  public void SetSpawnPos(Vector2 spawnPos)
+  {
+    this.spawnPos = spawnPos;
+  }
 
-            if (scene.buildIndex == 0)      // 메인화면인 경우, 챕터선택화면으로 넘김
-            {
-                SceneManager.LoadScene("ChapterSelect");
-            }
-            else if (GameManager.Instance.starCount > 0)
-            {
-                StageSelect.clear[StageSelect.chaptNum].stageStar[StageSelect.stageNum - 1] = GameManager.Instance.starCount;
-                GameManager.Instance.starCount = 0;
-                if (scene.buildIndex == SceneManager.sceneCount - 1)           // 챕터의 마지막 스테이지인 경우
-                {
-                    Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
-                    //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
-                    GameManager.Instance.starCount = 0;
-                    SceneManager.LoadScene("StageSelect");
-                }
-                else
-                {
-                    Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
-                    //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
-                    //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
-                    SceneManager.LoadScene(scene.buildIndex + 1);
-                }
-
-            }
-            else
-            {
-                GameManager.Instance.starCount = 0;
-                SceneManager.LoadScene(scene.buildIndex);
-            }
-
-        }
-    }
-
-    public void SetSpawnPos(Vector2 spawnPos)
-    {
-        this.spawnPos = spawnPos;
-    }
-
-    public Vector2 GetSpawnPos()
-    {
-        return this.spawnPos;
-    }
-
-    public void SetIsKinematic(bool isKinematic)
-    {
-        rigid.isKinematic = isKinematic;
-    }
+  public Vector2 GetSpawnPos()
+  {
+    return this.spawnPos;
+  }
 }

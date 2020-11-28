@@ -166,6 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c282a8045f6108b438cb6308ed0d0b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsReRotateNeeded: 1
+  IsFixNeeded: 1
+  IsStaticObject: 0
 --- !u!114 &8053863359520240045
 MonoBehaviour:
   m_ObjectHideFlags: 0

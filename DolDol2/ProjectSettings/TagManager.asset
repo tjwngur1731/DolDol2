@@ -10,6 +10,7 @@ TagManager:
   - Light
   - Button
   - Key
+  - Lock
   layers:
   - Default
   - TransparentFX

@@ -132,3 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b8bc9a697d9c14bad71d76501e8344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsReRotateNeeded: 0
+  IsFixNeeded: 0
+  IsStaticObject: 1
