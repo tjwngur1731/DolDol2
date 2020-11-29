@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2042505661040454148}
   - component: {fileID: 5622850689679760156}
   - component: {fileID: 6947695271775576137}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Lock
-  m_TagString: Lock
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

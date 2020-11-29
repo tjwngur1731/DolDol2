@@ -15,17 +15,19 @@ public class Player : DolObject
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
-    if (collision.gameObject.tag == "Enemy")
+    switch (collision.gameObject.tag)
     {
-      gameObject.transform.position = spawnPos;
-    }
-    else if (collision.gameObject.tag == "Star")
-    {
-      GameManager.Instance.starCount += 1;
-    }
-    else if (collision.gameObject.tag == "Key")
-    {
-      GameManager.Instance.keyCount += 1;
+      case "Enemy":
+        gameObject.transform.position = spawnPos;
+        break;
+
+      case "Star":
+        GameManager.Instance.starCount += 1;
+        break;
+
+      case "Key":
+        GameManager.Instance.keyCount += 1;
+        break;
     }
   }
 

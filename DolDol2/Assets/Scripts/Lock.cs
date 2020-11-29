@@ -5,11 +5,11 @@ using UnityEngine;
 public class Lock : DolObject
 {
   private bool unlockSwitch = false;
-  private ArrayList connectedLocks;
+  
   // Start is called before the first frame update
   void Start()
   {
-    connectedLocks = new ArrayList();
+    LockManager.Instance.AddLock(gameObject.GetComponent<Lock>());
   }
 
   void OnCollisionEnter2D(Collision2D collision)
@@ -20,9 +20,9 @@ public class Lock : DolObject
         unlockSwitch = true;
         break;
 
-      case "Lock":
-        connectedLocks.Add(collision.gameObject.GetComponent<Lock>());
-        break;
+      //case "Lock":
+      //  connectedLocks.Add(collision.gameObject.GetComponent<Lock>());
+      //  break;
     }
   }
 
@@ -34,9 +34,9 @@ public class Lock : DolObject
         unlockSwitch = false;
         break;
 
-      case "Lock":
-        connectedLocks.Remove(collision.gameObject.GetComponent<Lock>());
-        break;
+      //case "Lock":
+      //  connectedLocks.Remove(collision.gameObject.GetComponent<Lock>());
+      //  break;
     }
   }
 
@@ -49,10 +49,16 @@ public class Lock : DolObject
       
       DestoryDolObject();
 
-      foreach (Lock lck in connectedLocks)
-      {
-        lck.DestoryDolObject();
-      }
+      //foreach (Lock lck in connectedLocks)
+      //{
+      //  lck.DestoryDolObject();
+      //}
     }
+  }
+
+  protected override void DestoryDolObject()
+  {
+    base.DestoryDolObject();
+    LockManager.Instance.RemoveLock(gameObject.GetComponent<Lock>());
   }
 }

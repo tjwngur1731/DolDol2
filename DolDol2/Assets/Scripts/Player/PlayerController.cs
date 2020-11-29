@@ -147,7 +147,9 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Floor") && !isDoubleJump && !isGround)
+        bool collisionDolObj = collision.gameObject.CompareTag("Floor");
+
+        if (collisionDolObj && !isDoubleJump && !isGround)
         {
             isWall = true;
         }
