@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Lock : DolObject
 {
   private bool unlockSwitch = false;
-  
+  private int lockIndexI = -1;
+  private int lockIndexJ = -1;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -19,10 +22,6 @@ public class Lock : DolObject
       case "Player":
         unlockSwitch = true;
         break;
-
-      //case "Lock":
-      //  connectedLocks.Add(collision.gameObject.GetComponent<Lock>());
-      //  break;
     }
   }
 
@@ -33,10 +32,6 @@ public class Lock : DolObject
       case "Player":
         unlockSwitch = false;
         break;
-
-      //case "Lock":
-      //  connectedLocks.Remove(collision.gameObject.GetComponent<Lock>());
-      //  break;
     }
   }
 
@@ -48,11 +43,6 @@ public class Lock : DolObject
       GameManager.Instance.keyCount--;
       
       DestoryDolObject();
-
-      //foreach (Lock lck in connectedLocks)
-      //{
-      //  lck.DestoryDolObject();
-      //}
     }
   }
 
@@ -60,5 +50,21 @@ public class Lock : DolObject
   {
     base.DestoryDolObject();
     LockManager.Instance.RemoveLock(gameObject.GetComponent<Lock>());
+  }
+
+  public void CalculateLockPosition()
+  {
+    lockIndexI = ((int)Math.Round(transform.position.y / TileInterval) + 1);
+    lockIndexJ = ((int)Math.Round(transform.position.x / TileInterval) + 1);
+  }
+
+  public int GetLockIndexI()
+  {
+    return lockIndexI;
+  }
+
+  public int GetLockIndexJ()
+  {
+    return lockIndexJ;
   }
 }

@@ -15,7 +15,6 @@ public class DolObject : MonoBehaviour
   protected int MiniFieldIndexJ = -1;
 
   Rigidbody2D rigid;
-  Collider2D collider;
 
   void Start()
   {
@@ -31,7 +30,6 @@ public class DolObject : MonoBehaviour
   public virtual bool Init()
   {
     rigid = GetComponent<Rigidbody2D>();
-    collider = GetComponent<Collider2D>();
 
     return true;
   }
@@ -70,7 +68,7 @@ public class DolObject : MonoBehaviour
   public void FixDolObject(Transform miniFieldTransform, bool isKinematic)
   {
     rigid.isKinematic = isKinematic;
-    collider.isTrigger = isKinematic;
+    GetComponent<Collider2D>().isTrigger = isKinematic;
 
     if (!(GameManager.Instance.GetCurrentMiniFieldIndexI() == MiniFieldIndexI && 
       GameManager.Instance.GetCurrentMiniFieldIndexJ() == MiniFieldIndexJ))

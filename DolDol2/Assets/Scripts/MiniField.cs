@@ -210,6 +210,8 @@ public class MiniField : MonoBehaviour
       obj.FixDolObject(null, false);
     }
 
+    LockManager.Instance.CheckLocks();
+
     GameManager.Instance.SetIsRotating(false);
 
     yield break;

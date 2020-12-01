@@ -95,6 +95,7 @@ public class Field : MonoBehaviour
     }
 
     CalculatePlayerIndex();
+    LockManager.Instance.CheckLocks();
   }
 
   void Init()
