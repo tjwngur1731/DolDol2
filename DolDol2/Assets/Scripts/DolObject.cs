@@ -84,9 +84,9 @@ public class DolObject : MonoBehaviour
     transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
   }
 
-  protected virtual void DestoryDolObject()
+  public virtual void DestoryDolObject()
   {
-    Debug.Log("destroy");
+    // Debug.Log("destroy");
 
     GameManager.Instance.ArrCalcIndex.Remove(gameObject.GetComponent<DolObject>());
 

@@ -97,6 +97,7 @@ public class MiniField : MonoBehaviour
 
             case "9":
               obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>();
+              LockManager.Instance.AddLock(obj as Lock);
               break;
 
             default:

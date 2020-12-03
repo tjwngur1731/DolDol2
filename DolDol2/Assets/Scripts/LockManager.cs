@@ -9,11 +9,15 @@ public class LockManager
   private ArrayList connectedLocks;
 
   private Lock[,] checkBuffer;
+  ArrayList bfsQueue;
+  ArrayList destoryedLocks;
 
   private LockManager()
   {
     connectedLocks = new ArrayList();
     checkBuffer = new Lock[50 + 2, 50 + 2];
+    bfsQueue = new ArrayList();
+    destoryedLocks = new ArrayList();
   }
 
   public static LockManager Instance
@@ -40,6 +44,8 @@ public class LockManager
 
     int maxI = 0;
     int maxJ = 0;
+
+    int lockID = 0;
 
     foreach (Lock lck in connectedLocks)
     {
@@ -78,7 +84,47 @@ public class LockManager
       {
         if (checkBuffer[i,j] != null)
         {
-          Debug.Log("i : " + i + " j : " + j);
+          bfsQueue.Add(checkBuffer[i, j]);
+
+          while (bfsQueue.Count > 0)
+          {
+            Lock current = bfsQueue[0] as Lock;
+
+            int x = current.GetLockIndexJ() - 1;
+            int y = current.GetLockIndexI() - 1;
+
+            checkBuffer[y, x] = null;
+
+            Lock up = checkBuffer[y - 1, x];
+            Lock down = checkBuffer[y + 1, x];
+            Lock left = checkBuffer[y, x - 1];
+            Lock right = checkBuffer[y, x + 1];
+
+            if (up)
+            {
+              bfsQueue.Add(up);
+            }
+
+            if (down)
+            {
+              bfsQueue.Add(down);
+            }
+
+            if (left)
+            {
+              bfsQueue.Add(left);
+            }
+
+            if (right)
+            {
+              bfsQueue.Add(right);
+            }
+
+            (bfsQueue[0] as Lock).SetLockID(lockID);
+            bfsQueue.RemoveAt(0);
+          }
+
+          lockID++;
         }
       }
     }
@@ -94,5 +140,24 @@ public class LockManager
   public void RemoveLock(Lock lck)
   {
     connectedLocks.Remove(lck);
+  }
+
+  public void DestroyLocks(int id)
+  {
+    foreach (Lock lck in connectedLocks)
+    {
+      if (lck.GetLockID() == id)
+      {
+        destoryedLocks.Add(lck);
+      }
+    }
+
+    foreach (Lock destoryedLock in destoryedLocks)
+    {
+      RemoveLock(destoryedLock);
+      destoryedLock.DestoryDolObject();
+    }
+
+    destoryedLocks.Clear();
   }
 }

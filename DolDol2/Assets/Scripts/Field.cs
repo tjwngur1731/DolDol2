@@ -98,6 +98,27 @@ public class Field : MonoBehaviour
     LockManager.Instance.CheckLocks();
   }
 
+  void OnDestroy()
+  {
+    if (GameManager.Instance)
+    {
+      if (GameManager.Instance.ArrCalcIndex.Count > 0)
+      {
+        GameManager.Instance.ArrCalcIndex.Clear();
+      }
+
+      if (GameManager.Instance.ArrFixNeeded.Count > 0)
+      {
+        GameManager.Instance.ArrFixNeeded.Clear();
+      }
+
+      if (GameManager.Instance.ArrReRotateNeeded.Count > 0)
+      {
+        GameManager.Instance.ArrReRotateNeeded.Clear();
+      }
+    }
+  }
+
   void Init()
   {
     RangeI = 5;

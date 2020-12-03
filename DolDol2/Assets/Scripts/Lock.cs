@@ -6,13 +6,14 @@ using System;
 public class Lock : DolObject
 {
   private bool unlockSwitch = false;
+  private int lockID = -1;
   private int lockIndexI = -1;
   private int lockIndexJ = -1;
 
   // Start is called before the first frame update
   void Start()
   {
-    LockManager.Instance.AddLock(gameObject.GetComponent<Lock>());
+    
   }
 
   void OnCollisionEnter2D(Collision2D collision)
@@ -42,15 +43,17 @@ public class Lock : DolObject
     {
       GameManager.Instance.keyCount--;
       
-      DestoryDolObject();
+      LockManager.Instance.DestroyLocks(lockID);
+
+      // DestoryDolObject();
     }
   }
 
-  protected override void DestoryDolObject()
-  {
-    base.DestoryDolObject();
-    LockManager.Instance.RemoveLock(gameObject.GetComponent<Lock>());
-  }
+  //protected override void DestoryDolObject()
+  //{
+  //  base.DestoryDolObject();
+  //  LockManager.Instance.RemoveLock(gameObject.GetComponent<Lock>());
+  //}
 
   public void CalculateLockPosition()
   {
@@ -66,5 +69,15 @@ public class Lock : DolObject
   public int GetLockIndexJ()
   {
     return lockIndexJ;
+  }
+
+  public void SetLockID(int id)
+  {
+    lockID = id;
+  }
+
+  public int GetLockID()
+  {
+    return lockID;
   }
 }
