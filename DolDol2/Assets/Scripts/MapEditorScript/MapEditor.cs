@@ -78,6 +78,11 @@ public class MapEditor : EditorWindow
       type = "9";
     }
 
+    if (GUILayout.Button("M-Platform", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      type = "9";
+    }
+
     if (GUILayout.Button("Del", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = " ";
@@ -246,6 +251,10 @@ public class MapEditor : EditorWindow
 
               case "9":
                 obj = Instantiate(Resources.Load("Prefab/Lock")) as GameObject;
+                break;
+
+              case "10":
+                obj = Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject;
                 break;
 
               default:

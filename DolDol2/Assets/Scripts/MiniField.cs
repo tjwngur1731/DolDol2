@@ -100,6 +100,10 @@ public class MiniField : MonoBehaviour
               LockManager.Instance.AddLock(obj as Lock);
               break;
 
+            case "10":
+              obj = (Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject).GetComponent<MovingPlatform>();
+              break;
+
             default:
               continue;
           }

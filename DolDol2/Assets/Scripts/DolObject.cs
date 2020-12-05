@@ -14,7 +14,7 @@ public class DolObject : MonoBehaviour
   protected int MiniFieldIndexI = -1;
   protected int MiniFieldIndexJ = -1;
 
-  Rigidbody2D rigid;
+  protected Rigidbody2D rigid;
 
   void Start()
   {
@@ -65,7 +65,7 @@ public class DolObject : MonoBehaviour
     MiniFieldIndexI = (int)((Math.Round(transform.position.y)) / (10 * TileInterval));
   }
 
-  public void FixDolObject(Transform miniFieldTransform, bool isKinematic)
+  public virtual void FixDolObject(Transform miniFieldTransform, bool isKinematic)
   {
     rigid.isKinematic = isKinematic;
     GetComponent<Collider2D>().isTrigger = isKinematic;
@@ -102,4 +102,10 @@ public class DolObject : MonoBehaviour
 
     Destroy(gameObject);
   }
+
+  public virtual void FixPosition(Vector3 fixPos)
+  {
+    transform.position = fixPos;
+  }
 }
+ 
