@@ -20,7 +20,6 @@ public class MovingPlatform : DolObject
   void Start()
   {
     Init();
-    ResetDir(currentMovingType);
   }
 
   public override bool Init()
@@ -47,7 +46,7 @@ public class MovingPlatform : DolObject
     return true;
   }
   
-  void ResetDir(bool type)
+  public void ResetDir(bool type)
   {
     if (type == true)
     {
@@ -82,6 +81,17 @@ public class MovingPlatform : DolObject
       ResetDir(!currentMovingType);
     }
   }
+
+  public void SetCurrentMovingType(bool movingType)
+  {
+    currentMovingType = movingType;
+  }
+
+  public bool GetCurrentMovingType()
+  {
+    return currentMovingType;
+  }
+
   public override void FixDolObject(Transform miniFieldTransform, bool isKinematic)
   {
     platform.GetComponent<Collider2D>().isTrigger = isKinematic;

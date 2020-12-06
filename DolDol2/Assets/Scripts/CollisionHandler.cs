@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
-  ArrayList collidedDolObjects;
   // Start is called before the first frame update
   void Start()
   {
-    collidedDolObjects = new ArrayList();
+    
   }
 
   // Update is called once per frame
@@ -19,28 +18,24 @@ public class CollisionHandler : MonoBehaviour
 
   void OnCollisionEnter2D(Collision2D collision)
   {
-    // int count = collision.contactCount;
-    // collidedDolObjects.Add(collision.gameObject.GetComponent<DolObject>());
-  }
+    //if (collision.transform.position.y > transform.position.y &&
+    //  (collision.transform.position.x >= (transform.position.x - transform.localScale.x/* / 2*/) &&
+    //  collision.transform.position.x <= (transform.position.x/* + transform.localScale.x / 2*/)))
 
-  void OnCollisionStay2D(Collision2D collision)
-  {
-    // foreach (DolObject collided in collidedDolObjects)
-    // {
-    //   if (collided)
-    //   {
-    //     collided.FixPosition(new Vector3(transform.position.x, collided.transform.position.y, collided.transform.position.z));
-    //   }
-    // }
+    if (collision.transform.position.y > transform.position.y)
+    {
+      collision.transform.SetParent(transform);
+    }
+    else
+    {
+      MovingPlatform parentPlatform = transform.parent.GetComponent<MovingPlatform>();
 
-    DolObject collided = collision.gameObject.GetComponent<DolObject>();
-    
-    collided.FixPosition(new Vector3(collision.contacts[0].point.x, collided.transform.position.y, collided.transform.position.z));
-      
+      parentPlatform.ResetDir(parentPlatform.GetCurrentMovingType());
+    }
   }
 
   void OnCollisionExit2D(Collision2D collision)
   {
-    // collidedDolObjects.Remove(collision.gameObject.GetComponent<DolObject>());
+    collision.transform.SetParent(null);
   }
 }

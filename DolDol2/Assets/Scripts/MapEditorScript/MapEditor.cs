@@ -22,22 +22,21 @@ public class MapEditor : EditorWindow
   private Vector2 minifieldSize = new Vector2(10, 10);
   private string loadFileName = "";
   private string saveFileName = "";
+  private int editorType = 0;
+  private int dolObjectDir = 0;
   void OnGUI()
   {
 
     BeginWindows();
 
-    var wallTex = ((Resources.Load("Prefab/Wall") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
-    if (GUILayout.Button(wallTex, GUILayout.Width(50), GUILayout.Height(40)))
-    {
-      type = "1";
-    }
-    // GUILayout.Label("Wall");
+    GUILayout.Label("Palyer", GUILayout.Width(50), GUILayout.Height(30));
+    GUILayout.BeginHorizontal("");
 
     // var player1Tex = ((Resources.Load("Prefab/Player 1") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
     if (GUILayout.Button("1P", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "1P";
+      editorType = 0;
     }
     // GUILayout.Label("Player1");
 
@@ -45,46 +44,100 @@ public class MapEditor : EditorWindow
     if (GUILayout.Button("2P", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "2P";
+      editorType = 0;
     }
     // GUILayout.Label("Player2");
+
+    GUILayout.EndHorizontal();
+
+    GUILayout.Label("DolObject", GUILayout.Width(100), GUILayout.Height(30));
+    GUILayout.BeginHorizontal("");
+    var wallTex = ((Resources.Load("Prefab/Wall") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
+    if (GUILayout.Button(wallTex, GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      type = "1";
+      editorType = 0;
+    }
+    // GUILayout.Label("Wall");
 
     if (GUILayout.Button("Star", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "7";
+      editorType = 0;
     }
 
     if (GUILayout.Button("Trap", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "4";
+      editorType = 0;
     }
 
     if (GUILayout.Button("Portal", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "0";
+      editorType = 0;
     }
 
     if (GUILayout.Button("Box", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "5";
+      editorType = 0;
     }
+    GUILayout.EndHorizontal();
 
+    GUILayout.BeginHorizontal("");
     if (GUILayout.Button("Key", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "8";
+      editorType = 0;
     }
 
     if (GUILayout.Button("Lock", GUILayout.Width(50), GUILayout.Height(40)))
     {
       type = "9";
+      editorType = 0;
     }
 
-    if (GUILayout.Button("M-Platform", GUILayout.Width(50), GUILayout.Height(40)))
+    if (GUILayout.Button("M-Platform", GUILayout.Width(100), GUILayout.Height(40)))
     {
-      type = "9";
+      type = "10";
+      editorType = 0;
+    }
+    GUILayout.EndHorizontal();
+
+    GUILayout.Label("Rotation", GUILayout.Width(50), GUILayout.Height(30));
+    GUILayout.BeginHorizontal("");
+    if (GUILayout.Button("Turn Left", GUILayout.Width(70), GUILayout.Height(30)))
+    {
+      dolObjectDir--;
+
+      if (dolObjectDir < 0)
+      {
+        dolObjectDir = 3;
+      }
+    }
+
+    if (GUILayout.Button("Turn Right", GUILayout.Width(70), GUILayout.Height(30)))
+    {
+      dolObjectDir++;
+
+      if (dolObjectDir > 3)
+      {
+        dolObjectDir = 0;
+      }
+    }
+    GUILayout.EndHorizontal();
+
+    GUILayout.Label("Editor Mode", GUILayout.Width(100), GUILayout.Height(30));
+    GUILayout.BeginHorizontal("");
+    if (GUILayout.Button("Edit", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      editorType = 1;
     }
 
     if (GUILayout.Button("Del", GUILayout.Width(50), GUILayout.Height(40)))
     {
+      editorType = 2;
       type = " ";
     }
 
@@ -92,7 +145,9 @@ public class MapEditor : EditorWindow
     {
       ClearMap();
     }
+    GUILayout.EndHorizontal();
 
+    GUILayout.Label("Save & Load", GUILayout.Width(150), GUILayout.Height(30));
     saveFileName = EditorGUILayout.TextField("Save File Name", saveFileName);
 
     if (GUILayout.Button("Save", GUILayout.Width(50), GUILayout.Height(40)))
@@ -112,88 +167,70 @@ public class MapEditor : EditorWindow
 
   void ClearMap()
   {
-    // int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
-    // int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
-
-    // for (int i = 0; i < rangeI + 2; i++)
-    // {
-    //   for (int j = 0; j < rangeJ + 2; j++)
-    //   {
-    //     if (baseObjectFieldMap[i, j] == null)
-    //     {
-    //       continue;
-    //     }
-
-    //     baseObjectFieldMap[i, j].transform.SetParent(null);
-    //     DestroyImmediate(baseObjectFieldMap[i, j]);
-    //     fieldMap[i, j] = " ";
-    //   }
-    // }
-
     if (root != null)
     {
       DestroyImmediate(root);
-      
+
     }
 
     root = new GameObject();
-     root.name = "MapEditorRoot";
-    
+    root.name = "MapEditorRoot";
+
     int indexI = (int)minifieldNumber.y;
     int indexJ = (int)minifieldNumber.y;
 
-        minifield = new GameObject[indexI, indexJ];
+    minifield = new GameObject[indexI, indexJ];
 
-        for (int i = 0; i < indexI; i++)
+    for (int i = 0; i < indexI; i++)
+    {
+      for (int j = 0; j < indexJ; j++)
+      {
+        if (minifield[i, j] != null)
         {
-          for (int j = 0; j < indexJ; j++)
-          {
-            if (minifield[i, j] != null)
-            {
-              DestroyImmediate(minifield[i, j]);
-            }
-            
-            minifield[i, j] = new GameObject();
-            minifield[i, j].name = "minifield_" + i + "_" + j;
-            minifield[i, j].transform.position = new Vector2(j * 5 * TileInterval, i * 5 * TileInterval);
-            minifield[i, j].transform.SetParent(root.transform);
-          }
+          DestroyImmediate(minifield[i, j]);
         }
 
-      if (fieldMap == null)
+        minifield[i, j] = new GameObject();
+        minifield[i, j].name = "minifield_" + i + "_" + j;
+        minifield[i, j].transform.position = new Vector2(j * 5 * TileInterval, i * 5 * TileInterval);
+        minifield[i, j].transform.SetParent(root.transform);
+      }
+    }
+
+    if (fieldMap == null)
+    {
+      int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+      int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+
+      fieldMap = new string[rangeI + 2, rangeJ + 2];
+
+      for (int i = 0; i < rangeI + 2; i++)
       {
-        int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
-        int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
-
-        fieldMap = new string[rangeI + 2, rangeJ + 2];
-
-        for (int i = 0; i < rangeI + 2; i++)
+        for (int j = 0; j < rangeJ + 2; j++)
         {
-          for (int j = 0; j < rangeJ + 2; j++)
-          {
-            fieldMap[i, j] = " ";
-          }
+          fieldMap[i, j] = " ";
         }
       }
+    }
 
-      if (baseObjectFieldMap == null)
+    if (baseObjectFieldMap == null)
+    {
+      int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
+      int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
+
+      baseObjectFieldMap = new GameObject[rangeI + 2, rangeJ + 2];
+
+      for (int i = 0; i < rangeI + 2; i++)
       {
-        int rangeI = (int)(minifieldNumber.y * minifieldSize.y);
-        int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
-
-        baseObjectFieldMap = new GameObject[rangeI + 2, rangeJ + 2];
-
-        for (int i = 0; i < rangeI + 2; i++)
+        for (int j = 0; j < rangeJ + 2; j++)
         {
-          for (int j = 0; j < rangeJ + 2; j++)
-          {
-            baseObjectFieldMap[i, j] = null;
-          }
+          baseObjectFieldMap[i, j] = null;
         }
       }
+    }
 
   }
-  
+
   void ReadFromFile(string stage)
   {
     string filename = "CellMap/" + stage + ".csv";
@@ -297,14 +334,14 @@ public class MapEditor : EditorWindow
 
     for (int i = 0; i < minifieldNumber.x + 1; i++)
     {
-        Vector3 yIntervalVec = new Vector3(0, i * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
-        Vector3 xIntervalVec = new Vector3(i * minifieldSize.y * TileInterval, 0, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
+      Vector3 yIntervalVec = new Vector3(0, i * minifieldSize.y * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0); ;
+      Vector3 xIntervalVec = new Vector3(i * minifieldSize.y * TileInterval, 0, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0); ;
 
-        Debug.DrawLine(yIntervalVec, right + yIntervalVec, new Color(1.0f, 0.0f, 0.0f));
-        Debug.DrawLine(xIntervalVec, up + xIntervalVec, new Color(1.0f, 0.0f, 0.0f));
+      Debug.DrawLine(yIntervalVec, right + yIntervalVec, new Color(1.0f, 0.0f, 0.0f));
+      Debug.DrawLine(xIntervalVec, up + xIntervalVec, new Color(1.0f, 0.0f, 0.0f));
     }
   }
-  
+
   void DrawTileGrid()
   {
     if (fieldMap == null)
@@ -318,14 +355,14 @@ public class MapEditor : EditorWindow
     Vector3 right = new Vector3(length, 0, 0);
 
     int rangeJ = (int)(minifieldNumber.x * minifieldSize.x);
-    
+
     for (int i = 0; i < rangeJ; i++)
     {
-        Vector3 yIntervalVec = new Vector3(0, i  * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
-        Vector3 xIntervalVec = new Vector3(i * TileInterval, 0, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0);;
+      Vector3 yIntervalVec = new Vector3(0, i * TileInterval, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0); ;
+      Vector3 xIntervalVec = new Vector3(i * TileInterval, 0, 0) - new Vector3(TileInterval / 2, TileInterval / 2, 0); ;
 
-        Debug.DrawLine(yIntervalVec, right + yIntervalVec, new Color(1.0f, 1.0f, 0.0f));
-        Debug.DrawLine(xIntervalVec, up + xIntervalVec, new Color(1.0f, 1.0f, 0.0f));
+      Debug.DrawLine(yIntervalVec, right + yIntervalVec, new Color(1.0f, 1.0f, 0.0f));
+      Debug.DrawLine(xIntervalVec, up + xIntervalVec, new Color(1.0f, 1.0f, 0.0f));
     }
   }
 
@@ -382,11 +419,6 @@ public class MapEditor : EditorWindow
   {
     DrawTileGrid();
     DrawMinifieldGrid();
-
-    // if (isActive != true)
-    // {
-    //     return;
-    // }
 
     if (Application.isPlaying)
     {
@@ -463,9 +495,6 @@ public class MapEditor : EditorWindow
         }
       }
 
-      // if (root == null)
-      //   ClearMap();
-
       Camera cam = SceneView.lastActiveSceneView.camera;
 
       mousepos = current.mousePosition;
@@ -475,13 +504,20 @@ public class MapEditor : EditorWindow
 
       if (current.type == EventType.MouseDown && current.button == 0)
       {
-        if (type != " ")
+        if (editorType == 0 || editorType == 2)
         {
-          AddObject(mousepos);
+          if (type != " ")
+          {
+            AddObject(mousepos);
+          }
+          else
+          {
+            DeleteObject(mousepos);
+          }
         }
-        else
+        else if (editorType == 2)
         {
-          DeleteObject(mousepos);
+
         }
       }
     }
@@ -491,7 +527,7 @@ public class MapEditor : EditorWindow
   {
     int fieldIndexI = ((int)Math.Round(pos.y / TileInterval) + 1);
     int fieldIndexJ = ((int)Math.Round(pos.x / TileInterval) + 1);
-    
+
     if (baseObjectFieldMap[fieldIndexI, fieldIndexJ])
     {
       baseObjectFieldMap[fieldIndexI, fieldIndexJ].transform.SetParent(null);
@@ -519,7 +555,7 @@ public class MapEditor : EditorWindow
     if (fieldMap[fieldIndexI, fieldIndexJ] != " ")
     {
       fieldMap[fieldIndexI, fieldIndexJ] = " ";
-      
+
       GameObject current = baseObjectFieldMap[fieldIndexI, fieldIndexJ];
       baseObjectFieldMap[fieldIndexI, fieldIndexJ] = null;
 
@@ -567,6 +603,10 @@ public class MapEditor : EditorWindow
       case "9":
         obj = Instantiate(Resources.Load("Prefab/Lock")) as GameObject;
         break;
+
+      case "10":
+        obj = Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject;
+        break;
     }
 
     if (obj == null)
@@ -574,7 +614,14 @@ public class MapEditor : EditorWindow
       return;
     }
 
-    fieldMap[fieldIndexI, fieldIndexJ] = type;
+    string dirStr = "";
+
+    if (dolObjectDir != 0)
+    {
+      dirStr = ":" + dolObjectDir;
+    }
+
+    fieldMap[fieldIndexI, fieldIndexJ] = type + dirStr;
     baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj;
 
     obj.transform.position = pos;
