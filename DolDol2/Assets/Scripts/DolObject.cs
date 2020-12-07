@@ -9,7 +9,7 @@ public class DolObject : MonoBehaviour
   public bool IsReRotateNeeded = false;
   public bool IsFixNeeded = false;
   public bool IsStaticObject = false;
-  protected float TileInterval = 1.8f / 2;
+  protected float TileInterval = 0.9f;
 
   protected int MiniFieldIndexI = -1;
   protected int MiniFieldIndexJ = -1;
@@ -24,7 +24,13 @@ public class DolObject : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    // FixYPos();
+  }
 
+  protected void FixYPos()
+  {
+    transform.position = new Vector3(transform.position.x, (float)Math.Round(transform.position.y * 100.0f) * 0.01f, transform.position.z);
+    // transform.position.y = Math.Round(transform.position.y * 100.0f) * 0.01f;
   }
 
   public virtual bool Init()

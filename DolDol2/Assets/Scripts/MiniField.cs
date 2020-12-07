@@ -30,9 +30,8 @@ public class MiniField : MonoBehaviour
 
   public void Init()
   {
-    transform.position = new Vector3(StartPosition.x + (10 / 2 - 0.5f) * TileInterval, StartPosition.y + (10 / 2 - 0.5f) * TileInterval, 0);
-
-    // (Instantiate(MainField.Wall) as DolObject).transform.position = transform.position;
+    // transform.position = new Vector3(StartPosition.x + (10 / 2 - 0.5f) * TileInterval, StartPosition.y + (10 / 2 - 0.5f) * TileInterval, 0);
+    transform.position = new Vector3((float)((decimal)StartPosition.x + (decimal)(10 / 2 - 0.5f) * (decimal)TileInterval), (float)((decimal)StartPosition.y + (decimal)(10 / 2 - 0.5f) * (decimal)TileInterval), 0);
 
     for (int i = 1; i <= 10; i++)
     {
@@ -42,6 +41,7 @@ public class MiniField : MonoBehaviour
         {
           case "1P":
             MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
+            // MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round(StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval * 100.0f) * 0.01f));
             MainField.Player1.transform.position = MainField.Player1.GetSpawnPos();
             GameManager.Instance.ArrCalcIndex.Add(MainField.Player1);
             GameManager.Instance.ArrFixNeeded.Add(MainField.Player1);
@@ -50,6 +50,7 @@ public class MiniField : MonoBehaviour
 
           case "2P":
             MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
+            // MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round(StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval * 100.0f) * 0.01f));
             MainField.Player2.transform.position = MainField.Player2.GetSpawnPos();
             GameManager.Instance.ArrCalcIndex.Add(MainField.Player2);
             GameManager.Instance.ArrFixNeeded.Add(MainField.Player2);
@@ -108,8 +109,18 @@ public class MiniField : MonoBehaviour
               continue;
           }
 
-          obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
-          // obj.transform.position = new Vector2(StartPosition.x + (int)((j - 1) * TileInterval), StartPosition.y + (int)((10 + 2 - i - 1 - 1) * TileInterval));
+          // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
+
+          decimal x = (decimal)StartPosition.x + (decimal)((j - 1) * (decimal)TileInterval);
+          decimal y = (decimal)StartPosition.y + (decimal)((10 + 2 - i - 1 - 1) * (decimal)TileInterval);
+
+          float floatedX = (float)x;
+          float floatedY = (float)y;
+
+          obj.transform.position = new Vector2((float)x, (float)y);
+
+          // y값 교정
+          // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round((StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval) * 100.0f) * 0.01f);
 
           // 미니필드 인덱스 계산 필요한 오브젝트들 델리게이트 추가
           if (obj.GetIsStaticObject() != true)
@@ -184,8 +195,6 @@ public class MiniField : MonoBehaviour
     float t = 0.0f;
 
     GameManager.Instance.SetIsRotating(true);
-
-    // MainField.GetCurrentPlayer().FixDolObject(transform, true);
     
     foreach (DolObject obj in GameManager.Instance.ArrFixNeeded)
     {
@@ -201,8 +210,6 @@ public class MiniField : MonoBehaviour
       yield return null;
     }
 
-    //MainField.Player1.transform.SetParent(null);
-    // MainField.GetCurrentPlayer().ResetRotation();
     foreach (DolObject obj in GameManager.Instance.ArrReRotateNeeded)
     {
       obj.ResetRotation();

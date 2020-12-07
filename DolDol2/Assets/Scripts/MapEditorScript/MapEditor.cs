@@ -11,9 +11,8 @@ public class MapEditor : EditorWindow
   private Vector3 mousepos;
   private string[,] fieldMap = null;
   private GameObject[,] baseObjectFieldMap = null;
-  private bool isActive = false;
-  private float TileInterval = 1.8f / 2;
-  private float minifildInterval = 18.0f / 2;
+  private float TileInterval = 0.9f;
+  private float minifildInterval = 9.0f;
   private GameObject root = null;
   private GameObject[,] minifield = null;
   private string type = "";

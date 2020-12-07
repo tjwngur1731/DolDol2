@@ -18,11 +18,23 @@ public class CollisionHandler : MonoBehaviour
 
   void OnCollisionEnter2D(Collision2D collision)
   {
-    //if (collision.transform.position.y > transform.position.y &&
-    //  (collision.transform.position.x >= (transform.position.x - transform.localScale.x/* / 2*/) &&
-    //  collision.transform.position.x <= (transform.position.x/* + transform.localScale.x / 2*/)))
+    for (int i = 0; i < collision.contactCount; i++)
+    {
+      Debug.Log(collision.contacts[i]);
+    }
 
-    if (collision.transform.position.y > transform.position.y)
+    float left = transform.position.x - transform.localScale.x / 2;
+    float right = transform.position.x + transform.localScale.x / 2;
+
+    //if (collision.transform.position.y > transform.position.y &&
+    // (collision.transform.position.x >= (transform.position.x - transform.localScale.x / 2) &&
+    // collision.transform.position.x <= (transform.position.x + transform.localScale.x / 2)))
+
+    if (collision.transform.position.y > transform.position.y &&
+     (collision.transform.position.x >= left &&
+     collision.transform.position.x <= right))
+
+    // if (collision.transform.position.y > transform.position.y)
     {
       collision.transform.SetParent(transform);
     }

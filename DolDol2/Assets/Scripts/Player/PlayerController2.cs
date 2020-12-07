@@ -8,7 +8,7 @@ public class PlayerController2 : MonoBehaviour
     Rigidbody2D rigid;
     [SerializeField]
     private float speed = 1.0f;
-    public float jumpPower = 1.0f / 2;
+    public float jumpPower = 1.0f;
     [SerializeField]
     private bool isGround = false;
     [SerializeField]
