@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Transform pos;
     [SerializeField]
+    Player player;
+    [SerializeField]
     float checkRadius;
     [SerializeField]
     LayerMask islayer;
@@ -135,6 +137,8 @@ public class PlayerController : MonoBehaviour
                 jumpingCnt = 0;
 
                 Debug.Log("JUMP");
+
+                player.ReleaseY();
 
                 if(!isGround)
                 {

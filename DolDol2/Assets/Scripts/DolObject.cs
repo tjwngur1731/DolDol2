@@ -83,6 +83,11 @@ public class DolObject : MonoBehaviour
     }
 
     transform.SetParent(miniFieldTransform);
+
+    if (isKinematic != true)
+    {
+      ReleaseY();
+    }
   }
 
   public void ResetRotation()
@@ -109,9 +114,25 @@ public class DolObject : MonoBehaviour
     Destroy(gameObject);
   }
 
-  public virtual void FixPosition(Vector3 fixPos)
+  public void CorrectX()
   {
-    transform.position = fixPos;
+    float correctedX = (int)((transform.position.x + TileInterval / 2) / TileInterval) * TileInterval;
+
+    transform.position = new Vector3(correctedX, transform.position.y, transform.position.z);
+    rigid.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+  }
+
+  public void CorrectY()
+  {
+    float correctedY = (int)((transform.position.y + TileInterval / 2) / TileInterval) * TileInterval;
+
+    transform.position = new Vector3(transform.position.x, correctedY, transform.position.z);
+    rigid.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+  }
+
+  public void ReleaseY()
+  {
+    rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
   }
 }
  

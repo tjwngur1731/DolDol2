@@ -14,6 +14,8 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField]
     Transform pos;
     [SerializeField]
+    Player player;
+    [SerializeField]
     float checkRadius;
     [SerializeField]
     LayerMask islayer;
@@ -130,6 +132,8 @@ public class PlayerController2 : MonoBehaviour
             {
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
+
+              player.ReleaseY();
             }
         }
         transform.position = position;

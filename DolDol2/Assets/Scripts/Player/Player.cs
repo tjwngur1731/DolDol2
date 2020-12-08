@@ -15,6 +15,21 @@ public class Player : DolObject
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
+    if (collision.gameObject.tag == "Floor")
+    {
+      //foreach (ContactPoint2D contact in collision.contacts)
+      //{
+      //  if (contact.point.y > transform.position.y)
+      //  {
+      //    break;
+      //  }
+      //}
+      // CorrectY();
+      return;
+    }
+
+    ReleaseY();
+
     switch (collision.gameObject.tag)
     {
       case "Enemy":
@@ -28,7 +43,16 @@ public class Player : DolObject
       case "Key":
         GameManager.Instance.keyCount += 1;
         break;
+
+        //case "Floor":
+
+        //  break;
     }
+  }
+
+  private void OnCollisionExit2D(Collision2D collision)
+  {
+    ReleaseY();
   }
 
   private void OnTriggerEnter2D(Collider2D collision)
@@ -68,7 +92,6 @@ public class Player : DolObject
       }
 
     }
-    
   }
 
   public void SetSpawnPos(Vector2 spawnPos)

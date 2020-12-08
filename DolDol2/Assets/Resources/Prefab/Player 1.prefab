@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 7033242861862348445}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.2, y: 37.8, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_Children:
   - {fileID: 7033242862447418041}
   m_Father: {fileID: 0}
@@ -97,7 +97,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 7033242861862348445}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8170abc1a206d2f44a2c66922169ff8e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -116,10 +116,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 5
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -153,9 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  jumpPower: 8
+  jumpPower: 16
   isGround: 0
   pos: {fileID: 7033242862447418041}
+  player: {fileID: 7033242861862348447}
   checkRadius: 0.35
   islayer:
     serializedVersion: 2
