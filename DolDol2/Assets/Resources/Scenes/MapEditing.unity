@@ -309,7 +309,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -864,6 +864,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2106360434, guid: acbc7a06b5e3b40deb8f92c60a8e6adb, type: 3}
+      propertyPath: m_GenerationType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4093926523530065660, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -926,11 +930,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
         type: 3}
-      propertyPath: Stage
-      value: MovingPlatformTest
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
-        type: 3}
       propertyPath: Player1
       value: 
       objectReference: {fileID: 302549700}
@@ -939,6 +938,11 @@ PrefabInstance:
       propertyPath: Player2
       value: 
       objectReference: {fileID: 652396096}
+    - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
+        type: 3}
+      propertyPath: Stage
+      value: MovingPlatformTest
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbc7a06b5e3b40deb8f92c60a8e6adb, type: 3}
 --- !u!1 &1888881326

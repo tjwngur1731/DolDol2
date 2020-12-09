@@ -20,8 +20,6 @@ public class Field : MonoBehaviour
 
   public string Stage;
 
-
-
   //private int AnotherPlayerIndexI = 0;
   //private int AnotherPlayerIndexJ = 0;
 
@@ -33,6 +31,7 @@ public class Field : MonoBehaviour
 
   private FieldDataFromFileCSV Data;
 
+  private CompositeCollider2D compositeCollider;
   public bool GenerateField = true;
   private float TileInterval = 0.9f;
   private bool PrevCharChoice = true;
@@ -93,6 +92,9 @@ public class Field : MonoBehaviour
         }
       }
     }
+
+    compositeCollider = GetComponent<CompositeCollider2D>();
+    RegenerateCollider();
 
     CalculatePlayerIndex();
     LockManager.Instance.CheckLocks();
@@ -189,5 +191,10 @@ public class Field : MonoBehaviour
   public Player GetCurrentPlayer()
   {
     return CurrentPlayer;
+  }
+
+  public void RegenerateCollider()
+  {
+    compositeCollider.GenerateGeometry();
   }
 }

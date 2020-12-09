@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4093926523530065660}
   - component: {fileID: 4093926523530065663}
-  m_Layer: 0
+  - component: {fileID: 2106360435}
+  - component: {fileID: 2106360434}
+  m_Layer: 8
   m_Name: Field
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,15 +46,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MField: {fileID: 710837715869736672, guid: 01c5b87c9208ed14da371d984bb07aad, type: 3}
-  Player1: {fileID: 7033242861862348447, guid: 42d02f0dc0713b142b8b5335047343f0, type: 3}
-  Player2: {fileID: 8053863359520240046, guid: ef57ed19e875b4d4c8eb1a1b48005712, type: 3}
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
   Wall: {fileID: 5721957420068331139, guid: e7c2c3a107bbdf2ab96286ec8ff8ed3f, type: 3}
   Enemy: {fileID: 1293503133032913282, guid: 2e7240ec2c678d5428ed566b6dc99526, type: 3}
   Floor: {fileID: 405423311484055087, guid: eb9d3abf7f1f15f43a85fd89fe04eeb0, type: 3}
   Star: {fileID: 2900150890320347626, guid: 2158eff9b4845ed439d24bbfacd4e213, type: 3}
   Portal: {fileID: 8212689154398819318, guid: 3af0c1e4d69fde642881d3ebca8d57ef, type: 3}
-  Stage: 
-  FieldType: 2
+  Stage: MovingPlatformTest
   GenerateField: 1
   RangeI: 0
   RangeJ: 0
+--- !u!50 &2106360435
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093926523530065661}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!66 &2106360434
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093926523530065661}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005

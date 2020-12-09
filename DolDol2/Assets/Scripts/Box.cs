@@ -19,26 +19,30 @@ public class Box : DolObject
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
-    // if (correctSwitch)
-    // {
-    //   return;
-    // }
+    float left = transform.position.x - transform.localScale.x / 2;
+    float right = transform.position.x + transform.localScale.x / 2;
 
-    // if (collision.gameObject.tag == "Floor")
-    // {
-    //   // correctSwitch = true;
-    //   CorrectY();
-    // }
+    //if (collision.transform.position.y > transform.position.y &&
+    // (collision.transform.position.x >= (transform.position.x - transform.localScale.x / 2) &&
+    // collision.transform.position.x <= (transform.position.x + transform.localScale.x / 2)))
+
+    if (collision.transform.position.y > transform.position.y &&
+     (collision.transform.position.x >= left &&
+     collision.transform.position.x <= right))
+
+    // if (collision.transform.position.y > transform.position.y)
+    {
+      collision.transform.SetParent(transform);
+    }
   }
 
   private void OnCollsionStay2D(Collision collision)
   {
-    int temp = 0;
+    
   }
 
   private void OnCollisionExit2D(Collision2D collision)
   {
-    correctSwitch = false;
-    // ReleaseY();
+    collision.transform.SetParent(null);
   }
 }

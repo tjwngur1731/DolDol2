@@ -30,6 +30,7 @@ public class MiniField : MonoBehaviour
 
   public void Init()
   {
+
     // transform.position = new Vector3(StartPosition.x + (10 / 2 - 0.5f) * TileInterval, StartPosition.y + (10 / 2 - 0.5f) * TileInterval, 0);
     transform.position = new Vector3((float)((decimal)StartPosition.x + (decimal)(10 / 2 - 0.5f) * (decimal)TileInterval), (float)((decimal)StartPosition.y + (decimal)(10 / 2 - 0.5f) * (decimal)TileInterval), 0);
 
@@ -60,6 +61,8 @@ public class MiniField : MonoBehaviour
       }
     }
 
+    string[] dolObjects = null;
+
     if (GenerateField == true)
     {
       for (int i = 1; i <= 10; i++)
@@ -68,80 +71,97 @@ public class MiniField : MonoBehaviour
         {
           DolObject obj = null;
 
-          switch (FieldMap[i, j])
+          if (FieldMap[i, j] == null)
           {
-            case "1":
-              {
-                obj = Instantiate(MainField.Wall) as DolObject;
-              }
-              break;
-
-            case "0":
-              obj = (Instantiate(Resources.Load("Prefab/Portal")) as GameObject).GetComponent<Portal>();
-              break;
-
-            case "4":
-              obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Trap>();
-              break;
-
-            case "5":
-              obj = (Instantiate(Resources.Load("Prefab/Box")) as GameObject).GetComponent<Box>();
-              break;
-
-            case "7":
-              obj = Instantiate(MainField.Star) as DolObject;
-              break;
-
-            case "8":
-              obj = (Instantiate(Resources.Load("Prefab/Key")) as GameObject).GetComponent<Key>();
-              break;
-
-            case "9":
-              obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>();
-              LockManager.Instance.AddLock(obj as Lock);
-              break;
-
-            case "10":
-              obj = (Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject).GetComponent<MovingPlatform>();
-              break;
-
-            default:
-              continue;
+            continue;
           }
 
-          // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
+          dolObjects = FieldMap[i, j].Split('-');
 
-          decimal x = (decimal)StartPosition.x + (decimal)((j - 1) * (decimal)TileInterval);
-          decimal y = (decimal)StartPosition.y + (decimal)((10 + 2 - i - 1 - 1) * (decimal)TileInterval);
-
-          float floatedX = (float)x;
-          float floatedY = (float)y;
-
-          obj.transform.position = new Vector2((float)x, (float)y);
-
-          // y값 교정
-          // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round((StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval) * 100.0f) * 0.01f);
-
-          // 미니필드 인덱스 계산 필요한 오브젝트들 델리게이트 추가
-          if (obj.GetIsStaticObject() != true)
+          for (int k = 0; k < dolObjects.Length; k++)
           {
-            GameManager.Instance.ArrCalcIndex.Add(obj);
-          }
+            string dolObj = dolObjects[k].Split('|')[0];
+            float dir = 0;
 
-          // 회전시 고정시킬 필요 없는 객체들 
-          if (obj.GetIsFixNeeded() != true)
-          {
-            obj.transform.SetParent(transform);
-          }
-          else
-          {
-            GameManager.Instance.ArrFixNeeded.Add(obj);
-          }
+            if (dolObjects[k].Split('|').Length > 1)
+            {
+              dir = float.Parse(dolObjects[k].Split('|')[1]) * -90;
+            }
 
-          // 회전후 다시 돌려놔야 할 객체들
-          if (obj.GetIsReRotateNeeded() == true)
-          {
-            GameManager.Instance.ArrReRotateNeeded.Add(obj);
+            switch (dolObj)
+            {
+              case "1":
+                {
+                  obj = Instantiate(MainField.Wall) as DolObject;
+                }
+                break;
+
+              case "0":
+                obj = (Instantiate(Resources.Load("Prefab/Portal")) as GameObject).GetComponent<Portal>();
+                break;
+
+              case "4":
+                obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Trap>();
+                break;
+
+              case "5":
+                obj = (Instantiate(Resources.Load("Prefab/Box")) as GameObject).GetComponent<Box>();
+                break;
+
+              case "7":
+                obj = Instantiate(MainField.Star) as DolObject;
+                break;
+
+              case "8":
+                obj = (Instantiate(Resources.Load("Prefab/Key")) as GameObject).GetComponent<Key>();
+                break;
+
+              case "9":
+                obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>();
+                LockManager.Instance.AddLock(obj as Lock);
+                break;
+
+              case "10":
+                obj = (Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject).GetComponent<MovingPlatform>();
+                break;
+
+              default:
+                continue;
+            }
+
+
+            // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
+
+            decimal x = (decimal)StartPosition.x + (decimal)((j - 1) * (decimal)TileInterval);
+            decimal y = (decimal)StartPosition.y + (decimal)((10 + 2 - i - 1 - 1) * (decimal)TileInterval);
+
+            float floatedX = (float)x;
+            float floatedY = (float)y;
+
+            obj.transform.position = new Vector2((float)x, (float)y);
+            obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, dir);
+
+            // 미니필드 인덱스 계산 필요한 오브젝트들 델리게이트 추가
+            if (obj.GetIsStaticObject() != true)
+            {
+              GameManager.Instance.ArrCalcIndex.Add(obj);
+            }
+
+            // 회전시 고정시킬 필요 없는 객체들 
+            if (obj.GetIsFixNeeded() != true)
+            {
+              obj.transform.SetParent(transform);
+            }
+            else
+            {
+              GameManager.Instance.ArrFixNeeded.Add(obj);
+            }
+
+            // 회전후 다시 돌려놔야 할 객체들
+            if (obj.GetIsReRotateNeeded() == true)
+            {
+              GameManager.Instance.ArrReRotateNeeded.Add(obj);
+            }
           }
         }
       }
@@ -195,7 +215,7 @@ public class MiniField : MonoBehaviour
     float t = 0.0f;
 
     GameManager.Instance.SetIsRotating(true);
-    
+
     foreach (DolObject obj in GameManager.Instance.ArrFixNeeded)
     {
       obj.FixDolObject(transform, true);
@@ -221,6 +241,8 @@ public class MiniField : MonoBehaviour
     {
       obj.FixDolObject(null, false);
     }
+
+    transform.parent.GetComponent<Field>().RegenerateCollider();
 
     LockManager.Instance.CheckLocks();
 

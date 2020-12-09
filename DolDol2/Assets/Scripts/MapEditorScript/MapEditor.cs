@@ -240,6 +240,7 @@ public class MapEditor : EditorWindow
       {
         string lines = null;
         string[] values = null;
+        string[] dolObjects = null;
 
         int i = 50 - 1;
 
@@ -251,66 +252,80 @@ public class MapEditor : EditorWindow
 
           for (int j = 0; j < values.Length; j++)
           {
-            switch (values[j])
+            dolObjects = values[j].Split('-');
+
+            for (int k = 0; k < dolObjects.Length; k++)
             {
-              case "1P":
-                obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
-                break;
+              string dolObj = dolObjects[k].Split(':')[0];
+              float dir = 0;
 
-              case "2P":
-                obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
-                break;
+              if (dolObjects[k].Split('|').Length > 1)
+              {
+                dir = float.Parse(dolObjects[k].Split('|')[1]) * -90;
+              }
 
-              case "0":
-                obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
-                break;
+              switch (dolObj)
+              {
+                case "1P":
+                  obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
+                  break;
 
-              case "1":
-                obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
-                break;
+                case "2P":
+                  obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
+                  break;
 
-              case "4":
-                obj = Instantiate(Resources.Load("Prefab/Trap")) as GameObject;
-                break;
+                case "0":
+                  obj = Instantiate(Resources.Load("Prefab/Portal")) as GameObject;
+                  break;
 
-              case "5":
-                obj = Instantiate(Resources.Load("Prefab/Box")) as GameObject;
-                break;
+                case "1":
+                  obj = Instantiate(Resources.Load("Prefab/Wall")) as GameObject;
+                  break;
 
-              case "7":
-                obj = Instantiate(Resources.Load("Prefab/Star")) as GameObject;
-                break;
+                case "4":
+                  obj = Instantiate(Resources.Load("Prefab/Trap")) as GameObject;
+                  break;
 
-              case "8":
-                obj = Instantiate(Resources.Load("Prefab/Key")) as GameObject;
-                break;
+                case "5":
+                  obj = Instantiate(Resources.Load("Prefab/Box")) as GameObject;
+                  break;
 
-              case "9":
-                obj = Instantiate(Resources.Load("Prefab/Lock")) as GameObject;
-                break;
+                case "7":
+                  obj = Instantiate(Resources.Load("Prefab/Star")) as GameObject;
+                  break;
 
-              case "10":
-                obj = Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject;
-                break;
+                case "8":
+                  obj = Instantiate(Resources.Load("Prefab/Key")) as GameObject;
+                  break;
 
-              default:
+                case "9":
+                  obj = Instantiate(Resources.Load("Prefab/Lock")) as GameObject;
+                  break;
+
+                case "10":
+                  obj = Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject;
+                  break;
+
+                default:
+                  continue;
+              }
+
+              if (obj == null)
+              {
                 continue;
+              }
+
+              fieldMap[i + 1, j + 1] = values[j];
+              baseObjectFieldMap[i + 1, j + 1] = obj;
+
+              obj.transform.position = new Vector3(j * TileInterval, i * TileInterval, 0.0f);
+              obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, dir);
+
+              int indexI = i / (int)minifieldSize.y;
+              int indexJ = j / (int)minifieldSize.x;
+
+              obj.transform.SetParent(minifield[indexI, indexJ].transform);
             }
-
-            if (obj == null)
-            {
-              continue;
-            }
-
-            fieldMap[i + 1, j + 1] = values[j];
-            baseObjectFieldMap[i + 1, j + 1] = obj;
-
-            obj.transform.position = new Vector3(j * TileInterval, i * TileInterval, 0.0f);
-
-            int indexI = i / (int)minifieldSize.y;
-            int indexJ = j / (int)minifieldSize.x;
-
-            obj.transform.SetParent(minifield[indexI, indexJ].transform);
           }
 
           i--;
