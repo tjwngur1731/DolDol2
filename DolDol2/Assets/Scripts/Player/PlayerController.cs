@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Transform pos;
     [SerializeField]
+    Player player;
+    [SerializeField]
     float checkRadius;
     [SerializeField]
     LayerMask islayer;
@@ -26,11 +28,19 @@ public class PlayerController : MonoBehaviour
     bool runCount;
     public Sprite[] runSprite;
 
-    public Sprite jumpSprite;
+    public Sprite[] jumpSprite;
     public Sprite staySprite;
 
     //움직이는 중인가.
     bool isrunnig = false;
+    bool isLanding;
+    bool isWall;
+    bool isDoubleJump;
+
+    float landingTime;
+    float jumpingTime;
+
+    int jumpingCnt;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +78,14 @@ public class PlayerController : MonoBehaviour
 
         if (!isGround)
         {
-            renderer.sprite = jumpSprite;
+            jumpingTime += Time.deltaTime;
+            if (jumpingTime > 0.2f && jumpingCnt<2)
+            {
+                jumpingCnt++;
+                jumpingTime = 0;
+            }
+            renderer.sprite = jumpSprite[jumpingCnt];
+            landingTime = 0;
         }
         else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
         {
@@ -82,7 +99,16 @@ public class PlayerController : MonoBehaviour
         }
         else if(isGround)
         {
-            renderer.sprite = staySprite;
+            landingTime += Time.deltaTime;
+            if(landingTime<0.1f)
+            {
+                renderer.sprite = jumpSprite[3];
+            }
+            else
+            {
+                renderer.sprite = staySprite;
+            }
+            isDoubleJump = false;
         }
         else
         {
@@ -105,11 +131,31 @@ public class PlayerController : MonoBehaviour
 
             rigid.velocity = new Vector2(hor * speed, rigid.velocity.y);
 
-            if (Input.GetKey(KeyCode.W) && isGround == true)
+            if (Input.GetKey(KeyCode.W) && (isGround || isWall) && !isDoubleJump)
             {
                 rigid.velocity = Vector2.up * jumpPower;
+                jumpingCnt = 0;
+
+                Debug.Log("JUMP");
+
+                player.ReleaseY();
+
+                if(!isGround)
+                {
+                    isDoubleJump = true;
+                }
             }
         }
         transform.position = position;
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        bool collisionDolObj = collision.gameObject.CompareTag("Floor");
+
+        if (collisionDolObj && !isDoubleJump && !isGround)
+        {
+            isWall = true;
+        }
     }
 }

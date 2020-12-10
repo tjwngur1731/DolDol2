@@ -14,6 +14,8 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField]
     Transform pos;
     [SerializeField]
+    Player player;
+    [SerializeField]
     float checkRadius;
     [SerializeField]
     LayerMask islayer;
@@ -26,11 +28,17 @@ public class PlayerController2 : MonoBehaviour
     bool runCount;
     public Sprite[] runSprite;
 
-    public Sprite jumpSprite;
+    public Sprite[] jumpSprite;
     public Sprite staySprite;
 
     //움직이는 중인가.
     bool isrunnig = false;
+    bool isLanding;
+
+    float jumpingTime;
+    float landingTime;
+
+    int jumpingCnt;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +77,14 @@ public class PlayerController2 : MonoBehaviour
 
         if (!isGround)
         {
-            renderer.sprite = jumpSprite;
+            jumpingTime += Time.deltaTime;
+            if (jumpingTime > 0.2f && jumpingCnt < 2)
+            {
+                jumpingCnt++;
+                jumpingTime = 0;
+            }
+            renderer.sprite = jumpSprite[jumpingCnt];
+            landingTime = 0;
         }
         else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == false)
         {
@@ -83,7 +98,15 @@ public class PlayerController2 : MonoBehaviour
         }
         else if (isGround)
         {
-            renderer.sprite = staySprite;
+            landingTime += Time.deltaTime;
+            if (landingTime < 0.1f)
+            {
+                renderer.sprite = jumpSprite[3];
+            }
+            else
+            {
+                renderer.sprite = staySprite;
+            }
         }
         else
         {
@@ -108,6 +131,9 @@ public class PlayerController2 : MonoBehaviour
             if (Input.GetKey(KeyCode.W) && isGround == true)
             {
                 rigid.velocity = Vector2.up * jumpPower;
+                jumpingCnt = 0;
+
+              player.ReleaseY();
             }
         }
         transform.position = position;

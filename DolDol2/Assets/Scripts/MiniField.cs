@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MiniField : MonoBehaviour
 {
-  int[,] FieldMap, TempBuffer;
+  string[,] FieldMap;
   Vector2 StartPosition;
   Field MainField;
 
@@ -15,7 +15,7 @@ public class MiniField : MonoBehaviour
   void Start()
   {
     StartPosition = new Vector2();
-    FieldMap = new int[7, 7];
+    FieldMap = new string[10 + 2, 10 + 2];
   }
 
   public void SetInterval(float interval)
@@ -30,197 +30,145 @@ public class MiniField : MonoBehaviour
 
   public void Init()
   {
-        transform.position = new Vector3(StartPosition.x + 2 * TileInterval, StartPosition.y + 2 * TileInterval, 0);
-        //transform.position = new Vector3(0, 0, 0);
 
-    // (Instantiate(MainField.Wall) as BaseObject).transform.position = transform.position;
+    // transform.position = new Vector3(StartPosition.x + (10 / 2 - 0.5f) * TileInterval, StartPosition.y + (10 / 2 - 0.5f) * TileInterval, 0);
+    transform.position = new Vector3((float)((decimal)StartPosition.x + (decimal)(10 / 2 - 0.5f) * (decimal)TileInterval), (float)((decimal)StartPosition.y + (decimal)(10 / 2 - 0.5f) * (decimal)TileInterval), 0);
 
-    for (int i = 1; i <= 5; i++)
+    for (int i = 1; i <= 10; i++)
     {
-      for (int j = 1; j <= 5; j++)
+      for (int j = 1; j <= 10; j++)
       {
         switch (FieldMap[i, j])
         {
-          case 0:
-            MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval));
+          case "1P":
+            MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
+            // MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round(StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval * 100.0f) * 0.01f));
             MainField.Player1.transform.position = MainField.Player1.GetSpawnPos();
+            GameManager.Instance.ArrCalcIndex.Add(MainField.Player1);
+            GameManager.Instance.ArrFixNeeded.Add(MainField.Player1);
+            GameManager.Instance.ArrReRotateNeeded.Add(MainField.Player1);
             break;
 
-          case 1:
-            MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval));
+          case "2P":
+            MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
+            // MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round(StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval * 100.0f) * 0.01f));
             MainField.Player2.transform.position = MainField.Player2.GetSpawnPos();
+            GameManager.Instance.ArrCalcIndex.Add(MainField.Player2);
+            GameManager.Instance.ArrFixNeeded.Add(MainField.Player2);
+            GameManager.Instance.ArrReRotateNeeded.Add(MainField.Player2);
             break;
         }
       }
     }
 
+    string[] dolObjects = null;
+
     if (GenerateField == true)
     {
-      for (int i = 1; i <= 5; i++)
+      for (int i = 1; i <= 10; i++)
       {
-        for (int j = 1; j <= 5; j++)
+        for (int j = 1; j <= 10; j++)
         {
-          BaseObject obj = null;
+          DolObject obj = null;
 
-          switch (FieldMap[i, j])
+          if (FieldMap[i, j] == null)
           {
-            case 2:
-              {
-                obj = Instantiate(MainField.Wall) as BaseObject;
-
-                Wall wall = (obj as Wall);
-                
-                int up = FieldMap[i - 1, j];
-                int down = FieldMap[i + 1, j];
-                int left = FieldMap[i, j - 1];
-                int right = FieldMap[i, j + 1];
-
-                // 0칸
-                if ((up == 2 && down == 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(10);
-                }
-
-                // 1칸
-                if ((up != 2 && down == 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(0);
-                }
-
-                if ((up == 2 && down != 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
-                }
-
-                if ((up == 2 && down == 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                }
-
-                if ((up == 2 && down == 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(0);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                }
-
-                // 2칸
-                if ((up == 2 && down == 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(9);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                }
-
-                if ((up != 2 && down != 2) &&
-                    (left == 2 && right == 2))
-                {
-                  wall.SetWallType(9);
-                }
-
-                if ((up == 2 && down != 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(3);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 180.0f);
-                }
-
-                if ((up == 2 && down != 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(3);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z + 90.0f);
-                }
-
-                if ((up != 2 && down == 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(3);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z - 90.0f);
-                }
-
-                if ((up != 2 && down == 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(3);
-                }
-
-                // 3개
-                if ((up != 2 && down != 2) &&
-                    (left != 2 && right == 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
-                }
-
-                if ((up != 2 && down != 2) &&
-                    (left == 2 && right != 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 180);
-                }
-
-                if ((up != 2 && down == 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, -90.0f);
-                }
-
-                if ((up == 2 && down != 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(4);
-                  obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 90.0f);
-                }
-
-                // 4개
-                if ((up != 2 && down != 2) &&
-                    (left != 2 && right != 2))
-                {
-                  wall.SetWallType(6);
-                }
-
-                // wall.SetWallType(6);
-                
-              }
-              break;
-
-            case 3:
-              obj = Instantiate(MainField.Floor) as BaseObject;
-              break;
-
-            case 4:
-              obj = Instantiate(MainField.Enemy) as BaseObject;
-              break;
-
-            case 5:
-              obj = Instantiate(MainField.Star) as BaseObject;
-              break;
-
-            case 6:
-              obj = Instantiate(MainField.Portal) as BaseObject;
-              break;
-
-            default:
-              continue;
+            continue;
           }
 
-          obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (7 - i - 1 - 1) * TileInterval);
-          // obj.transform.position = new Vector2(StartPosition.x + (int)((j - 1) * TileInterval), StartPosition.y + (int)((7 - i - 1 - 1) * TileInterval));
-          obj.transform.SetParent(transform);
+          dolObjects = FieldMap[i, j].Split('-');
+
+          for (int k = 0; k < dolObjects.Length; k++)
+          {
+            string dolObj = dolObjects[k].Split('|')[0];
+            float dir = 0;
+
+            if (dolObjects[k].Split('|').Length > 1)
+            {
+              dir = float.Parse(dolObjects[k].Split('|')[1]) * -90;
+            }
+
+            switch (dolObj)
+            {
+              case "1":
+                {
+                  obj = Instantiate(MainField.Wall) as DolObject;
+                }
+                break;
+
+              case "0":
+                obj = (Instantiate(Resources.Load("Prefab/Portal")) as GameObject).GetComponent<Portal>();
+                break;
+
+              case "4":
+                obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Trap>();
+                break;
+
+              case "5":
+                obj = (Instantiate(Resources.Load("Prefab/Box")) as GameObject).GetComponent<Box>();
+                break;
+
+              case "7":
+                obj = Instantiate(MainField.Star) as DolObject;
+                break;
+
+              case "8":
+                obj = (Instantiate(Resources.Load("Prefab/Key")) as GameObject).GetComponent<Key>();
+                break;
+
+              case "9":
+                obj = (Instantiate(Resources.Load("Prefab/Lock")) as GameObject).GetComponent<Lock>();
+                LockManager.Instance.AddLock(obj as Lock);
+                break;
+
+              case "10":
+                obj = (Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject).GetComponent<MovingPlatform>();
+                break;
+
+              default:
+                continue;
+            }
+
+
+            // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
+
+            decimal x = (decimal)StartPosition.x + (decimal)((j - 1) * (decimal)TileInterval);
+            decimal y = (decimal)StartPosition.y + (decimal)((10 + 2 - i - 1 - 1) * (decimal)TileInterval);
+
+            float floatedX = (float)x;
+            float floatedY = (float)y;
+
+            obj.transform.position = new Vector2((float)x, (float)y);
+            obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, dir);
+
+            // 미니필드 인덱스 계산 필요한 오브젝트들 델리게이트 추가
+            if (obj.GetIsStaticObject() != true)
+            {
+              GameManager.Instance.ArrCalcIndex.Add(obj);
+            }
+
+            // 회전시 고정시킬 필요 없는 객체들 
+            if (obj.GetIsFixNeeded() != true)
+            {
+              obj.transform.SetParent(transform);
+            }
+            else
+            {
+              GameManager.Instance.ArrFixNeeded.Add(obj);
+            }
+
+            // 회전후 다시 돌려놔야 할 객체들
+            if (obj.GetIsReRotateNeeded() == true)
+            {
+              GameManager.Instance.ArrReRotateNeeded.Add(obj);
+            }
+          }
         }
       }
     }
   }
 
-  public void SetMap(int[,] fieldMap)
+  public void SetMap(string[,] fieldMap)
   {
     FieldMap = fieldMap;
   }
@@ -268,27 +216,9 @@ public class MiniField : MonoBehaviour
 
     GameManager.Instance.SetIsRotating(true);
 
-    if (GameManager.Instance.charChoice == true)
+    foreach (DolObject obj in GameManager.Instance.ArrFixNeeded)
     {
-      MainField.Player1.transform.SetParent(transform);
-      MainField.Player1.SetIsKinematic(true);
-
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player2.transform.SetParent(transform);
-        MainField.Player2.SetIsKinematic(true);  
-      }
-    }
-    else
-    {
-      MainField.Player2.transform.SetParent(transform);
-      MainField.Player2.SetIsKinematic(true);
-
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player1.transform.SetParent(transform);
-        MainField.Player1.SetIsKinematic(true);  
-      }
+      obj.FixDolObject(transform, true);
     }
 
     while (t < duration)
@@ -300,33 +230,22 @@ public class MiniField : MonoBehaviour
       yield return null;
     }
 
-    if (GameManager.Instance.charChoice == true)
+    foreach (DolObject obj in GameManager.Instance.ArrReRotateNeeded)
     {
-      MainField.Player1.transform.SetParent(null);
-      MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-      MainField.Player1.SetIsKinematic(false);
-      
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player2.transform.SetParent(null);
-        MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-        MainField.Player2.SetIsKinematic(false);
-      }
+      obj.ResetRotation();
     }
-    else
-    {
-      MainField.Player2.transform.SetParent(null);
-      MainField.Player2.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-      MainField.Player2.SetIsKinematic(false);
 
-      if (GameManager.Instance.GetIsInSameMiniField())
-      {
-        MainField.Player1.transform.SetParent(null);
-        MainField.Player1.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.y);
-        MainField.Player1.SetIsKinematic(false);
-      }
+    // MainField.GetCurrentPlayer().FixDolObject(null, false);
+
+    foreach (DolObject obj in GameManager.Instance.ArrFixNeeded)
+    {
+      obj.FixDolObject(null, false);
     }
-    
+
+    transform.parent.GetComponent<Field>().RegenerateCollider();
+
+    LockManager.Instance.CheckLocks();
+
     GameManager.Instance.SetIsRotating(false);
 
     yield break;

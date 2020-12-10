@@ -9,6 +9,8 @@ TagManager:
   - Star
   - Light
   - Button
+  - Key
+  - Lock
   layers:
   - Default
   - TransparentFX
