@@ -15,14 +15,16 @@ public class MapEditor : EditorWindow
   private float minifildInterval = 9.0f;
   private GameObject root = null;
   private GameObject[,] minifield = null;
+  private int currentSelectedI = -1;
+  private int currentSelectedJ = -1;
+  private GameObject currentSelectedObject = null;
   private string type = "";
-  private bool drawLine = true;
   private Vector2 minifieldNumber = new Vector2(5, 5);
   private Vector2 minifieldSize = new Vector2(10, 10);
   private string loadFileName = "";
   private string saveFileName = "";
   private int editorType = 0;
-  private int dolObjectDir = 0;
+  private int dolObjectDir = -1;
   void OnGUI()
   {
 
@@ -102,28 +104,55 @@ public class MapEditor : EditorWindow
       type = "10";
       editorType = 0;
     }
+
+    if (GUILayout.Button("M-Platform", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      type = "11";
+      editorType = 0;
+    }
+
     GUILayout.EndHorizontal();
 
     GUILayout.Label("Rotation", GUILayout.Width(50), GUILayout.Height(30));
     GUILayout.BeginHorizontal("");
     if (GUILayout.Button("Turn Left", GUILayout.Width(70), GUILayout.Height(30)))
     {
+      if (!currentSelectedObject)
+      {
+        return;
+      }
+
       dolObjectDir--;
 
       if (dolObjectDir < 0)
       {
         dolObjectDir = 3;
       }
+
+      string obj = fieldMap[currentSelectedI, currentSelectedJ].Split('|')[0];
+      currentSelectedObject.transform.eulerAngles = new Vector3(currentSelectedObject.transform.eulerAngles.x, currentSelectedObject.transform.eulerAngles.y, dolObjectDir * -90.0f);
+
+      fieldMap[currentSelectedI, currentSelectedJ] = obj + "|" + dolObjectDir;
     }
 
     if (GUILayout.Button("Turn Right", GUILayout.Width(70), GUILayout.Height(30)))
     {
+      if (!currentSelectedObject)
+      {
+        return;
+      }
+
       dolObjectDir++;
 
       if (dolObjectDir > 3)
       {
         dolObjectDir = 0;
       }
+
+      string obj = fieldMap[currentSelectedI, currentSelectedJ].Split('|')[0];
+      currentSelectedObject.transform.eulerAngles = new Vector3(currentSelectedObject.transform.eulerAngles.x, currentSelectedObject.transform.eulerAngles.y, dolObjectDir * -90.0f);
+
+      fieldMap[currentSelectedI, currentSelectedJ] = obj + "|" + dolObjectDir;
     }
     GUILayout.EndHorizontal();
 
@@ -169,7 +198,6 @@ public class MapEditor : EditorWindow
     if (root != null)
     {
       DestroyImmediate(root);
-
     }
 
     root = new GameObject();
@@ -256,7 +284,7 @@ public class MapEditor : EditorWindow
 
             for (int k = 0; k < dolObjects.Length; k++)
             {
-              string dolObj = dolObjects[k].Split(':')[0];
+              string dolObj = dolObjects[k].Split('|')[0];
               float dir = 0;
 
               if (dolObjects[k].Split('|').Length > 1)
@@ -304,6 +332,10 @@ public class MapEditor : EditorWindow
 
                 case "10":
                   obj = Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject;
+                  break;
+
+                case "11":
+                  obj = Instantiate(Resources.Load("Prefab/CrossTile")) as GameObject;
                   break;
 
                 default:
@@ -529,16 +561,53 @@ public class MapEditor : EditorWindow
             DeleteObject(mousepos);
           }
         }
-        else if (editorType == 2)
+        else if (editorType == 1)
         {
-
+          EditObject(mousepos);
         }
       }
+      
+    }
+  }
+
+  void EditObject(Vector3 pos)
+  {
+    int indexJ = (int)(Math.Round(pos.x) / minifildInterval);
+    int indexI = (int)(Math.Round(pos.y) / minifildInterval);
+
+    if (!((indexJ >= 0 && indexJ <= 5) && (indexI >= 0 && indexI <= 5)))
+    {
+      return;
+    }
+
+    pos.x = (int)((pos.x + TileInterval / 2) / TileInterval) * TileInterval;
+    pos.y = (int)((pos.y + TileInterval / 2) / TileInterval) * TileInterval;
+
+    currentSelectedI = ((int)Math.Round(pos.y / TileInterval) + 1);
+    currentSelectedJ = ((int)Math.Round(pos.x / TileInterval) + 1);
+
+    currentSelectedObject = baseObjectFieldMap[currentSelectedI, currentSelectedJ];
+
+    if (fieldMap[currentSelectedI, currentSelectedJ].Split('|').Length > 1)
+    {
+      dolObjectDir = Int32.Parse(fieldMap[currentSelectedI, currentSelectedJ].Split('|')[1]);
+    }
+    else
+    {
+      dolObjectDir = 0;
     }
   }
 
   void DeleteObject(Vector3 pos)
   {
+    int indexJ = (int)(Math.Round(pos.x) / minifildInterval);
+    int indexI = (int)(Math.Round(pos.y) / minifildInterval);
+
+    if (!((indexJ >= 0 && indexJ <= 5) && (indexI >= 0 && indexI <= 5)))
+    {
+      return;
+    }
+
     int fieldIndexI = ((int)Math.Round(pos.y / TileInterval) + 1);
     int fieldIndexJ = ((int)Math.Round(pos.x / TileInterval) + 1);
 
@@ -568,14 +637,22 @@ public class MapEditor : EditorWindow
 
     if (fieldMap[fieldIndexI, fieldIndexJ] != " ")
     {
-      fieldMap[fieldIndexI, fieldIndexJ] = " ";
+      if ((type == "5" || type == "9") && (fieldMap[fieldIndexI, fieldIndexJ] == "7" ||
+        fieldMap[fieldIndexI, fieldIndexJ] == "7"))
+      {
 
-      GameObject current = baseObjectFieldMap[fieldIndexI, fieldIndexJ];
-      baseObjectFieldMap[fieldIndexI, fieldIndexJ] = null;
+      }
+      else
+      {
+        fieldMap[fieldIndexI, fieldIndexJ] = " ";
 
-      current.transform.SetParent(null);
+        GameObject current = baseObjectFieldMap[fieldIndexI, fieldIndexJ];
+        baseObjectFieldMap[fieldIndexI, fieldIndexJ] = null;
 
-      DestroyImmediate(current);
+        current.transform.SetParent(null);
+
+        DestroyImmediate(current);
+      }
     }
 
     GameObject obj = null;
@@ -621,6 +698,10 @@ public class MapEditor : EditorWindow
       case "10":
         obj = Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject;
         break;
+
+      case "11":
+        obj = Instantiate(Resources.Load("Prefab/CrossTile")) as GameObject;
+        break;
     }
 
     if (obj == null)
@@ -628,14 +709,16 @@ public class MapEditor : EditorWindow
       return;
     }
 
-    string dirStr = "";
+    //string dirStr = "";
 
-    if (dolObjectDir != 0)
-    {
-      dirStr = ":" + dolObjectDir;
-    }
+    //if (dolObjectDir != 0)
+    //{
+    //  dirStr = "|" + dolObjectDir;
+    //}
 
-    fieldMap[fieldIndexI, fieldIndexJ] = type + dirStr;
+    //fieldMap[fieldIndexI, fieldIndexJ] = type + dirStr;
+
+    fieldMap[fieldIndexI, fieldIndexJ] = type;
     baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj;
 
     obj.transform.position = pos;

@@ -138,8 +138,6 @@ public class PlayerController : MonoBehaviour
 
                 Debug.Log("JUMP");
 
-                player.ReleaseY();
-
                 if(!isGround)
                 {
                     isDoubleJump = true;

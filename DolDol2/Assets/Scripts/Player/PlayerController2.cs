@@ -132,8 +132,6 @@ public class PlayerController2 : MonoBehaviour
             {
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
-
-              player.ReleaseY();
             }
         }
         transform.position = position;

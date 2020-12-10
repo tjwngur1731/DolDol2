@@ -125,10 +125,14 @@ public class MiniField : MonoBehaviour
                 obj = (Instantiate(Resources.Load("Prefab/MovingPlatform")) as GameObject).GetComponent<MovingPlatform>();
                 break;
 
+              case "11":
+                obj = (Instantiate(Resources.Load("Prefab/CrossTile")) as GameObject).GetComponent<CrossTile>();
+                GameManager.Instance.ArrStaticRotated.Add(obj);
+                break;
+
               default:
                 continue;
             }
-
 
             // obj.transform.position = new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval);
 
@@ -226,6 +230,12 @@ public class MiniField : MonoBehaviour
       t += Time.deltaTime;
       float zRoation = Mathf.Lerp(startRotation, endRotation, t / duration) % 360.0f;
       transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, zRoation);
+
+      // Static
+      foreach (DolObject obj in GameManager.Instance.ArrStaticRotated)
+      {
+        obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, 0);
+      }
 
       yield return null;
     }
