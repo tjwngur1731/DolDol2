@@ -15,6 +15,8 @@ public class DolObject : MonoBehaviour
   protected int MiniFieldIndexI = -1;
   protected int MiniFieldIndexJ = -1;
 
+  private bool IsOnCrossTile = false;
+
   protected Rigidbody2D rigid;
 
   void Start()
@@ -66,6 +68,16 @@ public class DolObject : MonoBehaviour
     return MiniFieldIndexI;
   }
 
+  public void SetIsOnCrossTile(bool isOn)
+  {
+    IsOnCrossTile = isOn;
+  }
+
+  public bool GetIsOnCrossTile()
+  {
+    return IsOnCrossTile;
+  }
+
   public void CalculateMinifieldIndex()
   {
     MiniFieldIndexJ = (int)((Math.Round(transform.position.x)) / (10 * TileInterval));
@@ -100,6 +112,7 @@ public class DolObject : MonoBehaviour
     }
 
     // if (IsGround)
+    if (!IsOnCrossTile)
     {
       transform.SetParent(miniFieldTransform);
     }

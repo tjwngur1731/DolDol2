@@ -347,16 +347,24 @@ public class MapEditor : EditorWindow
                 continue;
               }
 
-              fieldMap[i + 1, j + 1] = values[j];
-              baseObjectFieldMap[i + 1, j + 1] = obj;
-
               obj.transform.position = new Vector3(j * TileInterval, i * TileInterval, 0.0f);
               obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, dir);
 
-              int indexI = i / (int)minifieldSize.y;
-              int indexJ = j / (int)minifieldSize.x;
+              if (k <= 0)
+              {
+                fieldMap[i + 1, j + 1] = values[j];
+                baseObjectFieldMap[i + 1, j + 1] = obj;
 
-              obj.transform.SetParent(minifield[indexI, indexJ].transform);
+                int indexI = i / (int)minifieldSize.y;
+                int indexJ = j / (int)minifieldSize.x;
+
+                obj.transform.SetParent(minifield[indexI, indexJ].transform);
+              }
+              else if (k > 0)
+              {
+                fieldMap[i + 1, j + 1] += '-' + type;
+                obj.transform.SetParent(baseObjectFieldMap[i + 1, j + 1].transform);
+              }
             }
           }
 
@@ -635,12 +643,14 @@ public class MapEditor : EditorWindow
     int fieldIndexI = ((int)Math.Round(pos.y / TileInterval) + 1);
     int fieldIndexJ = ((int)Math.Round(pos.x / TileInterval) + 1);
 
+    GameObject existObj = null;
+
     if (fieldMap[fieldIndexI, fieldIndexJ] != " ")
     {
       if ((type == "5" || type == "9") && (fieldMap[fieldIndexI, fieldIndexJ] == "7" ||
         fieldMap[fieldIndexI, fieldIndexJ] == "7"))
       {
-
+        existObj = baseObjectFieldMap[fieldIndexI, fieldIndexJ];
       }
       else
       {
@@ -717,12 +727,20 @@ public class MapEditor : EditorWindow
     //}
 
     //fieldMap[fieldIndexI, fieldIndexJ] = type + dirStr;
-
-    fieldMap[fieldIndexI, fieldIndexJ] = type;
-    baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj;
+    if (existObj)
+    {
+      fieldMap[fieldIndexI, fieldIndexJ] += '-' + type;
+      obj.transform.SetParent(existObj.transform);
+    }
+    else
+    {
+      fieldMap[fieldIndexI, fieldIndexJ] = type;
+      baseObjectFieldMap[fieldIndexI, fieldIndexJ] = obj;
+      obj.transform.SetParent(minifield[indexI, indexJ].transform);
+    }
 
     obj.transform.position = pos;
-    obj.transform.SetParent(minifield[indexI, indexJ].transform);
+    
   }
 
   [MenuItem("CustomEditor/MapEditor")]

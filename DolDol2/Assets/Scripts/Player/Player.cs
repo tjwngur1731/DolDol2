@@ -23,13 +23,13 @@ public class Player : DolObject
         gameObject.transform.position = spawnPos;
         break;
 
-      case "Star":
-        GameManager.Instance.starCount += 1;
-        break;
+      //case "Star":
+      //  GameManager.Instance.starCount += 1;
+      //  break;
 
-      case "Key":
-        GameManager.Instance.keyCount += 1;
-        break;
+      //case "Key":
+      //  GameManager.Instance.keyCount += 1;
+      //  break;
 
         //case "Floor":
 
@@ -73,6 +73,14 @@ public class Player : DolObject
         SceneManager.LoadScene(scene.buildIndex);
       }
 
+    }
+    else if (collision.gameObject.tag == "Star")
+    {
+      GameManager.Instance.starCount += 1;
+    }
+    else if (collision.gameObject.tag == "Key")
+    {
+      GameManager.Instance.keyCount += 1;
     }
   }
 
