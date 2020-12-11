@@ -16,7 +16,9 @@ public class Star : DolObject
   {
     if (collision.gameObject.tag == "Player")
     {
-      DestoryDolObject();
+            GameManager.Instance.starCount += 1;
+            Debug.Log(ScoreManagement.currentChapter + " " + ScoreManagement.currentStage + " " + GameManager.Instance.starCount);
+            DestoryDolObject();
     }
   }
   private void Update()

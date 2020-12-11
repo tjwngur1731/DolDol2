@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class StageClear : MonoBehaviour
 {
-    public bool[] stageClear = new bool[20];
-    public int[] stageStar = new int[20];
+    public int[] stageStar = new int[20];       // 별 개수로 클리어 여부 확인하기
 }

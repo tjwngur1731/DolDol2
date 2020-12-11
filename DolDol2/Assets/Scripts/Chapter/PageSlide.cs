@@ -5,11 +5,9 @@ using UnityEngine.UI;
 
 public class PageSlide : MonoBehaviour
 {
-    public static int chapterNum = 4; // 챕터 개수
-
     public GameObject scrollBar, Left, Right;
     public GameObject starText, chapterTitle;
-    public GameObject[] chapter = new GameObject[chapterNum];
+    public GameObject[] chapter = new GameObject[ScoreManagement.chaptNum];
 
 
     private void Update()
@@ -45,7 +43,7 @@ public class PageSlide : MonoBehaviour
 
     void Check()      // 챕터 타이틀 변경 + 챕터 버튼 클릭 가능 여부(//처리된것 챕터 개방시 해제하기)
     {
-        for(int i = 0; i<chapterNum; i++)
+        for(int i = 0; i<ScoreManagement.chaptNum; i++)
         {
             chapter[i].GetComponent<Button>().enabled = false;
         }

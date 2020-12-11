@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7033242861862348446}
   - component: {fileID: 7033242861862348447}
   - component: {fileID: 7033242861862348444}
-  - component: {fileID: 7291205269928681928}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -140,6 +139,7 @@ MonoBehaviour:
   IsReRotateNeeded: 1
   IsFixNeeded: 1
   IsStaticObject: 0
+  portalContact: 0
 --- !u!114 &7033242861862348444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,21 +172,6 @@ MonoBehaviour:
   - {fileID: 8289419255268446129, guid: 669ca908c5a6667449b82afe22e91096, type: 3}
   staySprite: {fileID: 7630170276138894862, guid: 7a0d6a26d02e318489db970eb5af5ef5,
     type: 3}
---- !u!114 &7291205269928681928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7033242861862348445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af7f12cb81dc614cb474132c579bc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageManager: {fileID: 0}
-  stage: []
-  icon: []
 --- !u!1 &7033242862447418046
 GameObject:
   m_ObjectHideFlags: 0

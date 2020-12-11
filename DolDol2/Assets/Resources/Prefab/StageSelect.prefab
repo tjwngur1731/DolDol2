@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4452448175928023540}
   - component: {fileID: 4452448175928023543}
   - component: {fileID: 4452448175928023542}
-  - component: {fileID: 4452448175928023544}
   - component: {fileID: 5472509796138621826}
   m_Layer: 5
   m_Name: StageSelect
@@ -77,21 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4452448175928023544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4452448175928023539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af7f12cb81dc614cb474132c579bc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageManager: {fileID: 0}
-  stage: []
-  icon: []
 --- !u!114 &5472509796138621826
 MonoBehaviour:
   m_ObjectHideFlags: 0

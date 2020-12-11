@@ -7,7 +7,7 @@ public class OnClick : MonoBehaviour
 {
     public void OnClickChapter(int chapternum)          // 챕터 선택
     {
-        StageSelect.chaptNum = chapternum;
+        ScoreManagement.currentChapter = chapternum;
         SceneManager.LoadScene("StageSelect");          // 스테이지 선택 화면으로 이동, 챕터 인덱스 넘김
     }
 
@@ -20,14 +20,14 @@ public class OnClick : MonoBehaviour
     {
         //prevStarCount[i] = starCount[i];   // 스테이지 재시작 시, 기존 별점 기록 (최고점수 반영 위함)
 
-        if (i == 1 || StageSelect.clear[StageSelect.chaptNum].stageClear[i - 1] == true)
+        if (i == 1 || ScoreManagement.clear[ScoreManagement.currentChapter].stageStar[i - 1] >0)
         {
-            StageSelect.stageNum = i;
-            SceneManager.LoadScene(StageSelect.chaptNum.ToString());
+            ScoreManagement.currentStage = i;
+            SceneManager.LoadScene(ScoreManagement.currentChapter.ToString());
 
-            string temp = StageSelect.chaptNum.ToString() + "-" + StageSelect.stageNum;
+            string temp = ScoreManagement.currentChapter.ToString() + "-" + ScoreManagement.currentStage;
 
-            GameManager.Instance.SetCurrentStageName(StageSelect.chaptNum.ToString() + "-" + StageSelect.stageNum);
+            GameManager.Instance.SetCurrentStageName(ScoreManagement.currentChapter.ToString() + "-" + ScoreManagement.currentStage);
         }
 
     }

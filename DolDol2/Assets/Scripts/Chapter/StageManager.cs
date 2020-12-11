@@ -24,7 +24,7 @@ public class StageManager : MonoBehaviour
     void Update()
     {
         // 일시정지 구현
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (GameObject.Find("Canvas").transform.Find("Pause/Option_Window").gameObject.activeSelf == false && Input.GetKeyDown(KeyCode.Escape))
             {
                 paused = !paused;
             }

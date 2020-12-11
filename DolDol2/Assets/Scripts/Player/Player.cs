@@ -35,8 +35,8 @@ public class Player : DolObject
         break;
 
       case "Star":
-        GameManager.Instance.starCount += 1;
-        StageSelect.clear[StageSelect.chaptNum].stageStar[StageSelect.stageNum] += 1;
+        
+        //StageSelect.clear[StageSelect.currentChapter-1].stageStar[StageSelect.currentStage-1] += 1;
         break;
 
       case "Key":
@@ -86,21 +86,19 @@ public class Player : DolObject
         }
         else if(Input.GetKeyDown(KeyCode.S) && portalContact == true && GameManager.Instance.starCount > 0)
         {
-            StageSelect.clear[StageSelect.chaptNum].stageStar[StageSelect.stageNum - 1] = GameManager.Instance.starCount;
+            Debug.Log("Before " + GameManager.Instance.starCount+" "+ScoreManagement.clear[ScoreManagement.currentChapter-1].stageStar[ScoreManagement.currentStage-1]);
+            ScoreManagement.clear[ScoreManagement.currentChapter-1].stageStar[ScoreManagement.currentStage - 1] = GameManager.Instance.starCount;
             GameManager.Instance.starCount = 0;
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCount - 1)           // 챕터의 마지막 스테이지인 경우
             {
-                Debug.Log(GameManager.Instance.starCount + " " + SceneManager.GetActiveScene().buildIndex);
-                //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
-                GameManager.Instance.starCount = 0;
+                Debug.Log("After "+GameManager.Instance.starCount + " " + SceneManager.GetActiveScene().buildIndex);
                 SceneManager.LoadScene("StageSelect");
             }
             else
             {
-                Debug.Log(GameManager.Instance.starCount + " " + SceneManager.GetActiveScene().buildIndex);
-                //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
-                //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                Debug.Log(GameManager.Instance.starCount + " " + ScoreManagement.clear[ScoreManagement.currentChapter - 1].stageStar[ScoreManagement.currentStage - 1]);
+                ScoreManagement.currentStage += 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
