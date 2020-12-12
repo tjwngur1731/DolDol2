@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// 사운드 관련 파일
+
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager instance;
+    
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    void Update()
+    {
+       /*
+            if (paused)
+            {
+                UIOption.SetActive(true);
+                Time.timeScale = 0;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            }
+            else
+            {
+                UIOption.SetActive(false);
+                Time.timeScale = 1;
+            }
+        */
+    }
+
+
+    public void OnClickContinue()
+    {
+        paused = !paused;
+    }
+}
