@@ -12,13 +12,12 @@ public class Star : DolObject
   {
     GameManager.Instance.starCount = 0;
   }
-  void OnCollisionEnter2D(Collision2D collision)
+
+  void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.gameObject.tag == "Player")
     {
-            GameManager.Instance.starCount += 1;
-            Debug.Log(ScoreManagement.currentChapter + " " + ScoreManagement.currentStage + " " + GameManager.Instance.starCount);
-            DestoryDolObject();
+      DestoryDolObject();
     }
   }
   private void Update()

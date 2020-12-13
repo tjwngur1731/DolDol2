@@ -9,10 +9,13 @@ public class DolObject : MonoBehaviour
   public bool IsReRotateNeeded = false;
   public bool IsFixNeeded = false;
   public bool IsStaticObject = false;
+  private bool IsGround = false;
   protected float TileInterval = 0.9f;
 
   protected int MiniFieldIndexI = -1;
   protected int MiniFieldIndexJ = -1;
+
+  private bool IsOnCrossTile = false;
 
   protected Rigidbody2D rigid;
 
@@ -65,6 +68,16 @@ public class DolObject : MonoBehaviour
     return MiniFieldIndexI;
   }
 
+  public void SetIsOnCrossTile(bool isOn)
+  {
+    IsOnCrossTile = isOn;
+  }
+
+  public bool GetIsOnCrossTile()
+  {
+    return IsOnCrossTile;
+  }
+
   public void CalculateMinifieldIndex()
   {
     MiniFieldIndexJ = (int)((Math.Round(transform.position.x)) / (10 * TileInterval));
@@ -73,7 +86,22 @@ public class DolObject : MonoBehaviour
 
   public virtual void FixDolObject(Transform miniFieldTransform, bool isKinematic)
   {
-    rigid.isKinematic = isKinematic;
+    if (IsOnCrossTile)
+    {
+      rigid.isKinematic = isKinematic;
+    }
+    else
+    {
+      if (isKinematic)
+      {
+        rigid.bodyType = RigidbodyType2D.Static;
+      }
+      else
+      {
+        rigid.bodyType = RigidbodyType2D.Dynamic;
+      }
+    }
+
     GetComponent<Collider2D>().isTrigger = isKinematic;
 
     if (!(GameManager.Instance.GetCurrentMiniFieldIndexI() == MiniFieldIndexI && 
@@ -82,11 +110,9 @@ public class DolObject : MonoBehaviour
       return;
     }
 
-    transform.SetParent(miniFieldTransform);
-
-    if (isKinematic != true)
+    if (!IsOnCrossTile)
     {
-      ReleaseY();
+      transform.SetParent(miniFieldTransform);
     }
   }
 
@@ -114,25 +140,32 @@ public class DolObject : MonoBehaviour
     Destroy(gameObject);
   }
 
-  public void CorrectX()
+  protected virtual void OnCollisionEnter2D(Collision2D collision)
   {
-    float correctedX = (int)((transform.position.x + TileInterval / 2) / TileInterval) * TileInterval;
+    if (collision.gameObject.tag == "Floor")
+    {
+      float left = transform.position.x - transform.localScale.x / 2;
+      float right = transform.position.x + transform.localScale.x / 2;
 
-    transform.position = new Vector3(correctedX, transform.position.y, transform.position.z);
-    rigid.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+      foreach (ContactPoint2D contact in collision.contacts)
+      {
+        if (contact.point.y <= transform.position.y &&
+          contact.point.x >= left &&
+          contact.point.x <= right)
+        {
+          IsGround = true;
+          break;
+        }
+      }
+    }
   }
 
-  public void CorrectY()
+  protected virtual void OnCollisionExit2D(Collision2D collision)
   {
-    float correctedY = (int)((transform.position.y + TileInterval / 2) / TileInterval) * TileInterval;
-
-    transform.position = new Vector3(transform.position.x, correctedY, transform.position.z);
-    rigid.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-  }
-
-  public void ReleaseY()
-  {
-    rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+    if (IsGround)
+    {
+      IsGround = false;
+    }
   }
 }
  

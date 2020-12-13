@@ -39,13 +39,20 @@ public class ScoreManagement : MonoBehaviour
         prevStarCount = new int[stageNum];
         clear = new StageClear[chaptNum];
 
-
-        for (int i = 0; i < chaptNum; i++) clear[i] = new StageClear();
-
+        for (int i = 0; i < chaptNum; i++) 
+        {
+            clear[i] = new StageClear();
+             int temp = 0;
+        }
     }
 
     private void Start()
     {
+        if (currentChapter <= 0)
+        {
+            return;
+        }
+
         for (int i = 0; i < stageNum; i++)
         {
             if (clear[currentChapter - 1].stageStar[i] > prevStarCount[i])

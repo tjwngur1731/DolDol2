@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // 모든 스테이지에 공통으로 쓰일 기능들 여기 넣어주세요!
 
@@ -30,6 +31,8 @@ public class StageManager : MonoBehaviour
             }
             if (paused)
             {
+                AudioManager.pastBVol = AudioManager.bgmVol;
+                AudioManager.pastSVol = AudioManager.sfxVol;
                 UIOption.SetActive(true);
                 Time.timeScale = 0;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;

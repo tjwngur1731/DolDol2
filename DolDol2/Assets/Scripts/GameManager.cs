@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
   public ArrayList ArrCalcIndex;
   public ArrayList ArrFixNeeded;
   public ArrayList ArrReRotateNeeded;
+  public ArrayList ArrStaticRotated;
   string currentStageName = "";
   private int currentMiniFieldIndexI = -1;
   private int currentMiniFieldIndexJ = -1;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     ArrCalcIndex = new ArrayList();
     ArrFixNeeded = new ArrayList();
     ArrReRotateNeeded = new ArrayList();
+    ArrStaticRotated = new ArrayList();
   }
 
   public static GameManager Instance

@@ -17,8 +17,10 @@ public class Box : DolObject
     
   }
 
-  private void OnCollisionEnter2D(Collision2D collision)
+  protected override void OnCollisionEnter2D(Collision2D collision)
   {
+    base.OnCollisionEnter2D(collision);
+
     float left = transform.position.x - transform.localScale.x / 2;
     float right = transform.position.x + transform.localScale.x / 2;
 
@@ -36,13 +38,10 @@ public class Box : DolObject
     }
   }
 
-  private void OnCollsionStay2D(Collision collision)
+  protected override void OnCollisionExit2D(Collision2D collision)
   {
-    
-  }
+    base.OnCollisionExit2D(collision);
 
-  private void OnCollisionExit2D(Collision2D collision)
-  {
     collision.transform.SetParent(null);
   }
 }

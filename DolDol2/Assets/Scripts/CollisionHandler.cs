@@ -30,20 +30,35 @@ public class CollisionHandler : MonoBehaviour
     // (collision.transform.position.x >= (transform.position.x - transform.localScale.x / 2) &&
     // collision.transform.position.x <= (transform.position.x + transform.localScale.x / 2)))
 
-    if (collision.transform.position.y > transform.position.y &&
-     (collision.transform.position.x >= left &&
-     collision.transform.position.x <= right))
+    //if (collision.transform.position.y > transform.position.y &&
+    // (collision.transform.position.x >= left &&
+    // collision.transform.position.x <= right))
 
-    // if (collision.transform.position.y > transform.position.y)
-    {
-      collision.transform.SetParent(transform);
-    }
-    else
-    {
-      MovingPlatform parentPlatform = transform.parent.GetComponent<MovingPlatform>();
+    //// if (collision.transform.position.y > transform.position.y)
+    //{
+    //  collision.transform.SetParent(transform);
+    //}
+    //else
+    //{
+    //  MovingPlatform parentPlatform = transform.parent.GetComponent<MovingPlatform>();
 
-      parentPlatform.ResetDir(parentPlatform.GetCurrentMovingType());
+    //  parentPlatform.ResetDir(parentPlatform.GetCurrentMovingType());
+    //}
+
+    foreach (ContactPoint2D contact in collision.contacts)
+    {
+      if (contact.point.y <= transform.position.y &&
+        contact.point.x >= left &&
+        contact.point.x <= right)
+      {
+        collision.transform.SetParent(transform);
+        return;
+      }
     }
+
+    MovingPlatform parentPlatform = transform.parent.GetComponent<MovingPlatform>();
+
+    parentPlatform.ResetDir(parentPlatform.GetCurrentMovingType());
   }
 
   void OnCollisionExit2D(Collision2D collision)

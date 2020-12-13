@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class OnClick : MonoBehaviour
 {
+    AudioManager audioManager;
+    private void Start()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+
     public void OnClickChapter(int chapternum)          // 챕터 선택
     {
         ScoreManagement.currentChapter = chapternum;
@@ -34,11 +40,18 @@ public class OnClick : MonoBehaviour
 
     public void OnOption()
     {
+        AudioManager.pastBVol = AudioManager.bgmVol;
+        AudioManager.pastSVol = AudioManager.sfxVol;
         Time.timeScale = 0;
     }
 
     public void OffOption()
     {
         Time.timeScale = 1;
+    }
+
+    public void OnClickDiscard()
+    {
+        audioManager.OnClickCancel();
     }
 }
