@@ -86,24 +86,23 @@ public class DolObject : MonoBehaviour
 
   public virtual void FixDolObject(Transform miniFieldTransform, bool isKinematic)
   {
-    // if (IsGround)
+    if (IsOnCrossTile)
     {
       rigid.isKinematic = isKinematic;
-      GetComponent<Collider2D>().isTrigger = isKinematic;
     }
-    // else
-    // {
-    //   if (isKinematic)
-    //   {
-    //     rigid.bodyType = RigidbodyType2D.Static;
-    //   }
-    //   else
-    //   {
-    //     rigid.bodyType = RigidbodyType2D.Dynamic;
-    //   }
+    else
+    {
+      if (isKinematic)
+      {
+        rigid.bodyType = RigidbodyType2D.Static;
+      }
+      else
+      {
+        rigid.bodyType = RigidbodyType2D.Dynamic;
+      }
+    }
 
-    //   // GetComponent<Collider2D>().isTrigger = isKinematic;
-    // }
+    GetComponent<Collider2D>().isTrigger = isKinematic;
 
     if (!(GameManager.Instance.GetCurrentMiniFieldIndexI() == MiniFieldIndexI && 
       GameManager.Instance.GetCurrentMiniFieldIndexJ() == MiniFieldIndexJ))
@@ -111,7 +110,6 @@ public class DolObject : MonoBehaviour
       return;
     }
 
-    // if (IsGround)
     if (!IsOnCrossTile)
     {
       transform.SetParent(miniFieldTransform);
