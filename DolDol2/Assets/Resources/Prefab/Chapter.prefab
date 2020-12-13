@@ -371,6 +371,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2958155358843901745
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +507,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -771,6 +793,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5077612428448855920
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1617.5, y: -16}
+  m_AnchoredPosition: {x: 1617.5005, y: -16}
   m_SizeDelta: {x: 5155, y: 759.22327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3618162739798091512
@@ -966,6 +999,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8006381873293080284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,7 +1025,6 @@ MonoBehaviour:
   scrollBar: {fileID: 6726660068405721471}
   Left: {fileID: 6339631017872437643}
   Right: {fileID: 7947177379709957718}
-  starText: {fileID: 3436209130708488042}
   chapterTitle: {fileID: 2105585930997833978}
   chapter:
   - {fileID: 6841042384305369945}
@@ -1460,8 +1503,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6726660068462135183}
   m_HandleRect: {fileID: 6726660068462135180}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.37245393
+  m_Value: -0.00000015093701
+  m_Size: 0.16327187
   m_NumberOfSteps: 4
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1670,6 +1713,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1267412213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,6 +1862,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1954,6 +2019,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8224042498306090483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,7 +2045,6 @@ MonoBehaviour:
   scrollBar: {fileID: 6726660068405721471}
   Left: {fileID: 6339631017872437643}
   Right: {fileID: 7947177379709957718}
-  starText: {fileID: 3436209130708488042}
   chapterTitle: {fileID: 2105585930997833978}
   chapter:
   - {fileID: 6841042384305369945}
@@ -1988,12 +2063,12 @@ GameObject:
   - component: {fileID: 5495004083033809561}
   - component: {fileID: 5801537953043642211}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Clear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2114618000884898856
 RectTransform:
   m_ObjectHideFlags: 0

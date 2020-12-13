@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PageSlide : MonoBehaviour
 {
     public GameObject scrollBar, Left, Right;
-    //public GameObject chapterTitle;
+    public GameObject chapterTitle;
     public GameObject[] chapter = new GameObject[ScoreManagement.chaptNum];
 
 
@@ -50,26 +50,26 @@ public class PageSlide : MonoBehaviour
         if (scrollBar.GetComponent<Scrollbar>().value == 0)
         {
             Left.SetActive(false);
-            GameObject.Find("star/starScore").GetComponent<Text>().text = totalStarCount[0].ToString();
+            GameObject.Find("star/starScore").GetComponent<Text>().text = ChapterClear.totalStarCount[0].ToString();
             chapterTitle.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Image_Chapter1_Text");
             chapter[0].GetComponent<Button>().enabled = true;
         }
         else if (scrollBar.GetComponent<Scrollbar>().value > 0 && scrollBar.GetComponent<Scrollbar>().value < 0.4)      // 여기부터는 추후 이전 스테이지 별 개수로 나누어 작동하게 변경하기
         {
-            GameObject.Find("star/starScore").GetComponent<Text>().text = totalStarCount[1].ToString();
+            GameObject.Find("star/starScore").GetComponent<Text>().text = ChapterClear.totalStarCount[1].ToString();
             chapterTitle.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Image_ChapterLock_Text");
             //chapter[1].GetComponent<Button>().enabled = true;
         }
         else if (scrollBar.GetComponent<Scrollbar>().value > 0.4 && scrollBar.GetComponent<Scrollbar>().value < 1)
         {
-            GameObject.Find("star/starScore").GetComponent<Text>().text = totalStarCount[2].ToString();
+            GameObject.Find("star/starScore").GetComponent<Text>().text = ChapterClear.totalStarCount[2].ToString();
             chapterTitle.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Image_ChapterLock_Text");
             //chapter[2].GetComponent<Button>().enabled = true;
         }
         else if (scrollBar.GetComponent<Scrollbar>().value == 1)
         {
             Right.SetActive(false);
-            GameObject.Find("star/starScore").GetComponent<Text>().text = totalStarCount[3].ToString();
+            GameObject.Find("star/starScore").GetComponent<Text>().text = ChapterClear.totalStarCount[3].ToString();
             chapterTitle.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Image_ChapterLock_Text");
             //chapter[3].GetComponent<Button>().enabled = true;
         }
