@@ -105,21 +105,21 @@ private void OnTriggerExit2D(Collider2D collision)
   {
     if (Input.GetKeyDown(KeyCode.S) && SceneManager.GetActiveScene().buildIndex == 0)
     {
-            if (GameObject.Find("Canvas").transform.Find("S").gameObject.activeSelf == true)
-                if (twoPlayerEnter == false)
-                {
-                    audioManager.SfxPlay(player, 4);
-                    this.gameObject.SetActive(false);
-                    twoPlayerEnter = true;
-                    gameManager.charChoice = !gameManager.charChoice;
-                }
-                else
-                {
-                    audioManager.SfxPlay(player, 4);
-                    twoPlayerEnter = false;
-                    SceneManager.LoadScene("ChapterSelect");
-                }
-                   
+          if (GameObject.Find("Canvas").transform.Find("S").gameObject.activeSelf == true)
+            if (twoPlayerEnter == false)
+            {
+              audioManager.SfxPlay(player, 4);
+              this.gameObject.SetActive(false);
+              twoPlayerEnter = true;
+              gameManager.charChoice = !gameManager.charChoice;
+            }
+            else
+            {
+              audioManager.SfxPlay(player, 4);
+              twoPlayerEnter = false;
+              SceneManager.LoadScene("ChapterSelect");
+            }
+
     }
     else if (Input.GetKeyDown(KeyCode.S) && portalContact == true && GameManager.Instance.starCount > 0)
     {
@@ -147,6 +147,7 @@ private void OnTriggerExit2D(Collider2D collision)
                     Debug.Log(GameManager.Instance.starCount + " " + ScoreManagement.clear[ScoreManagement.currentChapter - 1].stageStar[ScoreManagement.currentStage - 1]);
                     ScoreManagement.currentStage += 1;
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    GameManager.Instance.SetCurrentStageName(ScoreManagement.currentChapter.ToString() + "-" + ScoreManagement.currentStage);
                 }
             }
     }

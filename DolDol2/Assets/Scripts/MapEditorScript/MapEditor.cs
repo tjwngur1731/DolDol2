@@ -36,17 +36,17 @@ public class MapEditor : EditorWindow
     GUILayout.BeginHorizontal("");
 
     // var player1Tex = ((Resources.Load("Prefab/Player 1") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
-    if (GUILayout.Button("1P", GUILayout.Width(50), GUILayout.Height(40)))
+    if (GUILayout.Button("P1", GUILayout.Width(50), GUILayout.Height(40)))
     {
-      type = "1P";
+      type = "P1";
       editorType = 0;
     }
     // GUILayout.Label("Player1");
 
     // var player2Tex = ((Resources.Load("Prefab/Player 2") as GameObject).GetComponent<SpriteRenderer>()).sprite.texture;
-    if (GUILayout.Button("2P", GUILayout.Width(50), GUILayout.Height(40)))
+    if (GUILayout.Button("P2", GUILayout.Width(50), GUILayout.Height(40)))
     {
-      type = "2P";
+      type = "P2";
       editorType = 0;
     }
     // GUILayout.Label("Player2");
@@ -358,11 +358,11 @@ public class MapEditor : EditorWindow
 
               switch (dolObj)
               {
-                case "1P":
+                case "P1":
                   obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
                   break;
 
-                case "2P":
+                case "P2":
                   obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
                   break;
 
@@ -749,11 +749,11 @@ public class MapEditor : EditorWindow
 
     switch (type)
     {
-      case "1P":
+      case "P1":
         obj = Instantiate(Resources.Load("Prefab/Player 1")) as GameObject;
         break;
 
-      case "2P":
+      case "P2":
         obj = Instantiate(Resources.Load("Prefab/Player 2")) as GameObject;
         break;
 

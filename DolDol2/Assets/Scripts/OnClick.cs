@@ -24,14 +24,13 @@ public class OnClick : MonoBehaviour
 
     public void OnClickStage(int i)                     // 스테이지 선택
     {
-        //prevStarCount[i] = starCount[i];   // 스테이지 재시작 시, 기존 별점 기록 (최고점수 반영 위함)
+    //prevStarCount[i] = starCount[i];   // 스테이지 재시작 시, 기존 별점 기록 (최고점수 반영 위함)
 
-        if (i == 1 || ScoreManagement.clear[ScoreManagement.currentChapter].stageStar[i - 1] >0)
+    // if (i == 1 || ScoreManagement.clear[ScoreManagement.currentChapter].stageStar[i - 1] >0)
+        if (ScoreManagement.clear[ScoreManagement.currentChapter].stageStar[i - 1] >= 0)
         {
             ScoreManagement.currentStage = i;
             SceneManager.LoadScene(ScoreManagement.currentChapter.ToString());
-
-            string temp = ScoreManagement.currentChapter.ToString() + "-" + ScoreManagement.currentStage;
 
             GameManager.Instance.SetCurrentStageName(ScoreManagement.currentChapter.ToString() + "-" + ScoreManagement.currentStage);
         }

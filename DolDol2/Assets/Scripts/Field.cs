@@ -50,6 +50,9 @@ public class Field : MonoBehaviour
 
     MiniFieldMap = new MiniField[RangeI, RangeJ];
 
+    GameManager.Instance.SetCurrentMiniFieldIndexI(-1);
+    GameManager.Instance.SetCurrentMiniFieldIndexJ(-1);
+
     if (Stage != "")
     {
       Data = new FieldDataFromFileCSV(Stage);

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
   string currentStageName = "";
   private int currentMiniFieldIndexI = -1;
   private int currentMiniFieldIndexJ = -1;
+  string prevStageName = "";
 
   void Awake()
   {
@@ -87,8 +88,19 @@ public class GameManager : MonoBehaviour
     return currentStageName;
   }
 
+  public void SetPrevStageName(string stage)
+  {
+    prevStageName = stage;
+  }
+
+  public string GetPrevStageName()
+  {
+    return prevStageName;
+  }
+
   public void SetCurrentStageName(string currentStageNameParameter)
   {
+    prevStageName = currentStageName;
     currentStageName = currentStageNameParameter;
   }
 
@@ -110,5 +122,10 @@ public class GameManager : MonoBehaviour
   public int GetCurrentMiniFieldIndexJ()
   {
     return currentMiniFieldIndexJ;
+  }
+
+  public bool StageCheck()
+  {
+    return currentStageName == prevStageName;
   }
 }

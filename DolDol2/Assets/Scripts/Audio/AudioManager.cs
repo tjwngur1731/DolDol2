@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 2 && sceneIndex != SceneManager.GetActiveScene().buildIndex)
+        if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 2 && pastSceneIndex != SceneManager.GetActiveScene().buildIndex)
         {
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
@@ -89,17 +89,29 @@ public class AudioManager : MonoBehaviour
         else
             pastSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if(sceneIndex != pastSceneIndex)            // if Scene Change
+        if(SceneManager.GetActiveScene().buildIndex != pastSceneIndex)            // if Scene Change
         {
             SFXAudioSource[0] = GameObject.Find("Button_Sound").GetComponent<AudioSource>() ;           // 버튼 오디오 소스 적용
             SFXAudioSource[0].volume = sfxVol;
             Debug.Log("I'm here!");
-            if (sceneIndex > 2 || sceneIndex == 0)
+            if (SceneManager.GetActiveScene().buildIndex > 2 || SceneManager.GetActiveScene().buildIndex == 0)
             {
-                SFXAudioSource[1] = GameObject.Find("Player 1").GetComponent<AudioSource>();
-                SFXAudioSource[2] = GameObject.Find("Player 2").GetComponent<AudioSource>();             // 플레이어 오디오 소스 적용
+                GameObject player1 = GameObject.Find("Player 1");
+                GameObject player2 = GameObject.Find("Player 2");
+
+                if (player1 && player2)
+                {
+                  SFXAudioSource[1] = player1.GetComponent<AudioSource>();
+                  SFXAudioSource[2] = player2.GetComponent<AudioSource>();             // 플레이어 오디오 소스 적용
+                }
+
                 for (int i = 1; i < SFXAudioSource.Length; i++)
-                    SFXAudioSource[i].volume = sfxVol;
+                {
+                    if (SFXAudioSource[i])
+                    {
+                        SFXAudioSource[i].volume = sfxVol;
+                    }
+                }
             }
             
             sfxSlider.value = sfxVol;
@@ -107,7 +119,43 @@ public class AudioManager : MonoBehaviour
             
             BGMAudioSource.volume = bgmVol;
 
-            pastSceneIndex = sceneIndex;
+            pastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            if (!GameManager.Instance.StageCheck())
+            {
+                SFXAudioSource[0] = GameObject.Find("Button_Sound").GetComponent<AudioSource>() ;           // 버튼 오디오 소스 적용
+            SFXAudioSource[0].volume = sfxVol;
+            Debug.Log("I'm here!");
+            if (SceneManager.GetActiveScene().buildIndex > 2 || SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                GameObject player1 = GameObject.Find("Player 1");
+                GameObject player2 = GameObject.Find("Player 2");
+
+                if (player1 && player2)
+                {
+                  SFXAudioSource[1] = player1.GetComponent<AudioSource>();
+                  SFXAudioSource[2] = player2.GetComponent<AudioSource>();             // 플레이어 오디오 소스 적용
+                }
+
+                for (int i = 1; i < SFXAudioSource.Length; i++)
+                {
+                    if (SFXAudioSource[i])
+                    {
+                        SFXAudioSource[i].volume = sfxVol;
+                    }
+                }
+            }
+            
+            sfxSlider.value = sfxVol;
+            bgmSlider.value = bgmVol;
+            
+            BGMAudioSource.volume = bgmVol;
+
+            GameManager.Instance.SetPrevStageName(GameManager.Instance.GetCurrentStageName());
+
+            }
         }
 
         // IF문으로  this.SFXAudioSource.Play(); //sfx 플레이

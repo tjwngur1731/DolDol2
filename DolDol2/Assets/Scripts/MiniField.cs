@@ -40,7 +40,7 @@ public class MiniField : MonoBehaviour
       {
         switch (FieldMap[i, j])
         {
-          case "1P":
+          case "P1":
             MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
             // MainField.Player1.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round(StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval * 100.0f) * 0.01f));
             MainField.Player1.transform.position = MainField.Player1.GetSpawnPos();
@@ -49,7 +49,7 @@ public class MiniField : MonoBehaviour
             GameManager.Instance.ArrReRotateNeeded.Add(MainField.Player1);
             break;
 
-          case "2P":
+          case "P2":
             MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval));
             // MainField.Player2.SetSpawnPos(new Vector2(StartPosition.x + (j - 1) * TileInterval, Mathf.Round(StartPosition.y + (10 + 2 - i - 1 - 1) * TileInterval * 100.0f) * 0.01f));
             MainField.Player2.transform.position = MainField.Player2.GetSpawnPos();
