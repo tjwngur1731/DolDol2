@@ -42,7 +42,10 @@ public class Lock : DolObject
     if (unlockSwitch && GameManager.Instance.keyCount > 0 && Input.GetKey(KeyCode.S))
     {
       GameManager.Instance.keyCount--;
-      
+
+      // 열쇠 개수 UI 갱신
+      UIManger.Instance.SetKeyNumber(GameManager.Instance.keyCount);
+
       LockManager.Instance.DestroyLocks(lockID);
 
       // DestoryDolObject();

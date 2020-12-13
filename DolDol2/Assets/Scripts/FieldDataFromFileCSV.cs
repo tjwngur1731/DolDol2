@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using System;
 
 public class FieldDataFromFileCSV : FieldDataBase
 {
@@ -28,9 +29,17 @@ public class FieldDataFromFileCSV : FieldDataBase
           if (string.IsNullOrEmpty(lines)) return;
 
           values = lines.Split(',');
-          
+
           for (int j = 0; j < values.Length; j++)
           {
+            if (values[j] == "R")
+            {
+              RotateNumber = Int32.Parse(values[j + 1]);
+
+              values[j] = "";
+              values[j + 1] = "";
+            }
+
             // Debug.Log(values[j]);
             FieldMapCSV[i + 1, j + 1] = values[j];
           }
@@ -39,8 +48,6 @@ public class FieldDataFromFileCSV : FieldDataBase
         }
       }
     }
-
-    int temp = 0;
   }
 
   public string[,] GetPartialMapCSV(int indexI, int indexJ)

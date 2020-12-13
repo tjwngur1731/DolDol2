@@ -25,6 +25,8 @@ public class MapEditor : EditorWindow
   private string saveFileName = "";
   private int editorType = 0;
   private int dolObjectDir = -1;
+  private string strRotateNumber = "";
+  private int rotateNumber = 0;
   void OnGUI()
   {
 
@@ -132,6 +134,29 @@ public class MapEditor : EditorWindow
       string obj = fieldMap[currentSelectedI, currentSelectedJ].Split('|')[0];
       currentSelectedObject.transform.eulerAngles = new Vector3(currentSelectedObject.transform.eulerAngles.x, currentSelectedObject.transform.eulerAngles.y, dolObjectDir * -90.0f);
 
+      if (obj == "4")
+      {
+        float offsetX = 0.0f;
+        float offsetY = 0.0f;
+
+        float dir = dolObjectDir * -90.0f;
+
+        if (dir == 0)
+        {
+          offsetY = -0.225f;
+        }
+        else if (dir == -270.0f)
+        {
+          offsetX = 0.225f;
+        }
+        else if (dir == -90.0f)
+        {
+          offsetX = -0.225f;
+        }
+
+        currentSelectedObject.transform.position = new Vector3((currentSelectedJ - 1) * TileInterval + offsetX, (currentSelectedI - 1) * TileInterval + offsetY, 0.0f);
+      }
+
       fieldMap[currentSelectedI, currentSelectedJ] = obj + "|" + dolObjectDir;
     }
 
@@ -151,6 +176,29 @@ public class MapEditor : EditorWindow
 
       string obj = fieldMap[currentSelectedI, currentSelectedJ].Split('|')[0];
       currentSelectedObject.transform.eulerAngles = new Vector3(currentSelectedObject.transform.eulerAngles.x, currentSelectedObject.transform.eulerAngles.y, dolObjectDir * -90.0f);
+
+      if (obj == "4")
+      {
+        float offsetX = 0.0f;
+        float offsetY = 0.0f;
+
+        float dir = dolObjectDir * -90.0f;
+
+        if (dir == 0)
+        {
+          offsetY = -0.225f;
+        }
+        else if (dir == -270.0f)
+        {
+          offsetX = 0.225f;
+        }
+        else if (dir == -90.0f)
+        {
+          offsetX = -0.225f;
+        }
+
+        currentSelectedObject.transform.position = new Vector3((currentSelectedJ -1) * TileInterval + offsetX, (currentSelectedI -1) * TileInterval + offsetY, 0.0f);
+      }
 
       fieldMap[currentSelectedI, currentSelectedJ] = obj + "|" + dolObjectDir;
     }
@@ -175,6 +223,12 @@ public class MapEditor : EditorWindow
     }
     GUILayout.EndHorizontal();
 
+    strRotateNumber = EditorGUILayout.TextField("RotateNumber", strRotateNumber);
+
+    if (GUILayout.Button("R Num", GUILayout.Width(50), GUILayout.Height(40)))
+    {
+      rotateNumber = Int32.Parse(strRotateNumber);
+    }
     GUILayout.Label("Save & Load", GUILayout.Width(150), GUILayout.Height(30));
     saveFileName = EditorGUILayout.TextField("Save File Name", saveFileName);
 
@@ -280,12 +334,22 @@ public class MapEditor : EditorWindow
 
           for (int j = 0; j < values.Length; j++)
           {
+            if (values[j] == "R")
+            {
+              strRotateNumber = values[j + 1];
+              rotateNumber = Int32.Parse(values[j + 1]);
+              continue;
+            }
+
             dolObjects = values[j].Split('-');
 
             for (int k = 0; k < dolObjects.Length; k++)
             {
               string dolObj = dolObjects[k].Split('|')[0];
               float dir = 0;
+
+              float offsetX = 0.0f;
+              float offsetY = 0.0f;
 
               if (dolObjects[k].Split('|').Length > 1)
               {
@@ -312,6 +376,20 @@ public class MapEditor : EditorWindow
 
                 case "4":
                   obj = Instantiate(Resources.Load("Prefab/Trap")) as GameObject;
+
+                  if (dir == 0)
+                  {
+                    offsetY = -0.225f;
+                  }
+                  else if (dir == -270.0f)
+                  {
+                    offsetX = 0.225f;
+                  }
+                  else if (dir == -90.0f)
+                  {
+                    offsetX = -0.225f;
+                  }
+
                   break;
 
                 case "5":
@@ -347,7 +425,7 @@ public class MapEditor : EditorWindow
                 continue;
               }
 
-              obj.transform.position = new Vector3(j * TileInterval, i * TileInterval, 0.0f);
+              obj.transform.position = new Vector3(j * TileInterval + offsetX, i * TileInterval + offsetY, 0.0f);
               obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, dir);
 
               if (k <= 0)
@@ -466,6 +544,8 @@ public class MapEditor : EditorWindow
 
         outputFile.WriteLine(line);
       }
+
+      outputFile.WriteLine("R" + "," + rotateNumber);
     }
   }
 

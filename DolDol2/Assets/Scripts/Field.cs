@@ -37,6 +37,8 @@ public class Field : MonoBehaviour
   private bool PrevCharChoice = true;
   public int RangeI = 0;
   public int RangeJ = 0;
+  private int MaxRotateNumber = 0;
+  private int CurrentRotateNumber = 0;
 
   void Start()
   {
@@ -48,8 +50,6 @@ public class Field : MonoBehaviour
 
     MiniFieldMap = new MiniField[RangeI, RangeJ];
 
-    
-
     if (Stage != "")
     {
       Data = new FieldDataFromFileCSV(Stage);
@@ -57,6 +57,32 @@ public class Field : MonoBehaviour
     else
     {
       Data = new FieldDataFromFileCSV(GameManager.Instance.GetCurrentStageName());
+
+      if (UIManger.Instance)
+      {
+        // UI 변경
+        UIManger.Instance.SetStageText(GameManager.Instance.GetCurrentStageName());
+      }
+    }
+
+    GameManager.Instance.charChoice = true;
+
+    MaxRotateNumber = Data.RotateNumber;
+    CurrentRotateNumber = MaxRotateNumber;
+
+    if (UIManger.Instance)
+    {
+      // 캐릭터 UI
+      UIManger.Instance.SetChoiceUI(GameManager.Instance.charChoice);
+
+      // 별 UI 세팅
+      UIManger.Instance.SetStarUI(GameManager.Instance.starCount);
+
+      // 회전수 세팅
+      UIManger.Instance.SetRotateNum(CurrentRotateNumber);
+
+      // 열쇠 개수 UI 갱신
+      UIManger.Instance.SetKeyNumber(GameManager.Instance.keyCount);
     }
 
     PrevPos = new Vector2();
@@ -196,5 +222,14 @@ public class Field : MonoBehaviour
   public void RegenerateCollider()
   {
     compositeCollider.GenerateGeometry();
+  }
+
+  public int GetCurrentRotateNumber()
+  {
+    return CurrentRotateNumber;
+  }
+  public void SubstractCurrentRotate()
+  {
+    CurrentRotateNumber--;
   }
 }

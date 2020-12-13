@@ -8,6 +8,7 @@ public class FieldDataBase
     public string[,] FieldMapCSV;
     public int IndexI = 0;
     public int IndexJ = 0;
+    public int RotateNumber = 0;
     public FieldDataBase() {}
     public FieldDataBase(string stage) {}
     public virtual int[,] GetPartialMap(int indexI, int indexJ) 

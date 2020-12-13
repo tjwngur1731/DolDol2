@@ -56,64 +56,35 @@ public class Player : DolObject
 
       case "Star":
         GameManager.Instance.starCount += 1;
+
+        if (UIManger.Instance)
+        {
+          UIManger.Instance.SetStarUI(GameManager.Instance.starCount);
+        }
+
         break;
 
       case "Key":
         GameManager.Instance.keyCount += 1;
+
+        // 열쇠 개수 UI 갱신
+        UIManger.Instance.SetKeyNumber(GameManager.Instance.keyCount);
+
         break;
     }
-
-    //   if (collision.gameObject.tag == "Finish")
-    //   {
-    //     Scene scene = SceneManager.GetActiveScene();
-
-    //     if (scene.buildIndex == 0)      // 메인화면인 경우, 챕터선택화면으로 넘김
-    //     {
-    //       SceneManager.LoadScene("ChapterSelect");
-    //     }
-    //     else if (GameManager.Instance.starCount > 0)
-    //     {
-    //       StageSelect.clear[StageSelect.chaptNum].stageStar[StageSelect.stageNum - 1] = GameManager.Instance.starCount;
-    //       GameManager.Instance.starCount = 0;
-    //       if (scene.buildIndex == SceneManager.sceneCount - 1)           // 챕터의 마지막 스테이지인 경우
-    //       {
-    //         Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
-    //         //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;    // Star count
-    //         GameManager.Instance.starCount = 0;
-    //         SceneManager.LoadScene("StageSelect");
-    //       }
-    //       else
-    //       {
-    //         Debug.Log(GameManager.Instance.starCount + " " + scene.buildIndex);
-    //         //GetComponent<StageSelect>().SetStarNum(scene.buildIndex - 2, GameManager.Instance.starCount);    // Star count
-    //         //StageSelect.starCount[scene.buildIndex - 2] = GameManager.Instance.starCount;
-    //         SceneManager.LoadScene(scene.buildIndex + 1);
-    //       }
-
-    //     }
-    //     else
-    //     {
-    //       GameManager.Instance.starCount = 0;
-    //       SceneManager.LoadScene(scene.buildIndex);
-    //     }
-
-    //   }
-    //   else if (collision.gameObject.tag == "Star")
-    //   {
-    //     GameManager.Instance.starCount += 1;
-    //   }
-    //   else if (collision.gameObject.tag == "Key")
-    //   {
-    //     GameManager.Instance.keyCount += 1;
-    //   }
-    // }
   }
 
   private void OnTriggerExit2D(Collider2D collision)
   {
     portalContact = false;
     if (SceneManager.GetActiveScene().buildIndex == 0)
-      GameObject.Find("S").gameObject.SetActive(false);
+    {
+      GameObject s = GameObject.Find("S");
+      if (s)
+      {
+          s.gameObject.SetActive(false);
+      }
+    }
   }
 
   void Update()

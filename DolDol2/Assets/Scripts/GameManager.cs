@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space))
     {
       charChoice = !charChoice;
+
+      if (UIManger.Instance)
+      {
+        UIManger.Instance.SetChoiceUI(charChoice);
+      }
     }
   }
 

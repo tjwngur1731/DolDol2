@@ -71,6 +71,9 @@ public class MiniField : MonoBehaviour
         {
           DolObject obj = null;
 
+          float offsetX = 0.0f;
+          float offsetY = 0.0f;
+
           if (FieldMap[i, j] == null)
           {
             continue;
@@ -102,6 +105,20 @@ public class MiniField : MonoBehaviour
 
               case "4":
                 obj = (Instantiate(Resources.Load("Prefab/Trap")) as GameObject).GetComponent<Trap>();
+
+                if (dir == 0)
+                {
+                  offsetY = -0.225f;
+                }
+                else if (dir == -270.0f)
+                {
+                  offsetX = 0.225f;
+                }
+                else if (dir == -90.0f)
+                {
+                  offsetX = -0.225f;
+                }
+
                 break;
 
               case "5":
@@ -142,7 +159,7 @@ public class MiniField : MonoBehaviour
             float floatedX = (float)x;
             float floatedY = (float)y;
 
-            obj.transform.position = new Vector2((float)x, (float)y);
+            obj.transform.position = new Vector2((float)x + offsetX, (float)y + offsetY);
             obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, obj.transform.eulerAngles.y, dir);
 
             // 미니필드 인덱스 계산 필요한 오브젝트들 델리게이트 추가
@@ -253,6 +270,15 @@ public class MiniField : MonoBehaviour
     }
 
     transform.parent.GetComponent<Field>().RegenerateCollider();
+
+    // 회전수 차감
+    transform.parent.GetComponent<Field>().SubstractCurrentRotate();
+
+    if (UIManger.Instance)
+    {
+      // 회전수 세팅
+      UIManger.Instance.SetRotateNum(transform.parent.GetComponent<Field>().GetCurrentRotateNumber());
+    }
 
     LockManager.Instance.CheckLocks();
 
