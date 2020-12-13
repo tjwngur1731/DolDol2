@@ -89,12 +89,12 @@ public class PlayerController2 : MonoBehaviour
             renderer.sprite = jumpSprite[jumpingCnt];
             landingTime = 0;
         }
-        else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
+        else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == false)
         {
             isrunnig = true;
             renderer.flipX = false;
         }
-        else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == true)
+        else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == false)
         {
             isrunnig = true;
             renderer.flipX = true;
@@ -128,7 +128,7 @@ public class PlayerController2 : MonoBehaviour
 
         Vector2 position = transform.position;
         //좌우 이동, 점프
-        if (GameManager.Instance.charChoice == true)
+        if (GameManager.Instance.charChoice == false)
         {
             float hor = Input.GetAxis("Horizontal");
 

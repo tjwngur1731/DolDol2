@@ -67,6 +67,7 @@ public class Player : DolObject
         break;
 
       case "Star":
+        audioManager.SfxPlay(player, 2);
         GameManager.Instance.starCount += 1;
 
         if (UIManger.Instance)
@@ -77,56 +78,29 @@ public class Player : DolObject
         break;
 
       case "Key":
+        audioManager.SfxPlay(player, 5);
         GameManager.Instance.keyCount += 1;
 
         // 열쇠 개수 UI 갱신
         UIManger.Instance.SetKeyNumber(GameManager.Instance.keyCount);
 
         break;
-    }
-  }
 
-  private void OnTriggerExit2D(Collider2D collision)
-  {
-    portalContact = false;
-    if (SceneManager.GetActiveScene().buildIndex == 0)
-    {
-      GameObject s = GameObject.Find("S");
-      if (s)
-      {
-          s.gameObject.SetActive(false);
-      }
-    }
-  }
-                if (scene.buildIndex == 0)      // 메인화면인 경우, 챕터선택화면으로 넘김
-                {
-                    GameObject.Find("Canvas").transform.Find("S").gameObject.SetActive(true);
-                }
-                else
-                {
-                    portalContact = true;
-                }
-                break;
-
-            case "Star":
-                audioManager.SfxPlay(player, 2);
-                GameManager.Instance.starCount += 1;
-                break;
-
-            case "Key":
-                audioManager.SfxPlay(player, 5);
-                GameManager.Instance.keyCount += 1;
-                break;
         }
     }
 
-  private void OnTriggerExit2D(Collider2D collision)
+private void OnTriggerExit2D(Collider2D collision)
+{
+  portalContact = false;
+  if (SceneManager.GetActiveScene().buildIndex == 0)
   {
-    portalContact = false;
-    if (SceneManager.GetActiveScene().buildIndex == 0)
-      GameObject.Find("S").gameObject.SetActive(false);
+    GameObject s = GameObject.Find("S");
+    if (s)
+    {
+      s.gameObject.SetActive(false);
+    }
   }
-
+}
   void Update()
   {
     if (Input.GetKeyDown(KeyCode.S) && SceneManager.GetActiveScene().buildIndex == 0)
