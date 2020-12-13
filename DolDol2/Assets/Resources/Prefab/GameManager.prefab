@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starCount: 0
+  keyCount: 0
   charChoice: 1
