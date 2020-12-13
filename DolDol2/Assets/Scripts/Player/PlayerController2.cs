@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController2 : MonoBehaviour
 {
+    AudioManager audioManager;
     Rigidbody2D rigid;
     [SerializeField]
     private float speed = 1.0f;
@@ -34,14 +35,17 @@ public class PlayerController2 : MonoBehaviour
     //움직이는 중인가.
     bool isrunnig = false;
     bool isLanding;
+    bool isWall;
+    bool isDoubleJump;
 
-    float jumpingTime;
     float landingTime;
+    float jumpingTime;
 
     int jumpingCnt;
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         rigid = GetComponent<Rigidbody2D>();
 
         renderer = GetComponent<SpriteRenderer>();
@@ -52,7 +56,7 @@ public class PlayerController2 : MonoBehaviour
         {
             return;
         }
-        
+
         if (isrunnig == true)
         {
             curDelay += Time.deltaTime;
@@ -73,7 +77,6 @@ public class PlayerController2 : MonoBehaviour
         }
         //바닥체크 점프
         isGround = Physics2D.OverlapCircle(pos.position, checkRadius, islayer);
-        
 
         if (!isGround)
         {
@@ -86,12 +89,12 @@ public class PlayerController2 : MonoBehaviour
             renderer.sprite = jumpSprite[jumpingCnt];
             landingTime = 0;
         }
-        else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == false)
+        else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
         {
             isrunnig = true;
             renderer.flipX = false;
         }
-        else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == false)
+        else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == true)
         {
             isrunnig = true;
             renderer.flipX = true;
@@ -107,6 +110,7 @@ public class PlayerController2 : MonoBehaviour
             {
                 renderer.sprite = staySprite;
             }
+            isDoubleJump = false;
         }
         else
         {
@@ -118,22 +122,43 @@ public class PlayerController2 : MonoBehaviour
     {
         if (GameManager.Instance.GetIsRotating() == true)
         {
+            audioManager.SfxPlay(1, 3);
             return;
         }
 
         Vector2 position = transform.position;
         //좌우 이동, 점프
-        if (GameManager.Instance.charChoice == false) {
+        if (GameManager.Instance.charChoice == true)
+        {
             float hor = Input.GetAxis("Horizontal");
 
             rigid.velocity = new Vector2(hor * speed, rigid.velocity.y);
 
-            if (Input.GetKey(KeyCode.W) && isGround == true)
+            if (Input.GetKey(KeyCode.W) && (isGround || isWall) && !isDoubleJump)
             {
+
+                audioManager.SfxPlay(1, 1);
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
+
+                //Debug.Log("JUMP");
+
+                if (!isGround)
+                {
+                    isDoubleJump = true;
+                }
             }
         }
         transform.position = position;
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        bool collisionDolObj = collision.gameObject.CompareTag("Floor");
+
+        if (collisionDolObj && !isDoubleJump && !isGround)
+        {
+            isWall = true;
+        }
     }
 }

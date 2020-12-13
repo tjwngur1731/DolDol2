@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    AudioManager audioManager;
     Rigidbody2D rigid;
     [SerializeField]
     private float speed = 1.0f;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         rigid = GetComponent<Rigidbody2D>();
 
         renderer = GetComponent<SpriteRenderer>();
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.GetIsRotating() == true)
         {
+            audioManager.SfxPlay(1, 3);
             return;
         }
 
@@ -133,10 +136,12 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.W) && (isGround || isWall) && !isDoubleJump)
             {
+
+                audioManager.SfxPlay(1, 1);
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
 
-                Debug.Log("JUMP");
+                //Debug.Log("JUMP");
 
                 if(!isGround)
                 {
