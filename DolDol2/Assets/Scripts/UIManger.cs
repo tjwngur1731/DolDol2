@@ -70,7 +70,7 @@ public class UIManger : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    
+        starImage.sprite = starImgArr[0];
   }
 
   // Update is called once per frame

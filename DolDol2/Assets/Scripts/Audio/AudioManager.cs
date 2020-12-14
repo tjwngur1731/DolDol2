@@ -126,27 +126,26 @@ public class AudioManager : MonoBehaviour
             if (!GameManager.Instance.StageCheck())
             {
                 SFXAudioSource[0] = GameObject.Find("Button_Sound").GetComponent<AudioSource>() ;           // 버튼 오디오 소스 적용
-            SFXAudioSource[0].volume = sfxVol;
-            Debug.Log("I'm here!");
-            if (SceneManager.GetActiveScene().buildIndex > 2 || SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                GameObject player1 = GameObject.Find("Player 1");
-                GameObject player2 = GameObject.Find("Player 2");
-
-                if (player1 && player2)
+                SFXAudioSource[0].volume = sfxVol;
+                if (SceneManager.GetActiveScene().buildIndex > 2 || SceneManager.GetActiveScene().buildIndex == 0)
                 {
-                  SFXAudioSource[1] = player1.GetComponent<AudioSource>();
-                  SFXAudioSource[2] = player2.GetComponent<AudioSource>();             // 플레이어 오디오 소스 적용
-                }
+                    GameObject player1 = GameObject.Find("Player 1");
+                    GameObject player2 = GameObject.Find("Player 2");
 
-                for (int i = 1; i < SFXAudioSource.Length; i++)
-                {
-                    if (SFXAudioSource[i])
+                    if (player1 && player2)
                     {
-                        SFXAudioSource[i].volume = sfxVol;
+                      SFXAudioSource[1] = player1.GetComponent<AudioSource>();
+                      SFXAudioSource[2] = player2.GetComponent<AudioSource>();             // 플레이어 오디오 소스 적용
+                    }
+
+                    for (int i = 1; i < SFXAudioSource.Length; i++)
+                    {
+                        if (SFXAudioSource[i])
+                        {
+                            SFXAudioSource[i].volume = sfxVol;
+                        }
                     }
                 }
-            }
             
             sfxSlider.value = sfxVol;
             bgmSlider.value = bgmVol;

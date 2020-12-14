@@ -18,11 +18,13 @@ public class ChapterClear : MonoBehaviour
     {
 
         chapter[0].GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Button_Chapter1_1");
-        for (int i = 1; i < ScoreManagement.chaptNum; i++)
+        for (int i = 0; i < ScoreManagement.chaptNum; i++)
         {
             totalStarCount[i] = 0;
-            chapter[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Button_Chapter1_0");
         }
+
+        for (int i = 1; i<ScoreManagement.chaptNum; i++)                // 나머지 챕터 잠금
+            chapter[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Button_Chapter1_0");
 
 
         for (int i = 0; i<ScoreManagement.chaptNum; i++)
@@ -43,7 +45,7 @@ public class ChapterClear : MonoBehaviour
                 chapter[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Chapter/Button_Chapter1_2");
             }   // 스테이지 완성만 했을 시
 
-            // 다음 챕터 해방하기** (이미지 변경 + 버튼 true)
+                                                                                                        // 다음 챕터 해방하기** (이미지 변경 + 버튼 true)
 
         }
     }

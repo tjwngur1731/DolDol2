@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,15 +53,26 @@ public class GameManager : MonoBehaviour
 
   private void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-      charChoice = !charChoice;
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-      if (UIManger.Instance)
-      {
-        UIManger.Instance.SetChoiceUI(charChoice);
-      }
-    }
+        if (Player.twoPlayerEnter)
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) { }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                 charChoice = !charChoice;
+
+                if (UIManger.Instance)
+                {
+                         UIManger.Instance.SetChoiceUI(charChoice);
+                }
+            }
+        }
+        
   }
 
   public void SetIsRotating(bool isRot)

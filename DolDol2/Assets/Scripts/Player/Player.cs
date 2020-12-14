@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class Player : DolObject
 {
     Vector2 spawnPos;
@@ -10,16 +11,17 @@ public class Player : DolObject
     GameManager gameManager;
 
     public bool portalContact;
-    int player;
-    static bool twoPlayerEnter;
+    int player, contactPlayer;
+    public static bool twoPlayerEnter;
 
   void Start()
   {
+        twoPlayerEnter = false;
         this.gameObject.SetActive(true);
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if (this.gameObject.name == "Player1") player = 1;
-        else if (this.gameObject.name == "Player2") player = 2;
+        if (this.gameObject.name == "Player 1") player = 1;
+        else if (this.gameObject.name == "Player 2") player = 2;
 
         Init();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -32,7 +34,9 @@ public class Player : DolObject
     switch (collision.gameObject.tag)
     {
       case "Enemy":
-        gameObject.transform.position = spawnPos;
+                GameManager.Instance.starCount = 0;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                //gameObject.transform.position = spawnPos;
         break;
 
         //case "Star":
@@ -59,6 +63,8 @@ public class Player : DolObject
         if (scene.buildIndex == 0)      // 메인화면인 경우, 챕터선택화면으로 넘김
         {
           GameObject.Find("Canvas").transform.Find("S").gameObject.SetActive(true);
+                    contactPlayer = player;
+                    Debug.Log(contactPlayer);
         }
         else
         {
@@ -101,23 +107,29 @@ private void OnTriggerExit2D(Collider2D collision)
     }
   }
 }
+
   void Update()
   {
     if (Input.GetKeyDown(KeyCode.S) && SceneManager.GetActiveScene().buildIndex == 0)
     {
-          if (GameObject.Find("Canvas").transform.Find("S").gameObject.activeSelf == true)
-            if (twoPlayerEnter == false)
+            if (GameObject.Find("Canvas").transform.Find("S").gameObject.activeSelf == true && this.gameObject.name == ("Player " + contactPlayer.ToString()))
             {
-              audioManager.SfxPlay(player, 4);
-              this.gameObject.SetActive(false);
-              twoPlayerEnter = true;
-              gameManager.charChoice = !gameManager.charChoice;
-            }
-            else
-            {
-              audioManager.SfxPlay(player, 4);
-              twoPlayerEnter = false;
-              SceneManager.LoadScene("ChapterSelect");
+                if (twoPlayerEnter == false)
+                {
+                    audioManager.SfxPlay(Mathf.Abs(player-1), 4);
+                    twoPlayerEnter = true;
+                    this.gameObject.SetActive(false);
+                    
+                    gameManager.charChoice = !gameManager.charChoice;
+                }
+                else
+                {
+                    Debug.Log(this.gameObject.name + " " + twoPlayerEnter);
+                    audioManager.SfxPlay(player, 4);
+                    twoPlayerEnter = false;
+                    SceneManager.LoadScene("ChapterSelect");
+                }
+                
             }
 
     }
@@ -125,8 +137,8 @@ private void OnTriggerExit2D(Collider2D collision)
     {
             if (twoPlayerEnter == false)
             {
-                audioManager.SfxPlay(player, 4);
-                this.gameObject.SetActive(false);
+                audioManager.SfxPlay(Mathf.Abs(player - 1), 4);
+                GameObject.Find("Player " + player.ToString()).SetActive(false);
                 twoPlayerEnter = true;
                 gameManager.charChoice = !gameManager.charChoice;
             }

@@ -33,10 +33,12 @@ public class PlayerController : MonoBehaviour
     public Sprite staySprite;
 
     //움직이는 중인가.
-    bool isrunnig = false;
+    bool isrunning = false;
     bool isLanding;
     bool isWall;
     bool isDoubleJump;
+    bool onPlayer = false;
+    bool moveLeft;
 
     float landingTime;
     float jumpingTime;
@@ -56,65 +58,125 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        
-        if (isrunnig == true)
-        {
-            curDelay += Time.deltaTime;
-            if (curDelay >= runDelay)
-            {
-                if (runCount)
-                {
-                    runCount = !runCount;
-                    renderer.sprite = runSprite[0];
-                }
-                else if (!runCount)
-                {
-                    runCount = !runCount;
-                    renderer.sprite = runSprite[1];
-                }
-                curDelay = 0;
-            }
-        }
+
+
         //바닥체크 점프
-        isGround = Physics2D.OverlapCircle(pos.position, checkRadius, islayer);
+        isGround = (Physics2D.OverlapCircle(pos.position, checkRadius, islayer) || onPlayer);
+
+        if(this.gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+        {
+            renderer.sprite = staySprite;
+        }
 
         if (!isGround)
         {
+            if (isrunning == true)
+            {
+                curDelay += Time.deltaTime;
+                if (curDelay >= runDelay)
+                {
+                    if (runCount)
+                    {
+                        runCount = !runCount;
+                        renderer.sprite = runSprite[0];
+                        Debug.Log("I am here");
+                    }
+                    else if (!runCount)
+                    {
+                        runCount = !runCount;
+                        renderer.sprite = runSprite[1];
+                    }
+                    if (moveLeft)
+                    {
+                        renderer.flipX = false;
+                    }
+                    else
+                        renderer.flipX = true;
+                    curDelay = 0;
+
+                }
+            }
+
             jumpingTime += Time.deltaTime;
-            if (jumpingTime > 0.2f && jumpingCnt<2)
+            if (jumpingTime > 0.2f && jumpingCnt < 2)
             {
                 jumpingCnt++;
                 jumpingTime = 0;
             }
             renderer.sprite = jumpSprite[jumpingCnt];
             landingTime = 0;
+
+            if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
+            {
+                isrunning = true;
+                moveLeft = true;
+            }
+            else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == true)
+            {
+                isrunning = true;
+                moveLeft = false;
+            }
         }
-        else if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
-        {
-            isrunnig = true;
-            renderer.flipX = false;
-        }
-        else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == true)
-        {
-            isrunnig = true;
-            renderer.flipX = true;
-        }
-        else if(isGround)
+        else if (isGround)
         {
             landingTime += Time.deltaTime;
-            if(landingTime<0.1f)
+            if (landingTime < 0.1f && landingTime != 0)
             {
                 renderer.sprite = jumpSprite[3];
             }
+            
+
+            if (isrunning == true)
+            {
+                curDelay += Time.deltaTime;
+                if (curDelay >= runDelay)
+                {
+                    if (runCount)
+                    {
+                        runCount = !runCount;
+                        renderer.sprite = runSprite[0];
+                        Debug.Log("I am here");
+                    }
+                    else if (!runCount)
+                    {
+                        runCount = !runCount;
+                        renderer.sprite = runSprite[1];
+                    }
+                    if (moveLeft)
+                    {
+                        renderer.flipX = false;
+                    }
+                    else
+                        renderer.flipX = true;
+                    curDelay = 0;
+
+                }
+            }
+            else
+                renderer.sprite = staySprite;
+
+            isDoubleJump = false;
+
+            if (Input.GetKey(KeyCode.A) && GameManager.Instance.charChoice == true)
+            {
+                isrunning = true;
+                moveLeft = true;
+            }
+            else if (Input.GetKey(KeyCode.D) && GameManager.Instance.charChoice == true)
+            {
+                isrunning = true;
+                moveLeft = false;
+            }
             else
             {
-                renderer.sprite = staySprite;
+                isrunning = false;
+                this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
-            isDoubleJump = false;
+                
         }
         else
         {
-            isrunnig = false;
+            isrunning = false;
         }
     }
 
@@ -134,19 +196,14 @@ public class PlayerController : MonoBehaviour
 
             rigid.velocity = new Vector2(hor * speed, rigid.velocity.y);
 
-            if (Input.GetKey(KeyCode.W) && (isGround || isWall) && !isDoubleJump)
+            if (Input.GetKeyDown(KeyCode.W) && (isGround || isWall) && !isDoubleJump)
             {
 
                 audioManager.SfxPlay(1, 1);
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
-
-                //Debug.Log("JUMP");
-
-                if(!isGround)
-                {
-                    isDoubleJump = true;
-                }
+                isDoubleJump = true;
+                //isGround = false;
             }
         }
         transform.position = position;
@@ -154,11 +211,23 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        bool collisionDolObj = collision.gameObject.CompareTag("Floor");
+        bool collisionDolObj = (collision.gameObject.CompareTag("Floor"));
 
         if (collisionDolObj && !isDoubleJump && !isGround)
         {
             isWall = true;
         }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isDoubleJump = true;
+            onPlayer = true;
+        }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        onPlayer = false;
     }
 }
