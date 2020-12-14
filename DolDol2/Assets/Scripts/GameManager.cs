@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
   private int currentMiniFieldIndexI = -1;
   private int currentMiniFieldIndexJ = -1;
   string prevStageName = "";
+  private bool isReloading = false;
+  private bool isAudioResetting = false;
 
   void Awake()
   {
@@ -139,5 +141,25 @@ public class GameManager : MonoBehaviour
   public bool StageCheck()
   {
     return currentStageName == prevStageName;
+  }
+
+  public void SetIsReloading(bool isReload)
+  {
+    isReloading = isReload;
+  }
+
+  public bool GetIsReloading()
+  {
+    return isReloading;
+  }
+
+  public void SetIsAudioResetting(bool isAudio)
+  {
+    isAudioResetting = isAudio;
+  }
+
+  public bool GetIsAudioResetting()
+  {
+    return isAudioResetting;
   }
 }

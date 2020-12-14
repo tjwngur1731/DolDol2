@@ -123,8 +123,13 @@ public class AudioManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            if (!GameManager.Instance.StageCheck())
+            if (!GameManager.Instance.StageCheck() || GameManager.Instance.GetIsAudioResetting())
             {
+                if (GameManager.Instance.GetIsAudioResetting())
+                {
+                    GameManager.Instance.SetIsAudioResetting(false);
+                }
+
                 SFXAudioSource[0] = GameObject.Find("Button_Sound").GetComponent<AudioSource>() ;           // 버튼 오디오 소스 적용
                 SFXAudioSource[0].volume = sfxVol;
                 if (SceneManager.GetActiveScene().buildIndex > 2 || SceneManager.GetActiveScene().buildIndex == 0)
@@ -146,8 +151,13 @@ public class AudioManager : MonoBehaviour
                         }
                     }
                 }
-            
+
+            this.bgmSlider = GameObject.Find("Canvas").transform.Find("Pause/Option_Window/Sound/BGM").GetComponent<Slider>();
+            this.sfxSlider = GameObject.Find("Canvas").transform.Find("Pause/Option_Window/Sound/SFX").GetComponent<Slider>();
+            sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
             sfxSlider.value = sfxVol;
+
             bgmSlider.value = bgmVol;
             
             BGMAudioSource.volume = bgmVol;

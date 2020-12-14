@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Field : MonoBehaviour
 {
@@ -43,6 +44,13 @@ public class Field : MonoBehaviour
   void Start()
   {
     this.Init();
+
+    if (GameManager.Instance.GetIsReloading())
+    {
+      GameManager.Instance.SetIsRotating(false);
+      GameManager.Instance.SetIsReloading(false);
+      GameManager.Instance.SetIsAudioResetting(true);
+    }
 
     CurrentPlayer = Player1;
 

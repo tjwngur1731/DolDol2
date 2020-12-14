@@ -118,6 +118,9 @@ public class UIManger : MonoBehaviour
 
   public void SetStarUI(int starCount)
   {
+    if (starCount > 3)
+      return;
+      
     starImage.sprite = starImgArr[starCount];
   }
 }

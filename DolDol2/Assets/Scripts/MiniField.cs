@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiniField : MonoBehaviour
 {
@@ -273,6 +274,16 @@ public class MiniField : MonoBehaviour
 
     // 회전수 차감
     transform.parent.GetComponent<Field>().SubstractCurrentRotate();
+
+    if (transform.parent.GetComponent<Field>().GetCurrentRotateNumber() < 0 && SceneManager.GetActiveScene().buildIndex != 0)
+    {
+      GameManager.Instance.starCount = 0;
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+      GameManager.Instance.SetIsReloading(true);
+      GameManager.Instance.SetCurrentStageName(GameManager.Instance.GetCurrentStageName());
+
+      yield break;
+    }
 
     if (UIManger.Instance)
     {

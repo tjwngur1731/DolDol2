@@ -36,7 +36,9 @@ public class Player : DolObject
       case "Enemy":
                 GameManager.Instance.starCount = 0;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                //gameObject.transform.position = spawnPos;
+                GameManager.Instance.SetIsReloading(true);
+                GameManager.Instance.SetCurrentStageName(GameManager.Instance.GetCurrentStageName());
+        //gameObject.transform.position = spawnPos;
         break;
 
         //case "Star":
@@ -160,6 +162,7 @@ private void OnTriggerExit2D(Collider2D collision)
                     ScoreManagement.currentStage += 1;
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                     GameManager.Instance.SetCurrentStageName(ScoreManagement.currentChapter.ToString() + "-" + ScoreManagement.currentStage);
+                    GameManager.Instance.SetIsReloading(true);
                 }
             }
     }
