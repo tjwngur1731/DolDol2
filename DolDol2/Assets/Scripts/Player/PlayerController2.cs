@@ -22,6 +22,7 @@ public class PlayerController2 : MonoBehaviour
     LayerMask islayer;
 
     SpriteRenderer renderer;
+    public static bool raycast;
 
     public float runDelay;
     float curDelay;
@@ -47,10 +48,12 @@ public class PlayerController2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         rigid = GetComponent<Rigidbody2D>();
 
         renderer = GetComponent<SpriteRenderer>();
+
     }
     private void Update()
     {
@@ -61,7 +64,8 @@ public class PlayerController2 : MonoBehaviour
 
 
         //바닥체크 점프
-        isGround = (Physics2D.OverlapCircle(pos.position, checkRadius, islayer) || onPlayer);
+        isGround = Physics2D.OverlapPoint(new Vector2(this.gameObject.transform.position.x, gameObject.transform.position.y - 0.45f), islayer) || onPlayer;
+        isWall = Physics2D.OverlapPoint(new Vector2(this.gameObject.transform.position.x - 0.35f, gameObject.transform.position.y), islayer) || Physics2D.OverlapPoint(new Vector2(this.gameObject.transform.position.x + 0.35f, gameObject.transform.position.y), islayer);
 
         if (this.gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
         {
@@ -135,7 +139,6 @@ public class PlayerController2 : MonoBehaviour
                     {
                         runCount = !runCount;
                         renderer.sprite = runSprite[0];
-                        Debug.Log("I am here");
                     }
                     else if (!runCount)
                     {
@@ -196,14 +199,23 @@ public class PlayerController2 : MonoBehaviour
 
             rigid.velocity = new Vector2(hor * speed, rigid.velocity.y);
 
-            if (Input.GetKeyDown(KeyCode.W) && (isGround || isWall) && !isDoubleJump)
+
+            if (Input.GetKeyDown(KeyCode.W) && (isGround))
             {
 
                 audioManager.SfxPlay(1, 1);
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
                 isDoubleJump = true;
-                //isGround = false;
+                isGround = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.W) && (isWall) && isDoubleJump)
+            {
+                audioManager.SfxPlay(1, 1);
+                rigid.velocity = Vector2.up * jumpPower;
+                jumpingCnt = 0;
+                isDoubleJump = false;
+                isGround = false;
             }
         }
         transform.position = position;
@@ -211,13 +223,6 @@ public class PlayerController2 : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        bool collisionDolObj = (collision.gameObject.CompareTag("Floor"));
-
-        if (collisionDolObj && !isDoubleJump && !isGround)
-        {
-            isWall = true;
-        }
-
         if (collision.gameObject.CompareTag("Player"))
         {
             isDoubleJump = true;

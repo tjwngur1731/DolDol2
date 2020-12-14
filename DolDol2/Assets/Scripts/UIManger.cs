@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManger : MonoBehaviour
 {
@@ -91,14 +92,16 @@ public class UIManger : MonoBehaviour
 
   public void SetRotateNum(int rotateNum)
   {
-    if (rotateNum > 0)
-    {
-      rotateNumText.text = rotateNum.ToString();
-    }
-    else if (rotateNum == 0)
-    {
-      rotateNumText.text = "X";
-    }
+        if (rotateNum > 0)
+        {
+            rotateNumText.text = rotateNum.ToString();
+        }
+        else if (rotateNum == 0)
+        {
+            rotateNumText.text = "X";
+        }
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
   }
 
   public void SetChoiceUI(bool choice)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8053863358493346098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8053863359520240045}
   - component: {fileID: 4856960524680747611}
   - component: {fileID: 1694376763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player 2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8053863359520240044}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 8170abc1a206d2f44a2c66922169ff8e, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
