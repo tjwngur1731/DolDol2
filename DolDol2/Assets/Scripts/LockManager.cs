@@ -32,6 +32,11 @@ public class LockManager
     }
   }
 
+  public void ResetLockManager()
+  {
+    connectedLocks.Clear();
+  }
+
   private void Update()
   {
     
@@ -49,6 +54,11 @@ public class LockManager
 
     foreach (Lock lck in connectedLocks)
     {
+      if (lck == null)
+      {
+        continue;
+      }
+
       lck.CalculateLockPosition();
       // Debug.Log("i : " + lck.GetLockIndexI() + " j : " + lck.GetLockIndexJ());
 
@@ -146,6 +156,11 @@ public class LockManager
   {
     foreach (Lock lck in connectedLocks)
     {
+      if (lck == null)
+      {
+        continue;
+      }
+
       if (lck.GetLockID() == id)
       {
         destoryedLocks.Add(lck);

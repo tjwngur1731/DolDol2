@@ -115,6 +115,10 @@ public class MiniField : MonoBehaviour
                 {
                   offsetX = 0.225f;
                 }
+                else if (dir == -180.0f)
+                {
+                  offsetY = 0.225f;
+                }
                 else if (dir == -90.0f)
                 {
                   offsetX = -0.225f;
