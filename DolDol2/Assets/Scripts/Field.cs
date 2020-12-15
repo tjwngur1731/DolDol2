@@ -52,6 +52,8 @@ public class Field : MonoBehaviour
       GameManager.Instance.SetIsAudioResetting(true);
     }
 
+    
+
     CurrentPlayer = Player1;
 
     // Selector = Instantiate(SelectorPrefab) as MiniFieldSelector;
@@ -156,6 +158,9 @@ public class Field : MonoBehaviour
         GameManager.Instance.ArrReRotateNeeded.Clear();
       }
     }
+
+    // 락 매니저
+    LockManager.Instance.ResetLockManager();
   }
 
   void Init()

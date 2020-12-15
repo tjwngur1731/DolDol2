@@ -56,7 +56,11 @@ public class GameManager : MonoBehaviour
   private void Update()
   {
         if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        {
+          SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+          GameManager.Instance.SetIsReloading(true);
+          GameManager.Instance.SetCurrentStageName(GameManager.Instance.GetCurrentStageName());
+        }
 
         if (Player.twoPlayerEnter)
         {
