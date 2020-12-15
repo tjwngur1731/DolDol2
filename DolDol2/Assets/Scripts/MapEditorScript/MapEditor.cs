@@ -149,6 +149,10 @@ public class MapEditor : EditorWindow
         {
           offsetX = 0.225f;
         }
+        else if (dir == -180.0f)
+        {
+          offsetY = 0.225f;
+        }
         else if (dir == -90.0f)
         {
           offsetX = -0.225f;
@@ -191,6 +195,10 @@ public class MapEditor : EditorWindow
         else if (dir == -270.0f)
         {
           offsetX = 0.225f;
+        }
+        else if (dir == -180.0f)
+        {
+          offsetY = 0.225f;
         }
         else if (dir == -90.0f)
         {
@@ -384,6 +392,10 @@ public class MapEditor : EditorWindow
                   else if (dir == -270.0f)
                   {
                     offsetX = 0.225f;
+                  }
+                  else if (dir == -180.0f)
+                  {
+                    offsetY = 0.225f;
                   }
                   else if (dir == -90.0f)
                   {
