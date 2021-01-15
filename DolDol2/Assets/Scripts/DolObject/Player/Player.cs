@@ -24,7 +24,13 @@ public class Player : DolObject
         else if (this.gameObject.name == "Player 2") player = 2;
 
         Init();
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
+        GameObject audioManagerObject = GameObject.Find("AudioManager");
+        
+        if (audioManagerObject)
+        {
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        }
   }
 
   protected override void OnCollisionEnter2D(Collision2D collision)

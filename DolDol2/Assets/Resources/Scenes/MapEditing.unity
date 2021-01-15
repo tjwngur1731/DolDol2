@@ -131,12 +131,12 @@ PrefabInstance:
     - target: {fileID: 7033242861862348443, guid: 42d02f0dc0713b142b8b5335047343f0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.2
+      value: -5.58
       objectReference: {fileID: 0}
     - target: {fileID: 7033242861862348443, guid: 42d02f0dc0713b142b8b5335047343f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 37.8
+      value: 39.95
       objectReference: {fileID: 0}
     - target: {fileID: 7033242861862348443, guid: 42d02f0dc0713b142b8b5335047343f0,
         type: 3}
@@ -443,12 +443,12 @@ PrefabInstance:
     - target: {fileID: 8053863359520240082, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9
+      value: -5.92
       objectReference: {fileID: 0}
     - target: {fileID: 8053863359520240082, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 36.9
+      value: 35.71
       objectReference: {fileID: 0}
     - target: {fileID: 8053863359520240082, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
@@ -498,17 +498,17 @@ PrefabInstance:
     - target: {fileID: 8053863359520240082, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.22
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8053863359520240082, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.22
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8053863359520240082, guid: ef57ed19e875b4d4c8eb1a1b48005712,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.22
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef57ed19e875b4d4c8eb1a1b48005712, type: 3}
@@ -941,7 +941,7 @@ PrefabInstance:
     - target: {fileID: 4093926523530065663, guid: acbc7a06b5e3b40deb8f92c60a8e6adb,
         type: 3}
       propertyPath: Stage
-      value: MovingPlatformTest
+      value: 1-1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbc7a06b5e3b40deb8f92c60a8e6adb, type: 3}

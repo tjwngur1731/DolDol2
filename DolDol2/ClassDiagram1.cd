@@ -1,336 +1,343 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="FPSWalkerEnhanced" Collapsed="true">
-    <Position X="33.25" Y="1.5" Width="1.5" />
+    <Position X="37.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AASQgAhSAiEAEwEAABRAAACAgAAAKQAgAIAAAAgQkAA=</HashCode>
       <FileName>Assets\FarlandSkies\Demo\Scripts\Player\FPSWalkerEnhanced.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SmoothMouseLook" Collapsed="true">
-    <Position X="40.25" Y="3.5" Width="1.5" />
+    <Position X="44.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAABAEACAAAAAAAAmAAAAQAIACAAAAEAAAABAEABQ=</HashCode>
       <FileName>Assets\FarlandSkies\Demo\Scripts\Player\SmoothMouseLook.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SkyboxChanger" Collapsed="true">
-    <Position X="36.75" Y="3.5" Width="1.5" />
+    <Position X="41" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAgAAAAAEA=</HashCode>
       <FileName>Assets\FarlandSkies\Demo\Scripts\Skybox\SkyboxChanger.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SkyboxRotator" Collapsed="true">
-    <Position X="38.5" Y="3.5" Width="1.5" />
+    <Position X="42.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBAAQA=</HashCode>
       <FileName>Assets\FarlandSkies\Demo\Scripts\Skybox\SkyboxRotator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AudioManager" Collapsed="true">
-    <Position X="33.25" Y="0.5" Width="1.5" />
+    <Position X="35.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gCQCABAACCgAAAICAAAgAAIAAgBBACAQAAAABAAABEA=</HashCode>
       <FileName>Assets\Scripts\Audio\AudioManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DontDestroy" Collapsed="true">
-    <Position X="40.25" Y="0.5" Width="1.5" />
+    <Position X="44.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Audio\DontDestroy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Target" Collapsed="true">
-    <Position X="36.75" Y="4.5" Width="1.5" />
+    <Position X="41" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>wAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Camera\Target.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChapterClear" Collapsed="true">
-    <Position X="35" Y="0.5" Width="1.5" />
+    <Position X="37.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAACAAAAAAAAAAAIAEA=</HashCode>
       <FileName>Assets\Scripts\Chapter\ChapterClear.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PageSlide" Collapsed="true">
-    <Position X="36.75" Y="2.5" Width="1.5" />
+    <Position X="41" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEQAAAgAAAAAAAAAAAAAAAAKAAACAAAACACAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Chapter\PageSlide.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SelectStage" Collapsed="true">
-    <Position X="35" Y="3.5" Width="1.5" />
+    <Position X="39.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Chapter\SelectStage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StageClear" Collapsed="true">
-    <Position X="42" Y="3.5" Width="1.5" />
+    <Position X="35.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Chapter\StageClear.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StageManager" Collapsed="true">
-    <Position X="33.25" Y="4.5" Width="1.5" />
+    <Position X="37.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQIAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAIEA=</HashCode>
       <FileName>Assets\Scripts\Chapter\StageManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Box" Collapsed="true">
-    <Position X="21" Y="6.5" Width="1.5" />
+    <Position X="19" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAQAAIAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Box.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CrossTile" Collapsed="true">
-    <Position X="19.25" Y="6.5" Width="1.5" />
+    <Position X="21.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAQAAAAAAAAAAAAAAAgAAAgAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\CrossTile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolObject" Collapsed="true">
-    <Position X="18" Y="0.75" Width="1.5" />
+    <Position X="17.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AhQAAAAAACAAAAAQAAAACQACAJJEAAEgABAjAIAgAEE=</HashCode>
       <FileName>Assets\Scripts\DolObject\DolObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Enemy" Collapsed="true">
-    <Position X="14.75" Y="4.5" Width="1.5" />
+    <Position X="13.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Floor" Collapsed="true">
-    <Position X="16.75" Y="4.5" Width="1.5" />
+    <Position X="13.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Floor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Key" Collapsed="true">
-    <Position X="19.25" Y="2.25" Width="1.5" />
+    <Position X="13.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Key.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lock" Collapsed="true">
-    <Position X="19.25" Y="4.5" Width="1.5" />
+    <Position X="16" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAQCIAAAEACAAAgAEgAAAAgEAAAAgA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Lock\Lock.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LockManager" Collapsed="true">
-    <Position X="27.5" Y="5" Width="1.5" />
+    <Position X="41" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAQAAgABAAAAAIAAAAAAAAAAAgBAQIAAQAAAQQAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Lock\LockManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CollisionHandler" Collapsed="true">
-    <Position X="28.75" Y="9.25" Width="1.5" />
+    <Position X="41" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\MovingPlatform\CollisionHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MovingPlatform" Collapsed="true">
-    <Position X="12.75" Y="2.25" Width="1.5" />
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAACAACAAAAAgAAAgAAJCAAAACQAAgAACBAggAAA=</HashCode>
+      <FileName>Assets\Scripts\DolObject\MovingPlatform\MovingPlatform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CopyOfMovingPlatform" Collapsed="true">
+    <Position X="19" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgQAAACAACAAAAAgAAAgAAJCAAAACQAAgAACBAggAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\MovingPlatform\MovingPlatform.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CharacterSwap" Collapsed="true">
-    <Position X="36.75" Y="0.5" Width="1.5" />
+    <Position X="39.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAIAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Player\CharacterSwap.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player" Collapsed="true">
-    <Position X="14.75" Y="6.5" Width="1.5" />
+    <Position X="16" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AMQAAACAACAABAAAAAQAgAAAAEAAAAAJAAAgQCAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Player\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerController" Collapsed="true">
-    <Position X="38.5" Y="2.5" Width="1.5" />
+    <Position X="42.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AYQAIAIAAiAAAABQAIAAAMBABABAAQqHAIAGCCIAgAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Player\PlayerController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerController2" Collapsed="true">
-    <Position X="40.25" Y="2.5" Width="1.5" />
+    <Position X="44.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AYQAIAIAAiAAAABQAIAAAMBABABAAQqHAIAGCCIAgAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Player\PlayerController2.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerManager" Collapsed="true">
-    <Position X="42" Y="2.5" Width="1.5" />
+    <Position X="35.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>wAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Player\PlayerManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Portal" Collapsed="true">
-    <Position X="21.25" Y="4.5" Width="1.5" />
+    <Position X="23.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Portal.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Star" Collapsed="true">
-    <Position X="16.75" Y="6.5" Width="1.5" />
+    <Position X="19" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAEAAAABAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Star\Star.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StarUI" Collapsed="true">
-    <Position X="35" Y="4.5" Width="1.5" />
+    <Position X="39.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Star\StarUI.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Trap" Collapsed="true">
-    <Position X="14.75" Y="2.25" Width="1.5" />
+    <Position X="16" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Trap.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Wall" Collapsed="true">
-    <Position X="21.25" Y="2.25" Width="1.5" />
+    <Position X="11.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\DolObject\Wall.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Field" Collapsed="true">
-    <Position X="27.5" Y="1" Width="1.5" />
+    <Position X="32.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QIQBAwAAAiAAGAhAwAEACAEAABAAABQAgAgWgAEBACg=</HashCode>
       <FileName>Assets\Scripts\Field\Field.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FieldData" Collapsed="true">
-    <Position X="8.75" Y="7.5" Width="1.5" />
+    <Position X="1.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Field\FieldData\FieldData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FieldDataBase" Collapsed="true">
-    <Position X="5.25" Y="6.25" Width="1.5" />
+    <Position X="4.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAEAAAAAAAAAAAAAAAAAAAAABAAgAAAEAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Field\FieldData\FieldDataBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FieldDataFromFile" Collapsed="true">
-    <Position X="2" Y="7.5" Width="1.5" />
+    <Position X="3.5" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Field\FieldData\FieldDataFromFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FieldDataFromFileCSV" Collapsed="true">
-    <Position X="4.25" Y="7.5" Width="1.5" />
+    <Position X="5.75" Y="10.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Field\FieldData\FieldDataFromFileCSV.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FieldDataOld" Collapsed="true">
-    <Position X="6.5" Y="7.5" Width="1.5" />
+    <Position X="8" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAgAAAEAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Field\FieldData\FieldDataOld.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MiniField" Collapsed="true">
-    <Position X="27.5" Y="2.5" Width="1.5" />
+    <Position X="32.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAQAAEAAECAAAAAAAAEACAEAEAABAKAAEQACAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Field\MiniField.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameManager" Collapsed="true">
-    <Position X="35" Y="1.5" Width="1.5" />
+    <Position X="39.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAQIACAAgEDAAgYgiAAAAGRChKBAAAgAQAAGIGAEQMA=</HashCode>
       <FileName>Assets\Scripts\Manager\GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MainSceneManager" Collapsed="true">
-    <Position X="38.5" Y="1.5" Width="1.5" />
+    <Position X="42.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQQAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Manager\MainSceneManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScoreManagement" Collapsed="true">
-    <Position X="33.25" Y="3.5" Width="1.5" />
+    <Position X="37.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAgAAACEAAAAAAAAAAAAAAABAABAAAAAAgEAACEE=</HashCode>
       <FileName>Assets\Scripts\Manager\ScoreManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MapEditor" Collapsed="true">
-    <Position X="40.25" Y="1.5" Width="1.5" />
+    <Position X="44.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>xYABAAAgAAAAGQgAAEIgCCAABCADBC0LCACGAAEACAA=</HashCode>
       <FileName>Assets\Scripts\MapEditorScript\MapEditor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MiniFieldSelector" Collapsed="true">
-    <Position X="33.25" Y="2.5" Width="1.5" />
+    <Position X="37.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\NoUse\MiniFieldSelector.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TestObstacle" Collapsed="true">
-    <Position X="16.75" Y="2.25" Width="1.5" />
+    <Position X="21.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\NoUse\TestObstacle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TestPlayer" Collapsed="true">
-    <Position X="23.25" Y="2.25" Width="1.5" />
+    <Position X="21.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\NoUse\TestPlayer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OnClick" Collapsed="true">
-    <Position X="35" Y="2.5" Width="1.5" />
+    <Position X="39.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIBDAAAAACEAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\UI\OnClick.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UIManger" Collapsed="true">
-    <Position X="38.5" Y="4.5" Width="1.5" />
+    <Position X="42.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQQBAEgABCAUQACAAAEAAIAIABBAAAAAUAAYAACBAEA=</HashCode>
       <FileName>Assets\Scripts\UI\UIManger.cs</FileName>

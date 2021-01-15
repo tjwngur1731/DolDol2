@@ -346,7 +346,7 @@ public class MapEditor : EditorWindow
             {
               strRotateNumber = values[j + 1];
               rotateNumber = Int32.Parse(values[j + 1]);
-              continue;
+              break;
             }
 
             dolObjects = values[j].Split('-');

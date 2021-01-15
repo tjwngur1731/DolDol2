@@ -48,8 +48,13 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject audioManagerObject = GameObject.Find("AudioManager");
+        
+        if (audioManagerObject)
+        {
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        }
 
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         rigid = GetComponent<Rigidbody2D>();
 
         renderer = GetComponent<SpriteRenderer>();
@@ -187,7 +192,10 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.GetIsRotating() == true)
         {
-            audioManager.SfxPlay(1, 3);
+            if (audioManager)
+            {
+              audioManager.SfxPlay(1, 3);
+            }
             return;
         }
 
@@ -202,8 +210,10 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W) && (isGround))
             {
-
-                audioManager.SfxPlay(1, 1);
+                if (audioManager)
+                {
+                  audioManager.SfxPlay(1, 1);
+                }
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
                 isDoubleJump = true;
@@ -211,7 +221,10 @@ public class PlayerController : MonoBehaviour
             }
             else if(Input.GetKeyDown(KeyCode.W) && (isWall) && isDoubleJump)
             {
-                audioManager.SfxPlay(1, 1);
+                if (audioManager)
+                {
+                  audioManager.SfxPlay(1, 1);
+                }
                 rigid.velocity = Vector2.up * jumpPower;
                 jumpingCnt = 0;
                 isDoubleJump = false;
